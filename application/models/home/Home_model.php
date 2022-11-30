@@ -24,6 +24,12 @@ class Home_model extends CI_Model
         return $this->db->query($query)->result_array();
     }
 
+    public function getAllNilaiById($kode_magang)
+    {
+        $query = "SELECT a. * from penilaian_detail a where  a.kode_magang = '" . $kode_magang . "'";
+        return $this->db->query($query)->result_array();
+    }
+
     public function getProfile($id = 0)
     {
 
@@ -138,6 +144,11 @@ class Home_model extends CI_Model
     {
         $totalabsen = $this->db->get_where('absensi', ['kode_magang' => $kode_magang])->num_rows();
         return $totalabsen;
+    }
+    public function countAllNilai($kode_magang)
+    {
+        $totalnilai = $this->db->get_where('penilaian_detail', ['kode_magang' => $kode_magang])->num_rows();
+        return $totalnilai;
     }
     public function countAllMasuk($kode_magang)
     {

@@ -33,6 +33,12 @@ class Dashboard_model extends CI_Model
         return $this->db->query($query)->result_array();
     }
 
+    public function getPesertaById($kode_nilai)
+    {
+        $query = "SELECT p. * ,k.divisi from peserta_magang p, kategori_magang k where  p.kode_kategori=k.kode_kategori and p.kode_kategori='$kode_nilai'";
+        return $this->db->query($query)->row_array();
+    }
+
     public function getPesertaVerif()
     {
         $query = "SELECT p. * ,k.kode_kategori,k.divisi from peserta_magang p, kategori_magang k  where  p.kode_kategori=k.kode_kategori and p.status = '1'";
@@ -230,6 +236,12 @@ class Dashboard_model extends CI_Model
     public function getMonitorById($kode_monitor)
     {
         $query = "SELECT p. * ,k.divisi from peserta_magang p, kategori_magang k where  p.kode_kategori=k.kode_kategori  and p.kode_kategori='" . $kode_monitor . "'; ";
+        return $this->db->query($query)->result_array();
+    }
+
+    public function getNilaiById($kode_nilai)
+    {
+        $query = "SELECT p. * ,k.divisi from peserta_magang p, kategori_magang k where  p.kode_kategori=k.kode_kategori  and p.kode_kategori='" . $kode_nilai . "'; ";
         return $this->db->query($query)->result_array();
     }
 

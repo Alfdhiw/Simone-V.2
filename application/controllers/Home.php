@@ -24,6 +24,7 @@ class Home extends CI_Controller
         $data['peserta'] = $this->home->getPesertaById($kode_magang);
         $data['absen'] = $this->home->getAllAbsenById($kode_magang);
         $data['totalabsen'] = $this->home->countAllAbsen($kode_magang);
+        $data['totalnilai'] = $this->home->countAllNilai($kode_magang);
         $data['totalmasuk'] = $this->home->countAllMasuk($kode_magang);
         $data['totalijin'] = $this->home->countAllIjin($kode_magang);
         $data['totallibur'] = $this->home->countAllLibur($kode_magang);
@@ -32,6 +33,29 @@ class Home extends CI_Controller
         if ($this->session->userdata('logged_in') == 'true') {
             $this->load->view('home/template/header_login', $data);
             $this->load->view('home/home_peserta', $data);
+            $this->load->view('home/template/footer');
+        } else {
+            $this->load->view('home/template/header', $data);
+            $this->load->view('home/home', $data);
+            $this->load->view('home/template/footer');
+        }
+    }
+
+    public function penilaian()
+    {
+
+        $data['nama'] = $this->session->userdata('nama');
+        $data['foto'] = $this->session->userdata('foto');
+        $data['userid'] = $this->session->userdata('userid');
+        $kode_magang = $this->session->userdata('userid');
+        $data['loker'] = $this->home->getAllJob();
+        $data['peserta'] = $this->home->getPesertaById($kode_magang);
+        $data['nilai'] = $this->home->getAllNilaiById($kode_magang);
+        $data['con'] = mysqli_connect('localhost', 'root', '', $this->db->database);
+        //jika sudah login
+        if ($this->session->userdata('logged_in') == 'true') {
+            $this->load->view('home/template/header_login', $data);
+            $this->load->view('home/penilaian', $data);
             $this->load->view('home/template/footer');
         } else {
             $this->load->view('home/template/header', $data);

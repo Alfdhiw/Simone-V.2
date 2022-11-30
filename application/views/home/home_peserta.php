@@ -62,10 +62,10 @@
                 <div class="card bg-primary text-white mb-4">
                     <div class="card-body" style="font-size: 20px; font-weight:500;"><i class="fa-solid fa-boxes-stacked"></i> Penilaian Magang
                         </br>
-                        <h5 class="mx-auto my-auto text-white">1 Penilaian</h5>
+                        <h5 class="mx-auto my-auto text-white"><?= $totalnilai ?> Penilaian</h5>
                     </div>
                     <div class="card-footer d-flex align-items-center justify-content-between">
-                        <a class="large text-white stretched-link" href="#" data-toggle="modal" data-target="#produkModal">View Details</a>
+                        <a class="large text-white stretched-link" href="<?= base_url('home/penilaian') ?>">View Details</a>
                         <div class="small text-white"><i class="fas fa-angle-right"></i></div>
                     </div>
                 </div>

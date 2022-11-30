@@ -10,6 +10,7 @@ class Ketua extends CI_Controller
         $this->load->helper(array('url', 'form'));
         $this->load->model('auth/Auth_model', 'auth');
         $this->load->model('admin/Dashboard_model', 'dashboard');
+        $this->load->model('penyelia/Penyelia_model', 'penyelia');
         $this->load->model('ketua/Ketua_model', 'ketua');
         $this->load->model('admin/DataPeserta_model', 'peserta');
         $this->user_access->cek_login();
@@ -276,5 +277,77 @@ class Ketua extends CI_Controller
         $this->load->view('ketua/template/topbar', $data);
         $this->load->view('ketua/detail_absen', $data);
         $this->load->view('ketua/template/footer');
+    }
+
+    public function penilaian()
+    {
+        $data['session'] = $this->session->userdata('nama');
+        $data['title'] = 'Penilaian Magang';
+        $id = $this->session->userdata('userid');
+        $data['nama'] = $this->db->get_where('ketua', ['kode_ketua' => $id])->row_array();
+        $data['monitoring'] = $this->dashboard->getAllMonitor();
+        $data['con'] = mysqli_connect('localhost', 'root', '', $this->db->database);
+        $this->load->view('ketua/template/header', $data);
+        $this->load->view('ketua/template/sidebar', $data);
+        $this->load->view('ketua/template/topbar', $data);
+        $this->load->view('ketua/penilaian', $data);
+        $this->load->view('ketua/template/footer');
+    }
+
+    public function detailnilai()
+    {
+        $kode_nilai = $this->uri->segment(3);
+        $data['session'] = $this->session->userdata('nama');
+        $data['title'] = 'Detail Nilai';
+        $id = $this->session->userdata('userid');
+        $data['detail'] = $this->dashboard->getMonitorById($kode_nilai);
+        $data['nilai'] = $this->dashboard->getDivisiById($kode_nilai);
+        $data['con'] = mysqli_connect('localhost', 'root', '', $this->db->database);
+        $data['nama'] = $this->db->get_where('ketua', ['kode_ketua' => $id])->row_array();
+        $this->load->view('ketua/template/header', $data);
+        $this->load->view('ketua/template/sidebar', $data);
+        $this->load->view('ketua/template/topbar', $data);
+        $this->load->view('ketua/detail_nilai', $data);
+        $this->load->view('ketua/template/footer');
+    }
+
+    public function detail_nilai()
+    {
+        $kode_nilai = $this->uri->segment(3);
+        $data['kode_magang'] = $kode_nilai;
+        $data['session'] = $this->session->userdata('nama');
+        $data['title'] = 'Detail Nilai';
+        $id = $this->session->userdata('userid');
+        $data['nama'] = $this->db->get_where('ketua', ['kode_ketua' => $id])->row_array();
+        $data['nilai'] = $this->penyelia->getNilaiById($kode_nilai);
+        $data['peserta'] = $this->dashboard->getPesertaById($kode_nilai);
+        $data['con'] = mysqli_connect('localhost', 'root', '', $this->db->database);
+        $this->form_validation->set_rules('tanggal_penilaian', 'tanggal_penilaian', 'required');
+        $this->form_validation->set_rules('disiplin', 'disiplin', 'required');
+        $this->form_validation->set_rules('tanggung', 'tanggung', 'required');
+        $this->form_validation->set_rules('praktek', 'praktek', 'required');
+        $this->form_validation->set_rules('rata', 'rata', 'required');
+        $this->form_validation->set_rules('grade', 'grade', 'required');
+
+        if ($this->form_validation->run() == false) {
+            $this->load->view('ketua/template/header');
+            $this->load->view('ketua/template/sidebar', $data);
+            $this->load->view('ketua/template/topbar', $data);
+            $this->load->view('ketua/detail_penilaian', $data);
+            $this->load->view('ketua/template/footer', $data);
+        } else {
+            $data = [
+                'kode_magang' => $this->input->post('kode_magang'),
+                'tanggal_penilaian' => $this->input->post('tanggal_penilaian'),
+                'nilai_disiplin' => $this->input->post('disiplin'),
+                'nilai_tanggungjawab' => $this->input->post('tanggung'),
+                'nilai_praktek' => $this->input->post('praktek'),
+                'nilai_rata' => $this->input->post('rata'),
+                'grade' => $this->input->post('grade')
+            ];
+            $this->db->insert('penilaian_detail', $data);
+            $this->session->set_flashdata('flash', '<div class="alert alert-success" role="alert">Nilai Berhasil Di Tambah</div>');
+            redirect($_SERVER['HTTP_REFERER']);
+        }
     }
 }

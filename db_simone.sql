@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.1.1
+-- version 5.0.4
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 28, 2022 at 02:50 AM
--- Server version: 10.4.22-MariaDB
--- PHP Version: 8.0.15
+-- Generation Time: Nov 29, 2022 at 09:09 AM
+-- Server version: 10.4.17-MariaDB
+-- PHP Version: 8.0.2
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -177,19 +177,30 @@ INSERT INTO `menu` (`menuid`, `menu`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `penilaian`
+-- Table structure for table `penilaian_detail`
 --
 
-CREATE TABLE `penilaian` (
+CREATE TABLE `penilaian_detail` (
   `nilai_id` int(11) NOT NULL,
-  `mhs_id` char(20) NOT NULL,
-  `nama` varchar(150) NOT NULL,
-  `universitas` varchar(150) NOT NULL,
+  `tanggal_penilaian` date NOT NULL,
+  `kode_magang` int(20) NOT NULL,
   `nilai_disiplin` double NOT NULL,
-  `nilai_tgjwb` double NOT NULL,
-  `nilai_ujian` double NOT NULL,
-  `rata_rata` double NOT NULL
+  `nilai_tanggungjawab` double NOT NULL,
+  `nilai_praktek` double NOT NULL,
+  `nilai_rata` double NOT NULL,
+  `grade` char(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `penilaian_detail`
+--
+
+INSERT INTO `penilaian_detail` (`nilai_id`, `tanggal_penilaian`, `kode_magang`, `nilai_disiplin`, `nilai_tanggungjawab`, `nilai_praktek`, `nilai_rata`, `grade`) VALUES
+(1, '2022-11-29', 1, 90, 70, 60, 73, 'B'),
+(2, '2022-12-29', 1, 70, 80, 60, 70, 'B'),
+(3, '2023-01-29', 1, 80, 70, 90, 80, 'A'),
+(4, '2023-02-28', 1, 90, 70, 90, 83, 'A'),
+(5, '2023-03-29', 1, 90, 80, 80, 83, 'A');
 
 -- --------------------------------------------------------
 
@@ -387,9 +398,9 @@ ALTER TABLE `menu`
   ADD PRIMARY KEY (`menuid`);
 
 --
--- Indexes for table `penilaian`
+-- Indexes for table `penilaian_detail`
 --
-ALTER TABLE `penilaian`
+ALTER TABLE `penilaian_detail`
   ADD PRIMARY KEY (`nilai_id`);
 
 --
@@ -457,10 +468,10 @@ ALTER TABLE `menu`
   MODIFY `menuid` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
--- AUTO_INCREMENT for table `penilaian`
+-- AUTO_INCREMENT for table `penilaian_detail`
 --
-ALTER TABLE `penilaian`
-  MODIFY `nilai_id` int(11) NOT NULL AUTO_INCREMENT;
+ALTER TABLE `penilaian_detail`
+  MODIFY `nilai_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `penyelia`

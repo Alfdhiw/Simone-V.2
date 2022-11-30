@@ -196,12 +196,22 @@
             ]
         });
     });
+
+    $(document).ready(function() {
+        $('.datanilai').DataTable({
+            "pageLength": 10,
+            order: [
+                [1, 'asc']
+            ]
+        });
+    });
 </script>
 </script>
 
 <?php
 $kode_magang = $this->session->userdata['userid'];
 $kode_kategori = $this->session->userdata['kode_kategori'];
+
 $sql1 = "select p.tingkat_pendidikan AS pendidikan,count(0) AS jumlah 
 from peserta_magang p
 where p.tingkat_pendidikan = 'mahasiswa' and p.kode_kategori = '$kode_kategori' union 

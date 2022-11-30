@@ -66,4 +66,84 @@ class Penyelia_model extends CI_Model
         $query = "SELECT p. * ,k.divisi from peserta_magang p, kategori_magang k where  p.kode_kategori=k.kode_kategori  and p.kode_magang='" . $id . "'; ";
         return $this->db->query($query)->row_array();
     }
+
+    public function getNilaiById($kode_nilai)
+    {
+        return $this->db->get_where('penilaian_detail', ['kode_magang' => $kode_nilai])->result_array();
+    }
+
+    public function getProfile($id = 0)
+    {
+
+        if ($id < 1) {
+            $id = $this->session->userdata('userid');
+        }
+
+        return $this->db->get_where('penyelia', ["kode_penyelia" => $id])->row_array();
+    }
+
+    public function update()
+    {
+
+        $post = $this->input->post();
+
+
+        $this->kode_penyelia = $post["kode_penyelia"];
+
+        $this->nama = $post["nama"];
+
+        $this->nip = $post["nip"];
+
+        $this->jeniskel = $post["jeniskel"];
+
+        $this->telepon = $post["telepon"];
+
+        $this->email = $post["email"];
+
+        $this->password = $post['password'];
+
+        if (!empty($_FILES["foto"]["name"])) {
+
+            $this->foto = $this->_uploadImage();
+        } else {
+
+            $this->foto = $post["gambar_lama"];
+        }
+
+        return $this->db->update('penyelia', $this, array('kode_penyelia' => $post['kode_penyelia']));
+    }
+
+    private function _uploadImage()
+    {
+        $date = substr(date('Ymd'), 2, 8);
+
+        $post = $this->input->post();
+
+        $config['upload_path']          = './assets/data/penyelia/pas_foto/';
+
+        $config['allowed_types']        = 'gif|jpg|png';
+
+        $config['file_name']            = $date . '-' . $_FILES['foto']['name'];
+
+        $config['overwrite']            = true;
+
+        $config['max_size']             = 5000; // 1MB
+
+        // $config['max_width']            = 1024;
+
+        // $config['max_height']           = 768;
+
+
+
+        $this->load->library('upload', $config);
+
+
+
+        if ($this->upload->do_upload('foto')) {
+
+            return $this->upload->data("file_name");
+        }
+
+        return base_url('assets/data/penyelia/pas_foto/') . $post["gambar_lama"];
+    }
 }

@@ -146,4 +146,10 @@ class Penyelia_model extends CI_Model
 
         return base_url('assets/data/penyelia/pas_foto/') . $post["gambar_lama"];
     }
+
+    public function getTahunTransaksi()
+    {
+        $query = "SELECT DISTINCT year(`penilaian_detail`.tanggal_penilaian) as tahun from `penilaian_detail`";
+        return $this->db->query($query)->result_array();
+    }
 }

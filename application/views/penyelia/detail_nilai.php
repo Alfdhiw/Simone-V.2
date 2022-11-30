@@ -33,7 +33,7 @@
                 <!-- Card Body -->
                 <div class="card-body">
                     <div class="chart-area">
-                        <canvas id="nilaidetail"></canvas>
+                        <canvas id="barchart"></canvas>
                     </div>
                 </div>
             </div>
@@ -199,9 +199,11 @@
             </div>
         </div>
     </div>
+
     <!-- /.container-fluid -->
 </div>
 <!-- End of Main Content -->
+<!-- Page level plugins -->
 
 <script type="text/javascript">
     function total() {

@@ -238,6 +238,8 @@ class Penyelia extends CI_Controller
         }
     }
 
+
+
     public function editnilai($id)
     {
         $data['con'] = mysqli_connect('localhost', 'root', '', $this->db->database);

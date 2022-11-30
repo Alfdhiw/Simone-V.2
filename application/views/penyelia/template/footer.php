@@ -227,6 +227,47 @@ while ($row1 = mysqli_fetch_array($result1)) {
 }
 
 ?>
+
+<?php
+if (!$con) {
+    echo "Problem in database connection! Contact administrator!";
+} elseif ($this->uri->segment('3') == 'detailnilai') {
+    $magang = $this->uri->segment('3');
+    $sql = "SELECT 'Januari',avg(nilai_rata) as totaltrx from penilaian_detail where penilaian_detail.kode_magang='$magang' and month(penilaian_detail.tanggal_penilaian)=1
+                    UNION
+                    SELECT 'Februari',avg(nilai_rata) as totaltrx from penilaian_detail where penilaian_detail.kode_magang='$magang' and month(penilaian_detail.tanggal_penilaian)=2
+                    UNION
+                    SELECT 'Maret',avg(nilai_rata) as totaltrx from penilaian_detail where penilaian_detail.kode_magang='$magang' and month(penilaian_detail.tanggal_penilaian)=3
+                    UNION
+                    SELECT 'April',avg(nilai_rata) as totaltrx from penilaian_detail where penilaian_detail.kode_magang='$magang' and month(penilaian_detail.tanggal_penilaian)=4
+                    UNION
+                    SELECT 'Mei',avg(nilai_rata) as totaltrx from penilaian_detail where penilaian_detail.kode_magang='$magang' and month(penilaian_detail.tanggal_penilaian)=5
+                    UNION
+                    SELECT 'Juni',avg(nilai_rata) as totaltrx from penilaian_detail where penilaian_detail.kode_magang='$magang' and month(penilaian_detail.tanggal_penilaian)=6
+                    UNION
+                    SELECT 'Juli',avg(nilai_rata) as totaltrx from penilaian_detail where penilaian_detail.kode_magang='$magang' and month(penilaian_detail.tanggal_penilaian)=7
+                    UNION
+                    SELECT 'Agustus',avg(nilai_rata) as totaltrx from penilaian_detail where penilaian_detail.kode_magang='$magang' and month(penilaian_detail.tanggal_penilaian)=8
+                    UNION
+                    SELECT 'September',avg(nilai_rata) as totaltrx from penilaian_detail where penilaian_detail.kode_magang='$magang' and month(penilaian_detail.tanggal_penilaian)=9
+                    UNION
+                    SELECT 'Oktoboer',avg(nilai_rata) as totaltrx from penilaian_detail where penilaian_detail.kode_magang='$magang' and month(penilaian_detail.tanggal_penilaian)=10
+                    UNION
+                    SELECT 'November',avg(nilai_rata) as totaltrx from penilaian_detail where penilaian_detail.kode_magang='$magang' and month(penilaian_detail.tanggal_penilaian)=11
+                    UNION
+                    SELECT 'Desember',avg(nilai_rata) as totaltrx from penilaian_detail where penilaian_detail.kode_magang='$magang' and month(penilaian_detail.tanggal_penilaian)=12;";
+    $result = mysqli_query($con, $sql);
+    $chart_data = "";
+    while ($row = mysqli_fetch_array($result)) {
+        $productname[]  = $row['Januari'];
+        $sales[] = $row['totaltrx'];
+    }
+}
+?>
+
+
+
+
 <script>
     var rolepeserta = <?= json_encode($rolepeserta); ?>
 

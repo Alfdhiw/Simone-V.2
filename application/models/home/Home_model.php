@@ -125,7 +125,7 @@ class Home_model extends CI_Model
     public function getPasswd()
     {
 
-        $string = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+        $string = "abcdefghijklmnopqrstufwxyz0123456789";
         $passwd = substr(str_shuffle($string), 0, 8);
         return $passwd;
     }

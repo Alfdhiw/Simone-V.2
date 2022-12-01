@@ -20,7 +20,7 @@
                 <!-- Dropdown - User Information -->
                 <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
                     <a type="button" class="dropdown-item" href="<?= base_url('penyelia/edit_profil/') . $penyelia['kode_penyelia'] ?>">
-                        <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
+                        <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
                         Edit Profil
                     </a>
                     <a type="button" class="dropdown-item" data-toggle="modal" data-target="#logoutModal">

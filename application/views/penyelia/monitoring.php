@@ -85,27 +85,20 @@
                             <tbody>
                                 <?php foreach ($siswa as $swa) : ?>
                                     <tr>
+                                        <!-- <td><?= $i; ?></td> -->
                                         <td class="text-center">
-                                            <img src="<?= base_url('assets/data/peserta/pas_foto/' . $swa['foto']); ?>" class="img-thumbnail zoom" width="80px" alt="Foto <?= $swa['nama'] ?>">
+                                            <img src="<?= base_url('assets/data/peserta/pas_foto/' . $swa['foto']); ?>" class="img-thumbnail" width="80px" alt="Foto <?= $swa['nama'] ?>">
                                         </td>
-                                        <td><b><?= $swa['nama']; ?></b></a></td>
-                                        <td><b><?= $swa['sekolah']; ?></b></td>
-                                        <td><b><?= $swa['jurusan']; ?></b></td>
-                                        <td><b><?= $swa['divisi']; ?></td>
-                                        <td class="text-center"><?php
-                                                                if ($swa['status'] == 0) {
-                                                                    echo '<span class="badge text-light bg-danger"><span style="font-size:15px;">Unverified</span></span>';
-                                                                } else {
-                                                                    echo '<span class="badge text-light bg-success"><span style="font-size:15px;">Verified</span></span>';
-                                                                }
-                                                                ?></td>
-                                        <td class="text-center"><?php
-                                                                if ($swa['is_active'] == 0) {
-                                                                    echo '<span class="badge text-light bg-secondary"><span style="font-size:15px;">Mangkir</span></span>';
-                                                                } else {
-                                                                    echo '<span class="badge text-light bg-success"><span style="font-size:15px;">Aktif</span></span>';
-                                                                }
-                                                                ?></td>
+                                        <td><b><?= $swa['nama']; ?></b></td>
+                                        <td class="text-center">
+                                            <?php
+                                            if ($swa['is_active'] == 0) {
+                                                echo '<span class="badge text-light bg-danger"><span style="font-size:15px;">Mangkir</span></span>';
+                                            } else {
+                                                echo '<span class="badge text-light bg-success"><span style="font-size:15px;">Aktif</span></span>';
+                                            }
+                                            ?>
+                                        </td>
                                         <td class="text-center">
                                             <a class="btn btn-info" href="<?= base_url('penyelia/detailabsen/') . $swa['kode_magang'] ?>">Detail <i class="fas fa-search"></i></a>
                                         </td>

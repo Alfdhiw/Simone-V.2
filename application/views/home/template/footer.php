@@ -115,6 +115,15 @@
     });
 </script>
 <script>
+    $(document).on('click', '#confirm', function() {
+        var response = grecaptcha.getResponse();
+        if (response == 0) {
+            alert("Tolong Verifikasi Captcha Terlebih Dahulu");
+            return false;
+        }
+    });
+</script>
+<script>
     $(document).ready(function() {
         $(".fancybox").fancybox({
             openEffect: "none",

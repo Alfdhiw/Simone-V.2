@@ -42,8 +42,7 @@
                     <div class="form-row">
                         <div class="form-group col-md-6">
                             <label for="inputEmail4">Nama</label>
-                            <input type="text" class="form-control shadow" id="nama" name="nama" placeholder="Nama Lengkap" required>
-                            <small id="help" class="form-text text-muted"><span style="color:red;">*Gunakan huruf kapital</span></small>
+                            <input type="text" class="form-control shadow" id="nama" name="nama" placeholder="Nama Lengkap" style="text-transform:uppercase" required>
                         </div>
                         <div class="form-group col-md-6">
                             <label for="inputPassword4">Email</label>
@@ -69,13 +68,11 @@
                     <div class="form-row">
                         <div class="form-group col-md-6">
                             <label for="inputEmail4">Asal Sekolah</label>
-                            <input type="text" class="form-control shadow" id="sekolah" name="sekolah" required placeholder="Nama Sekolah">
-                            <small id="help" class="form-text text-muted"><span style="color:red;">*Gunakan huruf kapital</span></small>
+                            <input type="text" class="form-control shadow" id="sekolah" name="sekolah" required placeholder="Nama Sekolah" style="text-transform:uppercase">
                         </div>
                         <div class="form-group col-md-6">
                             <label for="inputPassword4">Jurusan</label>
-                            <input type="text" class="form-control shadow" id="jurusan" name="jurusan" required placeholder="Nama Jurusan">
-                            <small id="help" class="form-text text-muted"><span style="color:red;">*Gunakan huruf kapital</span></small>
+                            <input type="text" class="form-control shadow" id="jurusan" name="jurusan" required placeholder="Nama Jurusan" style="text-transform:uppercase">
                         </div>
                     </div>
                     <div class="form-row">
@@ -94,6 +91,11 @@
                             <input type="file" class="form-control-file" id="surat_pengantar" name="surat_pengantar">
                         </div>
                     </div>
+                    <div class="form-row">
+                        <div class="form-group col-md-12">
+                            <div class="g-recaptcha" data-sitekey="6LdVPUYjAAAAAGCb_0ZGfCiaaOZap0aG2ziRV-vE"></div>
+                        </div>
+                    </div>
                     <input type="hidden" class="form-control" name="kode_kategori" value="<?= $daftar['kode_kategori'] ?>">
                     <input type="hidden" class="form-control" name="is_active" value="0">
                     <input type="hidden" class="form-control" name="idrole" value="2">
@@ -101,7 +103,7 @@
                     <input type="hidden" class="form-control" name="password" value="<?= $password ?>">
                     <input type="hidden" class="form-control" name="tgl_daftar" value="<?php date_default_timezone_set('Asia/Jakarta');
                                                                                         echo date('Y-m-d H:i:s'); ?>">
-                    <button type="submit" class="btn btn-success">Confirm</button>
+                    <button type="submit" id="confirm" name="confirm" class="btn btn-success">Confirm</button>
                 </form>
             </div>
 

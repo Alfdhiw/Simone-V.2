@@ -16,6 +16,7 @@ class Penyelia extends CI_Controller
         $this->user_access->cek_login();
         $this->user_access->cek_akses();
         $this->CI = &get_instance();
+        $this->load->library('dompdfgenerator');
     }
 
     public function index()
@@ -169,6 +170,36 @@ class Penyelia extends CI_Controller
         $this->load->view('penyelia/template/footer');
     }
 
+    public function upsertifmhs($kode_magang)
+    {
+        if (!empty($_FILES["sertifikat"]["name"])) {
+            $date = substr(date('Ymd'), 2, 8);
+            $config = array();
+            $config['upload_path'] = './assets/data/peserta/sertifikat/';
+            $config['allowed_types'] = 'pdf';
+            $config['file_name']    = $date . '-' . $_FILES['sertifikat']['name'];
+
+            $this->load->library('upload', $config, 'sertifikat');
+            $this->sertifikat->initialize($config);
+            $upload_sertifikat = $this->sertifikat->do_upload('sertifikat');
+
+            if ($upload_sertifikat) {
+                $this->db->set('sertifikat', $this->sertifikat->data("file_name"));
+                $this->db->where('kode_magang', $kode_magang);
+                $this->db->update('peserta_magang');
+                $this->session->set_flashdata('flash', '<div class="alert alert-success" role="alert">Sertifikat Berhasil Diupload!</div>');
+                redirect($_SERVER['HTTP_REFERER']);
+            } else {
+                $this->session->set_flashdata('flash', '<div class="alert alert-danger" role="alert">error' . $this->sertifikat->display_errors() . '!</div>');
+                redirect($_SERVER['HTTP_REFERER']);
+            }
+        } else {
+
+            $this->session->set_flashdata('flash', '<div class="alert alert-danger" role="alert">Inputan Harap Diisi!</div>');
+            redirect($_SERVER['HTTP_REFERER']);
+        }
+    }
+
     public function edit_profil()
     {
         $data['session'] = $this->session->userdata('nama');
@@ -207,6 +238,7 @@ class Penyelia extends CI_Controller
         $data['title'] = 'Detail Nilai';
         $id = $this->session->userdata('userid');
         $data['penyelia'] = $this->penyelia->getPenyeliaById($id);
+        $data['rownilai'] = $this->penyelia->getPesertaByRow($kode_nilai);
         $data['nilai'] = $this->penyelia->getNilaiById($kode_nilai);
         $data['con'] = mysqli_connect('localhost', 'root', '', $this->db->database);
         $this->form_validation->set_rules('tanggal_penilaian', 'tanggal_penilaian', 'required');
@@ -236,6 +268,33 @@ class Penyelia extends CI_Controller
             $this->session->set_flashdata('flash', '<div class="alert alert-success" role="alert">Nilai Berhasil Di Tambah</div>');
             redirect($_SERVER['HTTP_REFERER']);
         }
+    }
+
+    public function invoice()
+    {
+        $kode_nilai = $this->uri->segment(3);
+        $data['kode_magang'] = $kode_nilai;
+        $id = $this->session->userdata('userid');
+        $data['penyelia'] = $this->penyelia->getPenyeliaById($id);
+        $data['peserta'] = $this->penyelia->getPesertaById($kode_nilai);
+        $data['nilai'] = $this->penyelia->getNilaiById($kode_nilai);
+        $data['disiplin'] = $this->penyelia->getTotalDisiplin($kode_nilai);
+        $data['praktek'] = $this->penyelia->getTotalPraktek($kode_nilai);
+        $data['tanggung'] = $this->penyelia->getTotalTanggung($kode_nilai);
+        $data['rata'] = $this->penyelia->getTotalRata($kode_nilai);
+        $data['title'] = 'Laporan Nilai Magang';
+        // filename dari pdf ketika didownload
+        $file_pdf = 'Laporan Penilaian Magang';
+        // setting paper
+        $paper = 'A4';
+        //orientasi paper potrait / landscape
+        $orientation = "portrait";
+        $data['date'] = date('d F Y H:i:s');
+        $html = $this->load->view('penyelia/invoice', $data, true);
+        // $this->load->view('invoice', $data);
+        $this->dompdfgenerator->generate($html, $file_pdf, $paper, $orientation);
+        // $this->load->view('invoice', $data);
+
     }
 
 

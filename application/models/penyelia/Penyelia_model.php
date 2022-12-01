@@ -36,6 +36,36 @@ class Penyelia_model extends CI_Model
         return $this->db->query($query)->result_array();
     }
 
+    public function getPesertaByid($kode_nilai)
+    {
+        $query = "SELECT p. *, j.divisi, a.nama as nama_penyelia from peserta_magang p, kategori_magang j, penyelia a where  p.kode_kategori=j.kode_kategori and a.kode_kategori=j.kode_kategori and p.kode_magang = '$kode_nilai'";
+        return $this->db->query($query)->row_array();
+    }
+
+    public function getTotalDisiplin($kode_nilai)
+    {
+        $query = "SELECT AVG(nilai_disiplin) as total_disiplin from penilaian_detail where  kode_magang = '$kode_nilai'";
+        return $this->db->query($query)->row_array();
+    }
+
+    public function getTotalPraktek($kode_nilai)
+    {
+        $query = "SELECT AVG(nilai_praktek) as total_praktek from penilaian_detail where  kode_magang = '$kode_nilai'";
+        return $this->db->query($query)->row_array();
+    }
+
+    public function getTotalRata($kode_nilai)
+    {
+        $query = "SELECT AVG(nilai_rata) as total_rata from penilaian_detail where  kode_magang = '$kode_nilai'";
+        return $this->db->query($query)->row_array();
+    }
+
+    public function getTotalTanggung($kode_nilai)
+    {
+        $query = "SELECT AVG(nilai_tanggungjawab) as total_tanggungjawab from penilaian_detail where  kode_magang = '$kode_nilai'";
+        return $this->db->query($query)->row_array();
+    }
+
     public function getAllUnverifById($kategori)
     {
         $query = "SELECT p. *, j.divisi from peserta_magang p, kategori_magang j where  p.kode_kategori=j.kode_kategori and p.konfirmasi = '0' and P.kode_kategori = '$kategori'";
@@ -55,6 +85,12 @@ class Penyelia_model extends CI_Model
         return $this->db->query($query)->result_array();
     }
 
+    public function getSertifByKuliah($kategori)
+    {
+        $query = "SELECT p. * ,k.divisi from peserta_magang p, kategori_magang k where  p.kode_kategori=k.kode_kategori  and p.kode_kategori = '$kategori' and p.tingkat_pendidikan='mahasiswa' and p.status='1' and p.konfirmasi='1' ";
+        return $this->db->query($query)->row_array();
+    }
+
     public function getSwaBySmk($kategori)
     {
         $query = "SELECT p. * ,k.divisi from peserta_magang p, kategori_magang k where  p.kode_kategori=k.kode_kategori  and p.kode_kategori = '$kategori' and p.tingkat_pendidikan='siswa' and p.status='1' and p.konfirmasi='1' ";
@@ -70,6 +106,10 @@ class Penyelia_model extends CI_Model
     public function getNilaiById($kode_nilai)
     {
         return $this->db->get_where('penilaian_detail', ['kode_magang' => $kode_nilai])->result_array();
+    }
+    public function getPesertaByRow($kode_nilai)
+    {
+        return $this->db->get_where('peserta_magang', ['kode_magang' => $kode_nilai])->row_array();
     }
 
     public function getProfile($id = 0)

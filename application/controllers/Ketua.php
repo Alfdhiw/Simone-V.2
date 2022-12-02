@@ -16,6 +16,7 @@ class Ketua extends CI_Controller
         $this->user_access->cek_login();
         $this->user_access->cek_akses();
         $this->CI = &get_instance();
+        $this->load->library('dompdfgenerator');
     }
 
     public function index()
@@ -174,6 +175,56 @@ class Ketua extends CI_Controller
         $this->load->view('ketua/template/footer', $data);
     }
 
+    public function invoice()
+    {
+        $kode_nilai = $this->uri->segment(3);
+        $data['kode_magang'] = $kode_nilai;
+        $id = $this->session->userdata('userid');
+        $data['penyelia'] = $this->penyelia->getPenyeliaById($id);
+        $data['peserta'] = $this->penyelia->getPesertaById($kode_nilai);
+        $data['nilai'] = $this->penyelia->getNilaiById($kode_nilai);
+        $data['disiplin'] = $this->penyelia->getTotalDisiplin($kode_nilai);
+        $data['praktek'] = $this->penyelia->getTotalPraktek($kode_nilai);
+        $data['tanggung'] = $this->penyelia->getTotalTanggung($kode_nilai);
+        $data['rata'] = $this->penyelia->getTotalRata($kode_nilai);
+        $data['title'] = 'Laporan Nilai Magang';
+        // filename dari pdf ketika didownload
+        $file_pdf = 'Laporan Penilaian Magang';
+        // setting paper
+        $paper = 'A4';
+        //orientasi paper potrait / landscape
+        $orientation = "portrait";
+        $data['date'] = date('d F Y H:i:s');
+        $html = $this->load->view('admin/invoice_nilai', $data, true);
+        // $this->load->view('invoice', $data);
+        $this->dompdfgenerator->generate($html, $file_pdf, $paper, $orientation);
+        // $this->load->view('invoice', $data);
+
+    }
+
+    public function invoice_absen()
+    {
+        $kode_absen = $this->uri->segment(3);
+        $data['kode_magang'] = $kode_absen;
+        $id = $this->session->userdata('userid');
+        $data['penyelia'] = $this->penyelia->getPenyeliaById($id);
+        $data['peserta'] = $this->penyelia->getPesertaById($kode_absen);
+        $data['absen'] = $this->dashboard->getAbsenById($kode_absen);
+        $data['title'] = 'Laporan Absen Magang';
+        // // filename dari pdf ketika didownload
+        $file_pdf = 'Laporan Penilaian Magang';
+        // setting paper
+        $paper = 'A4';
+        //orientasi paper potrait / landscape
+        $orientation = "portrait";
+        $data['date'] = date('d F Y H:i:s');
+        $html = $this->load->view('admin/invoice_absen', $data, true);
+        // $this->load->view('invoice', $data);
+        $this->dompdfgenerator->generate($html, $file_pdf, $paper, $orientation);
+        // $this->load->view('invoice', $data);
+
+    }
+
     public function data_ketua()
     {
         $data['session'] = $this->session->userdata('nama');
@@ -265,6 +316,7 @@ class Ketua extends CI_Controller
     public function detailabsen()
     {
         $kode_absen = $this->uri->segment(3);
+        $data['kode_magang'] = $kode_absen;
         $data['session'] = $this->session->userdata('nama');
         $data['title'] = 'Detail Monitoring Absensi';
         $id = $this->session->userdata('userid');
@@ -317,6 +369,7 @@ class Ketua extends CI_Controller
         $data['kode_magang'] = $kode_nilai;
         $data['session'] = $this->session->userdata('nama');
         $data['title'] = 'Detail Nilai';
+        $data['rownilai'] = $this->penyelia->getPesertaByRow($kode_nilai);
         $id = $this->session->userdata('userid');
         $data['nama'] = $this->db->get_where('ketua', ['kode_ketua' => $id])->row_array();
         $data['nilai'] = $this->penyelia->getNilaiById($kode_nilai);

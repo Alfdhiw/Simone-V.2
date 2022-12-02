@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.0.4
+-- version 5.1.1
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 01, 2022 at 09:03 AM
--- Server version: 10.4.17-MariaDB
--- PHP Version: 8.0.2
+-- Generation Time: Dec 02, 2022 at 03:18 AM
+-- Server version: 10.4.22-MariaDB
+-- PHP Version: 8.0.15
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -247,7 +247,7 @@ CREATE TABLE `peserta_magang` (
   `telepon` varchar(20) NOT NULL,
   `foto` varchar(255) NOT NULL,
   `surat_pengantar` varchar(255) NOT NULL,
-  `sertifikat` varchar(250) DEFAULT NULL,
+  `sertifikat` varchar(255) DEFAULT NULL,
   `email` varchar(255) NOT NULL,
   `password` varchar(150) NOT NULL,
   `status` int(2) NOT NULL,
@@ -265,8 +265,8 @@ CREATE TABLE `peserta_magang` (
 --
 
 INSERT INTO `peserta_magang` (`kode_magang`, `nama`, `jurusan`, `sekolah`, `jeniskel`, `telepon`, `foto`, `surat_pengantar`, `sertifikat`, `email`, `password`, `status`, `idrole`, `is_active`, `kode_kategori`, `tingkat_pendidikan`, `tgl_daftar`, `tgl_terima`, `konfirmasi`) VALUES
-(1, 'AYU RETNO WULAN DINI', 'TEKNIK INFORMATIKA', 'UDINUS', 'P', '62895376249050', '221117-A22.2020.02855.jpg', '221117-ALUR.pdf', '221201-certificate_of_completion_html.pdf', 'ayu@gmail.com', 'ayu123', 1, 2, 1, 1, 'mahasiswa', '2022-11-21 17:47:19', '2022-11-21 11:46:21', 1),
-(5, 'CANDRA AGUNG PURNOMO', 'TEKNIK INFORMATIKA', 'UDINUS', 'L', '62895376249050', '221117-A22_2020_02820.jpg', '221117-ALUR.pdf', '221201-certificate_of_completion_html2.pdf', 'tes@gmail.com', 'candra123', 1, 2, 1, 2, 'siswa', '2022-11-21 17:49:29', '2022-11-24 13:51:33', 1),
+(1, 'AYU RETNO WULAN DINI', 'TEKNIK INFORMATIKA', 'UDINUS', 'P', '62895376249050', '221117-A22.2020.02855.jpg', '221117-ALUR.pdf', '221201-certificate.pdf', 'ayu@gmail.com', 'ayu123', 1, 2, 1, 1, 'mahasiswa', '2022-11-21 17:47:19', '2022-11-21 11:46:21', 1),
+(5, 'CANDRA AGUNG PURNOMO', 'TEKNIK INFORMATIKA', 'UDINUS', 'L', '62895376249050', '221117-A22_2020_02820.jpg', '221117-ALUR.pdf', NULL, 'tes@gmail.com', 'tes123', 1, 2, 1, 2, 'siswa', '2022-11-21 17:49:29', '2022-11-24 13:51:33', 1),
 (14, 'biyu', 'TEKNIK INFORMATIKA', 'UDINUS', 'L', '625757567567757', '221125-avatar1.png', '221125-ALUR1.pdf', NULL, 'biyu@gmail.com', 'biyu123', 1, 2, 1, 3, 'siswa', '2022-11-25 10:27:28', '2022-11-25 11:06:43', 0),
 (15, 'Customer 1', 'TEKNIK INFORMATIKA', 'UDINUS', 'P', '6245345353', '221125-pakan.jpg', '221125-ALUR2.pdf', NULL, 'user@gmail.com', '74SHEY39', 2, 2, 1, 3, 'mahasiswa', '2022-11-25 11:08:48', '2022-11-25 11:12:45', 0);
 

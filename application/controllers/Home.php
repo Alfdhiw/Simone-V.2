@@ -22,6 +22,7 @@ class Home extends CI_Controller
         $kode_magang = $this->session->userdata('userid');
         $data['loker'] = $this->home->getAllJob();
         $data['peserta'] = $this->home->getPesertaById($kode_magang);
+        $data['sertif'] = $this->home->getSertifById($kode_magang);
         $data['absen'] = $this->home->getAllAbsenById($kode_magang);
         $data['totalabsen'] = $this->home->countAllAbsen($kode_magang);
         $data['totalnilai'] = $this->home->countAllNilai($kode_magang);

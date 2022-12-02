@@ -74,10 +74,42 @@
                 <div class="card bg-warning text-white mb-4">
                     <div class="card-body" style="font-size: 20px; font-weight:500;"><i class="fa-solid fa-arrow-right-arrow-left"></i> sertifikat Magang
                         </br>
-                        <h5 class="mx-auto my-auto text-white">1 sertifikat</h5>
+                        <?php
+                        if ($peserta['sertifikat'] == !null) {
+                            echo '<h5 class="mx-auto my-auto text-white">1 sertifikat</h5>';
+                        } else {
+                            echo '<h5 class="mx-auto my-auto text-white">0 sertifikat</h5>';
+                        }
+                        ?>
+
                     </div>
                     <div class="card-footer d-flex align-items-center justify-content-between">
-                        <a class="large text-white stretched-link" href="#" data-toggle="modal" data-target="#transaksiModal">View Details</a>
+                        <?php
+                        if ($peserta['sertifikat'] == !null) {
+                            echo '<a class="large text-white stretched-link" href="' . base_url('assets/data/peserta/sertifikat/') . $peserta['sertifikat'] . '" target="_blank">View Details</a>';
+                        } else {
+                            echo '<a class="large text-white stretched-link" href="" data-toggle="modal" data-target="#sertifModal">View Details</a>';
+                        }
+                        ?>
+                        <!-- Modal Sertif -->
+                        <div class="modal fade" id="sertifModal" tabindex="-1" aria-labelledby="sertifModalLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title text-secondary" id="sertifModalLabel" style="font-size: 15px;">Alert !</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <p class="text-secondary" style="font-size: 15px;">Data Kosong !</p>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                         <div class="small text-white"><i class="fas fa-angle-right"></i></div>
                     </div>
                 </div>
@@ -101,7 +133,7 @@
                 </div>
                 <div class="card-body">
                     <div class="table-responsive">
-                        <table class="table table-bordered dataabsen" width="100%" cellspacing="0">
+                        <table class="table table-bordered" id="dataabsen" width="100%" cellspacing="0">
                             <thead class="thead-dark text-center">
                                 <tr>
                                     <th>#</th>
@@ -170,13 +202,3 @@
             </div>
         </div>
         <!-- Products End -->
-        <script>
-            $(document).ready(function() {
-                $('#dataabsen').DataTable({
-                    "pageLength": 10,
-                    order: [
-                        [0, 'desc']
-                    ]
-                });
-            });
-        </script>

@@ -16,6 +16,7 @@ class Dashboard extends CI_Controller
 		$this->user_access->cek_login();
 		$this->user_access->cek_akses();
 		$this->CI = &get_instance();
+		$this->load->library('dompdfgenerator');
 	}
 
 	public function index()
@@ -715,6 +716,7 @@ class Dashboard extends CI_Controller
 		$id = $this->session->userdata('userid');
 		$data['detail'] = $this->dashboard->getMonitorById($kode_nilai);
 		$data['nilai'] = $this->dashboard->getDivisiById($kode_nilai);
+		$data['rownilai'] = $this->penyelia->getPesertaByRow($kode_nilai);
 		$data['con'] = mysqli_connect('localhost', 'root', '', $this->db->database);
 		$data['nama'] = $this->db->get_where('admin', ['kode_admin' => $id])->row_array();
 		$this->load->view('admin/template/header', $data);
@@ -724,9 +726,60 @@ class Dashboard extends CI_Controller
 		$this->load->view('admin/template/footer');
 	}
 
+	public function invoice()
+	{
+		$kode_nilai = $this->uri->segment(3);
+		$data['kode_magang'] = $kode_nilai;
+		$id = $this->session->userdata('userid');
+		$data['penyelia'] = $this->penyelia->getPenyeliaById($id);
+		$data['peserta'] = $this->penyelia->getPesertaById($kode_nilai);
+		$data['nilai'] = $this->penyelia->getNilaiById($kode_nilai);
+		$data['disiplin'] = $this->penyelia->getTotalDisiplin($kode_nilai);
+		$data['praktek'] = $this->penyelia->getTotalPraktek($kode_nilai);
+		$data['tanggung'] = $this->penyelia->getTotalTanggung($kode_nilai);
+		$data['rata'] = $this->penyelia->getTotalRata($kode_nilai);
+		$data['title'] = 'Laporan Nilai Magang';
+		// filename dari pdf ketika didownload
+		$file_pdf = 'Laporan Penilaian Magang';
+		// setting paper
+		$paper = 'A4';
+		//orientasi paper potrait / landscape
+		$orientation = "portrait";
+		$data['date'] = date('d F Y H:i:s');
+		$html = $this->load->view('admin/invoice_nilai', $data, true);
+		// $this->load->view('invoice', $data);
+		$this->dompdfgenerator->generate($html, $file_pdf, $paper, $orientation);
+		// $this->load->view('invoice', $data);
+
+	}
+
+	public function invoice_absen()
+	{
+		$kode_absen = $this->uri->segment(3);
+		$data['kode_magang'] = $kode_absen;
+		$id = $this->session->userdata('userid');
+		$data['penyelia'] = $this->penyelia->getPenyeliaById($id);
+		$data['peserta'] = $this->penyelia->getPesertaById($kode_absen);
+		$data['absen'] = $this->dashboard->getAbsenById($kode_absen);
+		$data['title'] = 'Laporan Absen Magang';
+		// // filename dari pdf ketika didownload
+		$file_pdf = 'Laporan Penilaian Magang';
+		// setting paper
+		$paper = 'A4';
+		//orientasi paper potrait / landscape
+		$orientation = "portrait";
+		$data['date'] = date('d F Y H:i:s');
+		$html = $this->load->view('admin/invoice_absen', $data, true);
+		// $this->load->view('invoice', $data);
+		$this->dompdfgenerator->generate($html, $file_pdf, $paper, $orientation);
+		// $this->load->view('invoice', $data);
+
+	}
+
 	public function detailabsen()
 	{
 		$kode_absen = $this->uri->segment(3);
+		$data['kode_magang'] = $kode_absen;
 		$data['session'] = $this->session->userdata('nama');
 		$data['title'] = 'Detail Monitoring Absensi';
 		$id = $this->session->userdata('userid');
@@ -751,6 +804,7 @@ class Dashboard extends CI_Controller
 		$data['nama'] = $this->db->get_where('admin', ['kode_admin' => $id])->row_array();
 		$data['nilai'] = $this->penyelia->getNilaiById($kode_nilai);
 		$data['peserta'] = $this->dashboard->getPesertaById($kode_nilai);
+		$data['rownilai'] = $this->penyelia->getPesertaByRow($kode_nilai);
 		$data['con'] = mysqli_connect('localhost', 'root', '', $this->db->database);
 		$this->form_validation->set_rules('tanggal_penilaian', 'tanggal_penilaian', 'required');
 		$this->form_validation->set_rules('disiplin', 'disiplin', 'required');

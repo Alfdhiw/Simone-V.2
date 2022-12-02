@@ -18,6 +18,12 @@ class Home_model extends CI_Model
         return $this->db->query($query)->row_array();
     }
 
+    public function getSertifById($kode_magang)
+    {
+        $query = "SELECT p.sertifikat ,k.divisi from peserta_magang p, kategori_magang k where  p.kode_kategori=k.kode_kategori and p.kode_magang = '" . $kode_magang . "'";
+        return $this->db->query($query)->row_array();
+    }
+
     public function getAllAbsenById($kode_magang)
     {
         $query = "SELECT a. * from absensi a where  a.kode_magang = '" . $kode_magang . "'";

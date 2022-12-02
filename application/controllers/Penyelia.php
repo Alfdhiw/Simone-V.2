@@ -139,6 +139,7 @@ class Penyelia extends CI_Controller
     public function detailabsen()
     {
         $kode_absen = $this->uri->segment(3);
+        $data['kode_magang'] = $kode_absen;
         $data['session'] = $this->session->userdata('nama');
         $data['title'] = 'Detail Monitoring Absensi';
         $id = $this->session->userdata('userid');
@@ -290,7 +291,30 @@ class Penyelia extends CI_Controller
         //orientasi paper potrait / landscape
         $orientation = "portrait";
         $data['date'] = date('d F Y H:i:s');
-        $html = $this->load->view('penyelia/invoice', $data, true);
+        $html = $this->load->view('penyelia/invoice_nilai', $data, true);
+        // $this->load->view('invoice', $data);
+        $this->dompdfgenerator->generate($html, $file_pdf, $paper, $orientation);
+        // $this->load->view('invoice', $data);
+
+    }
+
+    public function invoice_absen()
+    {
+        $kode_absen = $this->uri->segment(3);
+        $data['kode_magang'] = $kode_absen;
+        $id = $this->session->userdata('userid');
+        $data['penyelia'] = $this->penyelia->getPenyeliaById($id);
+        $data['peserta'] = $this->penyelia->getPesertaById($kode_absen);
+        $data['absen'] = $this->dashboard->getAbsenById($kode_absen);
+        $data['title'] = 'Laporan Absen Magang';
+        // // filename dari pdf ketika didownload
+        $file_pdf = 'Laporan Penilaian Magang';
+        // setting paper
+        $paper = 'A4';
+        //orientasi paper potrait / landscape
+        $orientation = "portrait";
+        $data['date'] = date('d F Y H:i:s');
+        $html = $this->load->view('penyelia/invoice_absen', $data, true);
         // $this->load->view('invoice', $data);
         $this->dompdfgenerator->generate($html, $file_pdf, $paper, $orientation);
         // $this->load->view('invoice', $data);

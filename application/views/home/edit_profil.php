@@ -34,7 +34,7 @@
 
 
 
-            <input type="hidden" name="kode_magang" value="<?php echo $pesertadetail['kode_magang'] ?>" />
+            <input type="hidden" name="kode_magang" value="<?php echo $profil['kode_magang'] ?>" />
 
 
 
@@ -43,7 +43,7 @@
                 <div class="col-4">
 
                     <div class="img">
-                        <img class="border-right rounded-lg shadow img-thumbnail" name="foto" src="<?= base_url('assets/data/peserta/pas_foto/' . $pesertadetail['foto']); ?>" alt="" style="height: 200px; width: 170px">
+                        <img class="border-right rounded-lg shadow img-thumbnail" name="foto" src="<?= base_url('assets/data/peserta/pas_foto/' . $profil['foto']); ?>" alt="" style="height: 200px; width: 170px">
                     </div>
                 </div>
 
@@ -51,7 +51,7 @@
 
                     <input class="form-control-file" type="file" name="foto" />
 
-                    <input type="hidden" name="gambar_lama" value="<?= $pesertadetail['foto'] ?>" />
+                    <input type="hidden" name="gambar_lama" value="<?= $profil['foto'] ?>" />
 
                 </div>
             </div>
@@ -64,7 +64,7 @@
 
                     <label for="nama">Nama Mahasiswa</label>
 
-                    <input id="nama" class="form-control shadow" type="text" name="nama" value="<?= $pesertadetail['nama'] ?>" required />
+                    <input id="nama" class="form-control shadow" type="text" name="nama" value="<?= $profil['nama'] ?>" required />
 
                 </div>
 
@@ -72,13 +72,13 @@
 
                     <label for="jeniskel">Jenis Kelamin</label>
                     <select id="jeniskel" class="form-control shadow" type="text" name="jeniskel" required>
-                        <option value="<?= $pesertadetail['jeniskel'] ?>"><?php if ($pesertadetail['jeniskel'] == 'L') {
-                                                                                echo 'Laki-laki';
-                                                                            } else if ($pesertadetail['jeniskel'] == 'P') {
-                                                                                echo 'Perempuan';
-                                                                            } else {
-                                                                                echo 'Pilih Jenis Kelamin';
-                                                                            } ?></option>
+                        <option value="<?= $profil['jeniskel'] ?>"><?php if ($profil['jeniskel'] == 'L') {
+                                                                        echo 'Laki-laki';
+                                                                    } else if ($profil['jeniskel'] == 'P') {
+                                                                        echo 'Perempuan';
+                                                                    } else {
+                                                                        echo 'Pilih Jenis Kelamin';
+                                                                    } ?></option>
                         </option>
                         <option value="L">Laki-Laki</option>
                         <option value="P">Perempuan</option>
@@ -96,7 +96,7 @@
 
                     <label for="email">Email</label>
 
-                    <input id="email" class="form-control shadow" type="email" name="email" value="<?= $pesertadetail['email'] ?>" required />
+                    <input id="email" class="form-control shadow" type="email" name="email" value="<?= $profil['email'] ?>" required />
 
                 </div>
 
@@ -104,7 +104,7 @@
 
                     <label for="password">Kata Sandi</label>
 
-                    <input id="password" class="input-100 form-control shadow" type="password" name="password" value="<?= $pesertadetail['password'] ?>" required />
+                    <input id="password" class="input-100 form-control shadow" type="password" name="password" value="<?= $profil['password'] ?>" required />
 
                 </div>
             </div>
@@ -117,7 +117,7 @@
 
                     <label for="sekolah">Asal Sekolah</label>
 
-                    <input id="sekolah" class="form-control shadow" type="text" name="sekolah" value="<?= $pesertadetail['sekolah'] ?>" required />
+                    <input id="sekolah" class="form-control shadow" type="text" name="sekolah" value="<?= $profil['sekolah'] ?>" required />
 
 
 
@@ -127,7 +127,7 @@
 
                     <label for="jurusan">Asal Jurusan</label>
 
-                    <input id="jurusan" class="form-control shadow" type="jurusan" name="jurusan" value="<?= $pesertadetail['jurusan'] ?>" required />
+                    <input id="jurusan" class="form-control shadow" type="jurusan" name="jurusan" value="<?= $profil['jurusan'] ?>" required />
 
                 </div>
 
@@ -137,7 +137,7 @@
 
                 <label for="telepon">Nomer Telp/HP.</label>
 
-                <input id="telepon" class="form-control shadow" type="text" name="telepon" value="<?= $pesertadetail['telepon'] ?>" required />
+                <input id="telepon" class="form-control shadow" type="text" name="telepon" value="<?= $profil['telepon'] ?>" required />
 
             </div>
 

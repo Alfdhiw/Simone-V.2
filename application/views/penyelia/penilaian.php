@@ -70,10 +70,8 @@
                                                 </div>
                                                 <form action="<?= base_url('penyelia/upsertifmhs/') . $mhs['kode_magang'] ?>" method="post" enctype="multipart/form-data">
                                                     <div class="modal-body">
-                                                        <div class="form-group">
-                                                            <label for="sertifikat">Masukkan File Sertifikat</label>
-                                                            <input type="file" class="form-control-file" id="sertifikat" name="sertifikat">
-                                                        </div>
+                                                        Sertifikat akan tercetak otomatis ke anggota
+                                                        <input type="text" name="sertif" value="1">
                                                     </div>
                                                     <div class="modal-footer">
                                                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>

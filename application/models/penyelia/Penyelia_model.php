@@ -12,27 +12,27 @@ class Penyelia_model extends CI_Model
 
     public function countAllPenggunaById($kategori)
     {
-        $query = "SELECT p. * from peserta_magang p  where p.kode_kategori = '$kategori'";
+        $query = "SELECT p. * from peserta_magang p  where p.kode_kategori = '$kategori' and p.status='1'";
         return $this->db->query($query)->num_rows();
     }
 
     public function countAllSwaById($kategori)
     {
         $query = "SELECT `peserta_magang`.*
-        FROM peserta_magang WHERE tingkat_pendidikan = 'siswa' and kode_kategori = '$kategori'";
+        FROM peserta_magang WHERE tingkat_pendidikan = 'siswa' and kode_kategori = '$kategori' and status='1'";
         return $this->db->query($query)->num_rows();
     }
 
     public function countAllMhsById($kategori)
     {
         $query = "SELECT `peserta_magang`.*
-        FROM peserta_magang WHERE tingkat_pendidikan = 'mahasiswa' and kode_kategori = '$kategori' ";
+        FROM peserta_magang WHERE tingkat_pendidikan = 'mahasiswa' and kode_kategori = '$kategori' and status='1' ";
         return $this->db->query($query)->num_rows();
     }
 
     public function getAllPesertaByid($kategori)
     {
-        $query = "SELECT p. *, j.divisi from peserta_magang p, kategori_magang j where  p.kode_kategori=j.kode_kategori and P.kode_kategori = '$kategori' and p.konfirmasi='0'";
+        $query = "SELECT p. *, j.divisi from peserta_magang p, kategori_magang j where  p.kode_kategori=j.kode_kategori and P.kode_kategori = '$kategori' and p.konfirmasi='0'and p.status='1'";
         return $this->db->query($query)->result_array();
     }
 
@@ -68,7 +68,7 @@ class Penyelia_model extends CI_Model
 
     public function getAllUnverifById($kategori)
     {
-        $query = "SELECT p. *, j.divisi from peserta_magang p, kategori_magang j where  p.kode_kategori=j.kode_kategori and p.konfirmasi = '0' and P.kode_kategori = '$kategori'";
+        $query = "SELECT p. *, j.divisi from peserta_magang p, kategori_magang j where  p.kode_kategori=j.kode_kategori and p.konfirmasi = '0' and P.kode_kategori = '$kategori' and p.status ='1' and p.is_active='1'";
         return $this->db->query($query)->result_array();
     }
 

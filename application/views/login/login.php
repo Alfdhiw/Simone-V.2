@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-    <title>Login V1</title>
+    <title>Login</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!--===============================================================================================-->
@@ -31,7 +31,7 @@
             <div class="wrap-login100">
 
                 <div class="login100-pic js-tilt pt-5" data-tilt>
-                    <img src="<?= base_url() ?>assets/img/login/udinus.jpg" alt="IMG">
+                    <img src="<?= base_url() ?>assets/img/login/pn.png" alt="IMG">
                 </div>
 
                 <form class="login100-form validate-form" method="post" action="<?php echo base_url('login/loginuser'); ?>">

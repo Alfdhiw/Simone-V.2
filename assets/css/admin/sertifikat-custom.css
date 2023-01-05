@@ -1,0 +1,166 @@
+.clearfix:after {
+    content: "";
+    display: table;
+    clear: both;
+  }
+  a {
+    color: #5D6975;
+    text-decoration: underline;
+  }
+  
+  body {
+    position: relative;
+    width: 20cm;  
+    height: 29.7cm; 
+    margin: 0 auto; 
+    color: #001028;
+    background: #FFFFFF; 
+    font-family: Arial, sans-serif; 
+    font-size: 12px; 
+    font-family: Arial;
+  }
+  
+  header {
+    padding: 5px 0;
+    margin-bottom: 5px;
+  }
+  
+  #logo {
+    text-align: left;
+    margin-bottom: 10px;
+  }
+
+  #kop {
+    text-align: center;
+    font-size: 15px;
+    color: #5D6975;
+    text-transform: uppercase;
+    margin-right: 80px;
+    margin-bottom: 10px;
+  }
+
+  #cepak {
+    text-align: center;
+    font-size: 14px;
+    color: #5D6975;
+    text-transform: capitalize;
+    margin-left: 50px;
+    margin-right: 0px;
+    margin-bottom: 10px;
+    margin-top: 0px;
+  }
+
+  #cepak img {
+    width: 100px;
+    border-style: solid;
+    border-color: #5D6975;
+    border-width: 5px;
+  }
+
+  #nim {
+    text-align: center;
+    font-size: 12px;
+    color: #5D6975;
+    text-transform: capitalize;
+    margin-left: 50px;
+    margin-right: 0px;
+    margin-bottom: 10px;
+    margin-top: 0px;
+  }
+
+  #data {
+    text-align: left;
+    font-size: 12px;
+    color: #5D6975;
+    text-transform: capitalize;
+    margin-left: 50px;
+    margin-right: 0px;
+    margin-bottom: 10px;
+  }
+
+  #deskripsi {
+    text-align: center;
+    font-size: 12px;
+    color: #5D6975;
+    text-transform: capitalize;
+    margin-left: 50px;
+    margin-right: 0px;
+    margin-bottom: 20px;
+  }
+
+  #ttd {
+    text-align: right;
+    font-size: 12px;
+    color: #5D6975;
+    text-transform: capitalize;
+    margin-left: 50px;
+    margin-right: 0px;
+    margin-bottom: 20px;
+  }
+  
+  #logo img {
+    width: 100px;
+  }
+  
+  h1 {
+    text-transform: uppercase;
+    text-decoration: underline;
+    color: #5D6975;
+    font-size: 2em;
+    font-weight: 60px;
+    text-align: center;
+    margin-top: 0;
+    margin-left: 50px;
+  }
+  
+  #project {
+    float: left;
+  }
+  
+  #project span {
+    color: #5D6975;
+    text-align: left;
+    width: 52px;
+    margin-right: 10px;
+    display: inline-block;
+    font-size: 0.8em;
+  }
+  
+  #company {
+    float: right;
+    text-align: right;
+  }
+  
+  #project div,
+  #company div {
+    white-space: nowrap;        
+  }
+  
+  .totalbayar {
+   margin-left: 500px;
+   text-align: left;
+   font-size: 12px;
+   font-weight: 600;
+  }
+  
+  table {
+    width: 100%;
+    border: 0px solid;
+  }
+  
+  #notices .notice {
+    color: #5D6975;
+    font-size: 1.2em;
+    margin-left: 50px;
+  }
+  
+  footer {
+    color: #5D6975;
+    width: 100%;
+    height: 30px;
+    position: absolute;
+    bottom: 0;
+    border-top: 1px solid #C1CED9;
+    padding: 8px 0;
+    text-align: center;
+  }

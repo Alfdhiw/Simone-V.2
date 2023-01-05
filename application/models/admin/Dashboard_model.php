@@ -9,6 +9,11 @@ class Dashboard_model extends CI_Model
         return $this->db->get('user_role')->result_array();
     }
 
+    public function getAllJadwal()
+    {
+        return $this->db->get('waktu')->result_array();
+    }
+
     public function getAllPeserta()
     {
         $query = "SELECT p. * ,j.kode_kategori, j.divisi from peserta_magang p, kategori_magang j where  p.kode_kategori=j.kode_kategori";

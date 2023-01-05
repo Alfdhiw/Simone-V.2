@@ -56,7 +56,16 @@
                 </div>
             </div>
 
+            <div class="form-row">
 
+                <div class="form-group col-md-12">
+
+                    <label for="nim">NISN / NIM</label>
+
+                    <input id="nim" class="form-control shadow" type="text" name="nim" value="<?= $profil['nim'] ?>" required />
+
+                </div>
+            </div>
 
             <div class="form-row">
 

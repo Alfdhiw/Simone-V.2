@@ -87,13 +87,12 @@
                             <thead class="thead-dark text-center">
                                 <tr>
                                     <th>Foto</th>
-                                    <th>Nama Mahasiswa</th>
+                                    <th>Nama Siswa</th>
                                     <th>Asal Sekolah</th>
                                     <th>Jurusan</th>
                                     <th>Divisi</th>
                                     <th>Status Verif</th>
                                     <th>Status Magang</th>
-                                    <th>Aksi</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -120,100 +119,6 @@
                                                                     echo '<span class="badge text-light bg-success"><span style="font-size:15px;">Aktif</span></span>';
                                                                 }
                                                                 ?></td>
-                                        <td class="text-center">
-                                            <span><a type="button" class="badge badge-success" href="" data-toggle="modal" data-target="#editswaModal<?= $swa['kode_magang']; ?>"><i class="fa-solid fa-pen-to-square"></i> <span style="font-size:15px;">Edit</span></a></span>
-                                            <!-- Modal Edit Data Mahasiswas-->
-                                            <div class="modal fade" id="editswaModal<?= $swa['kode_magang'] ?>" tabindex="-1" aria-labelledby="editswaModalLabel" aria-hidden="true">
-                                                <div class="modal-dialog modal-dialog-scrollable">
-                                                    <div class="modal-content">
-                                                        <div class="modal-header">
-                                                            <h5 class="modal-title" id="editswaModalLabel"><b>Edit Data Mahasiswa</b> </h5>
-                                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                                <span aria-hidden="true">&times;</span>
-                                                            </button>
-                                                        </div>
-                                                        <div class="modal-body text-left">
-                                                            <form action="<?= base_url('dashboard/editdatamhs/') . $swa['kode_magang']; ?>" method="POST">
-                                                                <div class="form-group">
-                                                                    <label for="exampleInputEmail1">Nama Mahasiswa</label>
-                                                                    <input type="text" class="form-control" name="nama" value="<?= $swa['nama'] ?>" disabled>
-                                                                </div>
-                                                                <div class="form-group">
-                                                                    <label for="exampleInputEmail1">Asal Sekolah</label>
-                                                                    <input type="text" class="form-control" name="sekolah" value="<?= $swa['sekolah'] ?>" disabled>
-                                                                </div>
-                                                                <div class="form-group">
-                                                                    <label for="exampleInputEmail1">Jurusan</label>
-                                                                    <input type="text" class="form-control" name="jurusan" value="<?= $swa['jurusan'] ?>" disabled>
-                                                                </div>
-                                                                <div class="form-group">
-                                                                    <label for="exampleInputEmail1">Telepon</label>
-                                                                    <input type="text" class="form-control" min="1" name="telepon" value="<?= $swa['telepon'] ?>" disabled>
-                                                                </div>
-                                                                <div class="form-group">
-                                                                    <label for="exampleFormControlSelect1">Jenis Kelamin</label>
-                                                                    <?php
-                                                                    if ($swa['jeniskel'] == 'P') {
-                                                                        echo '<input type="text" class="form-control" name="jeniskel" value="Perempuan" disabled>';
-                                                                    } else if ($swa['jeniskel'] == 'L') {
-                                                                        echo '<input type="text" class="form-control" name="jeniskel" value="Laki-Laki" disabled>';
-                                                                    }
-                                                                    ?>
-                                                                </div>
-                                                                <div class="form-group">
-                                                                    <label for="exampleInputEmail1">Email address</label>
-                                                                    <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="email" value="<?= $swa['email'] ?>" disabled>
-                                                                </div>
-                                                                <div class="form-group">
-                                                                    <label for="exampleInputEmail1">Password</label>
-                                                                    <input type="text" class="form-control" name="password" value="<?= $swa['password'] ?>" disabled>
-                                                                </div>
-                                                                <div class="form-group">
-                                                                    <label for="exampleInputEmail1">Status Akun</label>
-                                                                    <?php
-                                                                    if ($swa['status'] == 0) {
-                                                                        echo '<input type="text" class="form-control" name="status" value="Unverified" disabled>';
-                                                                    } else {
-                                                                        echo '<input type="text" class="form-control" name="status" value="Verified" disabled>';
-                                                                    }
-                                                                    ?>
-                                                                </div>
-                                                                <div class="form-group">
-                                                                    <label for="exampleFormControlSelect1">Divisi Magang</label>
-                                                                    <select name="kode_kategori" id="kode_kategori" class="custom-select">
-                                                                        <option value="<?= $swa['kode_kategori']; ?>">Pilih Divisi</option>
-                                                                        <?php foreach ($kerja as $k) : ?>
-                                                                            <option value="<?= $k['kode_kategori']; ?>"><?= $k['divisi']; ?></option>
-                                                                        <?php endforeach; ?>
-                                                                    </select>
-
-                                                                </div>
-                                                                <div class="form-group">
-                                                                    <div class="form-check">
-                                                                        <?php
-                                                                        if ($swa['is_active'] == "1") {
-                                                                            echo '<input type="checkbox" class="form-check-input" id="is_active" name="is_active" value="1" checked>';
-                                                                        } else if ($swa['is_active'] == "") {
-                                                                            echo '<input type="checkbox" class="form-check-input" id="is_active" name="is_active" value="1">';
-                                                                        } else {
-                                                                            echo '<input type="checkbox" class="form-check-input" id="is_active" name="is_active" value="1">';
-                                                                        }
-                                                                        ?>
-                                                                        Active?
-                                                                        </label>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="modal-footer">
-                                                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                                                    <button type="submit" class="btn btn-primary">Simpan</button>
-                                                                </div>
-                                                            </form>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <span><a id="btn-hapus" type="button" href="<?= base_url('dashboard/deleteswa/' . $swa['kode_magang']) ?>" class="badge text-light bg-danger"><i class="fas fa-trash"></i> <span style="font-size:15px;">Hapus</span></a></span>
-                                        </td>
                                     </tr>
                                 <?php endforeach; ?>
                             </tbody>

@@ -9,16 +9,17 @@ class Home extends CI_Controller
         $this->load->library('form_validation');
         $this->load->helper(array('url', 'form'));
         $this->load->model('home/Home_model', 'home');
+        $this->load->model('penyelia/Penyelia_model', 'penyelia');
         $this->CI = &get_instance();
+        $this->load->library('dompdfgenerator');
     }
 
 
     public function index()
     {
-
+        $jadwal_id = 1;
         $data['nama'] = $this->session->userdata('nama');
         $data['foto'] = $this->session->userdata('foto');
-        $data['userid'] = $this->session->userdata('userid');
         $kode_magang = $this->session->userdata('userid');
         $data['loker'] = $this->home->getAllJob();
         $data['peserta'] = $this->home->getPesertaById($kode_magang);
@@ -29,6 +30,8 @@ class Home extends CI_Controller
         $data['totalmasuk'] = $this->home->countAllMasuk($kode_magang);
         $data['totalijin'] = $this->home->countAllIjin($kode_magang);
         $data['totallibur'] = $this->home->countAllLibur($kode_magang);
+        $data['waktu'] = $this->home->getWaktuById($jadwal_id);
+        $data['absenid'] = $this->home->getAbsenById($kode_magang);
         $data['con'] = mysqli_connect('localhost', 'root', '', $this->db->database);
         //jika sudah login
         if ($this->session->userdata('logged_in') == 'true') {
@@ -50,6 +53,7 @@ class Home extends CI_Controller
         $data['userid'] = $this->session->userdata('userid');
         $kode_magang = $this->session->userdata('userid');
         $data['loker'] = $this->home->getAllJob();
+        $data['rownilai'] = $this->penyelia->getPesertaByRow($kode_magang);
         $data['peserta'] = $this->home->getPesertaById($kode_magang);
         $data['nilai'] = $this->home->getAllNilaiById($kode_magang);
         $data['con'] = mysqli_connect('localhost', 'root', '', $this->db->database);
@@ -65,6 +69,58 @@ class Home extends CI_Controller
         }
     }
 
+    public function invoice()
+    {
+        $id = $this->session->userdata('userid');
+        $data['penyelia'] = $this->home->getPenyeliaById($id);
+        $data['peserta'] = $this->home->getPesertaById($id);
+        $data['nilai'] = $this->home->getNilaiById($id);
+        $data['disiplin'] = $this->home->getTotalDisiplin($id);
+        $data['praktek'] = $this->home->getTotalPraktek($id);
+        $data['tanggung'] = $this->home->getTotalTanggung($id);
+        $data['rata'] = $this->home->getTotalRata($id);
+        $data['title'] = 'Laporan Nilai Magang';
+        // filename dari pdf ketika didownload
+        $file_pdf = 'Laporan Penilaian Magang';
+        // setting paper
+        $paper = 'A4';
+        //orientasi paper potrait / landscape
+        $orientation = "portrait";
+        $data['date'] = date('d F Y H:i:s');
+        $html = $this->load->view('home/invoice_nilai', $data, true);
+        // $this->load->view('invoice', $data);
+        $this->dompdfgenerator->generate($html, $file_pdf, $paper, $orientation);
+        // $this->load->view('invoice', $data);
+
+    }
+
+    public function sertifikat()
+    {
+        $id = $this->session->userdata('userid');
+        $data['penyelia'] = $this->home->getPenyeliaById($id);
+        $data['peserta'] = $this->home->getPesertaById($id);
+        $data['nilai'] = $this->home->getNilaiById($id);
+        $data['disiplin'] = $this->home->getTotalDisiplin($id);
+        $data['praktek'] = $this->home->getTotalPraktek($id);
+        $data['tanggung'] = $this->home->getTotalTanggung($id);
+        $data['rata'] = $this->home->getTotalRata($id);
+        $data['job'] = $this->home->getJobMagang($id);
+        $data['title'] = 'Laporan Sertifikat Magang';
+        // filename dari pdf ketika didownload
+        $file_pdf = 'Laporan Sertifikat Magang';
+        // setting paper
+        $paper = 'A4';
+        // orientasi paper potrait / landscape
+        $orientation = "landscape";
+        $data['date'] = date('d F Y');
+        $html = $this->load->view('home/sertifikat_magang', $data, true);
+        // $this->load->view('home/sertifikat_magang', $data);
+        $this->dompdfgenerator->generate($html, $file_pdf, $paper, $orientation);
+        // $this->load->view('invoice', $data);
+
+    }
+
+
     public function edit_profil()
     {
         $data['nama'] = $this->session->userdata('nama');
@@ -73,6 +129,7 @@ class Home extends CI_Controller
         $data['con'] = mysqli_connect('localhost', 'root', '', $this->db->database);
         $this->form_validation->set_rules('kode_magang', 'kode_magang', 'required');
         $this->form_validation->set_rules('nama', 'Nama', 'required');
+        $this->form_validation->set_rules('nim', 'Nim', 'required');
         $this->form_validation->set_rules('email', 'Email', 'required');
         $this->form_validation->set_rules('password', 'Password', 'required');
         $this->form_validation->set_rules('jeniskel', 'jeniskel', 'required');
@@ -94,10 +151,13 @@ class Home extends CI_Controller
     public function absen()
     {
         $kode_magang = $this->session->userdata('userid');
+        $jadwal_id = 1;
         $data['title'] = 'Absensi Peserta Magang';
         $data['nama'] = $this->session->userdata('nama');
         $data['foto'] = $this->session->userdata('foto');
         $data['peserta'] = $this->home->getPesertaById($kode_magang);
+        $data['waktu'] = $this->home->getWaktuById($jadwal_id);
+        $data['absen'] = $this->home->getAbsenById($kode_magang);
         $data['con'] = mysqli_connect('localhost', 'root', '', $this->db->database);
         $this->form_validation->set_rules('kode_magang', 'Kode Magang', 'required');
         $this->form_validation->set_rules('nama', 'Nama Peserta', 'required');
@@ -107,7 +167,7 @@ class Home extends CI_Controller
         if ($this->form_validation->run() == false) {
             $this->load->view('home/template/header_login', $data);
             $this->load->view('home/absen', $data);
-            $this->load->view('home/template/footer');
+            $this->load->view('home/template/footer', $data);
         } else {
             if (!empty($_FILES["surat_ijin"]["name"])) {
                 $date = substr(date('Ymd'), 2, 8);
@@ -126,7 +186,6 @@ class Home extends CI_Controller
                         'nama' => $this->input->post('nama'),
                         'jobname' => $this->input->post('jobname'),
                         'status' => $this->input->post('status'),
-                        'kegiatan' => $this->input->post('kegiatan'),
                         'surat_ijin' => $this->surat_ijin->data("file_name"),
                         'tgl_absen' => $this->input->post('tgl_absen'),
                     );
@@ -144,7 +203,6 @@ class Home extends CI_Controller
                     'nama' => $this->input->post('nama'),
                     'jobname' => $this->input->post('jobname'),
                     'status' => $this->input->post('status'),
-                    'kegiatan' => $this->input->post('kegiatan'),
                     'surat_ijin' => null,
                     'tgl_absen' => $this->input->post('tgl_absen'),
                 ];
@@ -152,13 +210,102 @@ class Home extends CI_Controller
                 if ($data == true) {
                     $this->db->insert('absensi', $data);
                     $this->session->set_flashdata('flash', '<div class="alert alert-success" role="alert">Absensi Baru Telah Diupdate!</div>');
-                    redirect($_SERVER['HTTP_REFERER']);
+                    $this->updatemasuk($kode_magang);
                 } else {
                     $this->session->set_flashdata('flash', '<div class="alert alert-danger" role="alert">Absensi Baru Gagal Diupdate!</div>');
                     redirect($_SERVER['HTTP_REFERER']);
                 }
             }
         }
+    }
+
+    public function updatemasuk($kode_magang)
+    {
+        $this->db->set('absen', 1);
+        $this->db->where('kode_magang', $kode_magang);
+        $this->db->update('peserta_magang');
+        redirect($_SERVER['HTTP_REFERER']);
+    }
+
+    public function absenpulang()
+    {
+        $kode_magang = $this->session->userdata('userid');
+        $jadwal_id = 1;
+        $data['title'] = 'Absensi Peserta Magang';
+        $data['nama'] = $this->session->userdata('nama');
+        $data['foto'] = $this->session->userdata('foto');
+        $data['peserta'] = $this->home->getPesertaById($kode_magang);
+        $data['waktu'] = $this->home->getWaktuById($jadwal_id);
+        $data['absen'] = $this->home->getAbsenById($kode_magang);
+        $data['con'] = mysqli_connect('localhost', 'root', '', $this->db->database);
+        $this->form_validation->set_rules('kode_magang', 'Kode Magang', 'required');
+        $this->form_validation->set_rules('nama', 'Nama Peserta', 'required');
+        $this->form_validation->set_rules('jobname', 'jobname', 'required');
+        $this->form_validation->set_rules('nama', 'Nama Produk', 'required');
+        $this->form_validation->set_rules('tgl_absen', 'Tanggal Absen', 'required');
+        if ($this->form_validation->run() == false) {
+            $this->load->view('home/template/header_login', $data);
+            $this->load->view('home/absen', $data);
+            $this->load->view('home/template/footer', $data);
+        } else {
+            if (!empty($_FILES["surat_ijin"]["name"])) {
+                $date = substr(date('Ymd'), 2, 8);
+                $config = array();
+                $config['upload_path'] = './assets/data/peserta/surat_ijin';
+                $config['allowed_types'] = 'pdf';
+                $config['file_name']    = $date . '-' . $_FILES['surat_ijin']['name'];
+
+                $this->load->library('upload', $config, 'surat_ijin');
+                $this->surat_ijin->initialize($config);
+                $upload_surat_ijin = $this->surat_ijin->do_upload('surat_ijin');
+
+                if ($upload_surat_ijin) {
+                    $data =  array(
+                        'kode_magang' => $this->input->post('kode_magang'),
+                        'nama' => $this->input->post('nama'),
+                        'jobname' => $this->input->post('jobname'),
+                        'status' => $this->input->post('status'),
+                        'surat_ijin' => $this->surat_ijin->data("file_name"),
+                        'tgl_absen' => $this->input->post('tgl_absen'),
+                        'kegiatan' => $this->input->post('kegiatan'),
+                    );
+
+                    $this->db->insert('absensi', $data);
+                    $this->session->set_flashdata('flash', '<div class="alert alert-success" role="alert">Absensi Baru Telah Diupdate!</div>');
+                    redirect($_SERVER['HTTP_REFERER']);
+                } else {
+                    $this->session->set_flashdata('flash', '<div class="alert alert-danger" role="alert">Absensi Gagal, silahkan ulangi pengisian form!</div>');
+                    redirect($_SERVER['HTTP_REFERER']);
+                }
+            } else {
+                $data =  [
+                    'kode_magang' => $this->input->post('kode_magang'),
+                    'nama' => $this->input->post('nama'),
+                    'jobname' => $this->input->post('jobname'),
+                    'status' => $this->input->post('status'),
+                    'surat_ijin' => null,
+                    'tgl_absen' => $this->input->post('tgl_absen'),
+                    'kegiatan' => $this->input->post('kegiatan'),
+                ];
+
+                if ($data == true) {
+                    $this->db->insert('absensi', $data);
+                    $this->session->set_flashdata('flash', '<div class="alert alert-success" role="alert">Absensi Baru Telah Diupdate!</div>');
+                    $this->updatepulang($kode_magang);
+                } else {
+                    $this->session->set_flashdata('flash', '<div class="alert alert-danger" role="alert">Absensi Baru Gagal Diupdate!</div>');
+                    redirect($_SERVER['HTTP_REFERER']);
+                }
+            }
+        }
+    }
+
+    public function updatepulang($kode_magang)
+    {
+        $this->db->set('absen', 0);
+        $this->db->where('kode_magang', $kode_magang);
+        $this->db->update('peserta_magang');
+        redirect($_SERVER['HTTP_REFERER']);
     }
 
     public function daftarloker()
@@ -169,11 +316,14 @@ class Home extends CI_Controller
         $data['foto'] = $this->session->userdata('foto');
         $data['userid'] = $this->session->userdata('userid');
         $data['loker'] = $this->home->getAllJob();
+        $kuota = $this->input->post('kuota', TRUE);
+        $jobid = $this->input->post('jobid', TRUE);
         $data['daftar'] = $this->home->getJobById($loker_id);
         $data['password'] =  $this->home->getPasswd();
         $data['waktu'] = date_default_timezone_set('Asia/Jakarta');
         $data['con'] = mysqli_connect('localhost', 'root', '', $this->db->database);
         $this->form_validation->set_rules('nama', 'Nama', 'required');
+        $this->form_validation->set_rules('nim', 'nim', 'required');
         $this->form_validation->set_rules('email', 'Email', 'required');
         $this->form_validation->set_rules('password', 'Password', 'required');
         $this->form_validation->set_rules('pendidikan', 'Pendidikan', 'required');
@@ -219,6 +369,7 @@ class Home extends CI_Controller
 
                 $data = array(
                     'nama'              => $this->input->post('nama'),
+                    'nim'              => $this->input->post('nim'),
                     'email'             => $this->input->post('email'),
                     'jeniskel'          => $this->input->post('jeniskel'),
                     'sekolah'           => $this->input->post('sekolah'),
@@ -238,11 +389,21 @@ class Home extends CI_Controller
                 $this->db->insert('peserta_magang', $data);
                 $this->session->set_flashdata('flash', '<div class="alert alert-success" role="alert">Anda telah terdaftar, silahkan menunggu konfirmasi!</div>');
 
-                redirect($_SERVER['HTTP_REFERER']);
+                $this->updatekuota($kuota, $jobid);
             } else {
                 $this->session->set_flashdata('flash', '<div class="alert alert-danger" role="alert">Gagal mendaftar, silahkan ulangi pendaftaran!</div>');
                 redirect('home');
             }
         }
+    }
+
+    public function updatekuota($kuota, $jobid)
+    {
+
+        $this->db->set('kuota',  $kuota);
+        $this->db->where('jobid', $jobid);
+        $this->db->update('job');
+        $this->session->set_flashdata('flash', '<div class="alert alert-success" role="alert">Anda telah terdaftar, silahkan menunggu konfirmasi!</div>');
+        redirect($_SERVER['HTTP_REFERER']);
     }
 }

@@ -123,6 +123,14 @@
         });
     });
     $(document).ready(function() {
+        $('.datajadwal').DataTable({
+            "pageLength": 10,
+            order: [
+                [0, 'desc']
+            ]
+        });
+    });
+    $(document).ready(function() {
         $('.datapenyelia').DataTable({
             "pageLength": 10,
             order: [

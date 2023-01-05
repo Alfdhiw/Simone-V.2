@@ -11,6 +11,7 @@
                     <h2>Divisi Magang <span class="blu"><br><?= $daftar['divisi'] ?></span></h2>
                     <ul>
                         <li class="text-secondary" style="font-size: 20px; font-weight:500;">Periode Magang : <?php echo date('j M Y', strtotime($daftar['jobstart'])) ?> - <?php echo date('j M Y', strtotime($daftar['jobend'])) ?></li>
+                        <li class="text-secondary mt-4" style="font-size: 20px; font-weight:500;">Kuota Magang : <?= $daftar['kuota'] ?> Kuota</li>
                         <li class="text-secondary mt-4" style="font-size: 20px; font-weight:500;">Deskripsi Magang : <p class="text-secondary mt-2" style="font-size: 20px; font-weight:500;"><?= $daftar['jobdesc'] ?></p>
                         </li>
                         <li class="text-secondary" style="font-size: 20px; font-weight:500;">Tipe Kerja : <span class="badge badge-secondary"><?= $daftar['workingtype'] ?></span></li>
@@ -45,6 +46,12 @@
                             <input type="text" class="form-control shadow" id="nama" name="nama" placeholder="Nama Lengkap" style="text-transform:uppercase" required>
                         </div>
                         <div class="form-group col-md-6">
+                            <label for="inputPassword4">NIM / NISN</label>
+                            <input type="text" class="form-control shadow" id="nim" name="nim" placeholder="NIM / NISN" required>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-md-12">
                             <label for="inputPassword4">Email</label>
                             <input type="email" class="form-control shadow" id="email" name="email" placeholder="Email Aktif" required>
                         </div>
@@ -53,8 +60,8 @@
                         <div class="form-group col-md-6">
                             <label for="exampleFormControlSelect1">Tingkat Pendidikan</label>
                             <select class="form-control shadow" id="pendidikan" name="pendidikan">
-                                <option value="mahasiswa">Sekolah Menengah Kejuruan</option>
-                                <option value="siswa">Perguruan Tinggi</option>
+                                <option value="siswa">Sekolah Menengah Kejuruan</option>
+                                <option value="mahasiswa">Perguruan Tinggi</option>
                             </select>
                         </div>
                         <div class="form-group col-md-6">
@@ -100,6 +107,8 @@
                     <input type="hidden" class="form-control" name="is_active" value="0">
                     <input type="hidden" class="form-control" name="idrole" value="2">
                     <input type="hidden" class="form-control" name="status" value="0">
+                    <input type="hidden" class="form-control" name="jobid" value="<?= $daftar['jobid'] ?>">
+                    <input type="hidden" class="form-control" name="kuota" value="<?= $daftar['kuota'] - 1 ?>">
                     <input type="hidden" class="form-control" name="password" value="<?= $password ?>">
                     <input type="hidden" class="form-control" name="tgl_daftar" value="<?php date_default_timezone_set('Asia/Jakarta');
                                                                                         echo date('Y-m-d H:i:s'); ?>">

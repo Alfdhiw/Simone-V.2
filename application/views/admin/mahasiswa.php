@@ -20,6 +20,10 @@
                                     <td><b><?php echo $info['nama']; ?></b></td>
                                 </tr>
                                 <tr>
+                                    <td>NISN/NIM</td>
+                                    <td><b><?php echo $info['nim']; ?></b></td>
+                                </tr>
+                                <tr>
                                     <td>Jurusan</td>
                                     <td><b><?php echo $info['jurusan']; ?></b></td>
                                 </tr>

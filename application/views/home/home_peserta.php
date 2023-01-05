@@ -33,18 +33,18 @@
                                 <table class="mt-5">
                                     <tr>
                                         <td>
-                                            <li>Absen Masuk</li>
+                                            <li>Absen Masuk(1)</li>
                                         </td>
                                         <td>: <?= $totalmasuk ?> absen</td>
                                         <td>&emsp;</td>
                                         <td>
-                                            <li>Absen Ijin</li>
+                                            <li>Absen Ijin(2)</li>
                                         </td>
                                         <td>: <?= $totalijin ?> absen</td>
                                     </tr>
                                     <tr>
                                         <td>
-                                            <li>Tidak Absen</li>
+                                            <li>Tidak Absen(0)</li>
                                         </td>
                                         <td>: <?= $totallibur ?> absen</td>
                                     </tr>
@@ -78,7 +78,7 @@
                         if ($peserta['sertifikat'] == !null) {
                             echo '<h5 class="mx-auto my-auto text-white">1 sertifikat</h5>';
                         } else {
-                            echo '<h5 class="mx-auto my-auto text-white">0 sertifikat</h5>';
+                            echo ' <h5 class="mx-auto my-auto text-white">0 sertifikat</h5>';
                         }
                         ?>
 
@@ -86,8 +86,10 @@
                     <div class="card-footer d-flex align-items-center justify-content-between">
                         <?php
                         if ($peserta['sertifikat'] == !null) {
-                            echo '<a class="large text-white stretched-link" href="' . base_url('assets/data/peserta/sertifikat/') . $peserta['sertifikat'] . '" target="_blank">View Details</a>';
+
+                            echo '<a class="large text-white stretched-link" href="' . base_url('home/sertifikat/') . $peserta['kode_magang'] . '" target="_blank">View Details</a>';
                         } else {
+
                             echo '<a class="large text-white stretched-link" href="" data-toggle="modal" data-target="#sertifModal">View Details</a>';
                         }
                         ?>
@@ -123,7 +125,19 @@
             <h1 class="section-title position-relative text-uppercase mx-xl-5 mb-4"><span class="pr-3" style="color: #444444; font-weight:500;">Absensi Magang</span></h1>
         </div>
         <div class="row px-xl-5 pb-3">
-            <a class="btn btn-success" href="<?= base_url('home/absen') ?>"><i class="fas fa-solid fa-plus"></i> Tambah Absen </a>
+            <?php
+            date_default_timezone_set("Asia/Bangkok");
+            $time_now = date("G:i:s");
+
+            if ($time_now  <=  $waktu['masuk']) {
+                echo '<a class="btn btn-success" href="' . base_url('home/absen') . '"><i class="fas fa-solid fa-plus"></i> Tambah Absen </a>';
+            } elseif ($time_now >= $waktu['masuk'] && $time_now <= $waktu['pulang']) {
+                echo '<a class="btn btn-success" href="' . base_url('home/absen') . '"><i class="fas fa-solid fa-plus"></i> Tambah Absen </a>';
+            } elseif ($time_now >= $waktu['pulang']) {
+                echo '<a class="btn btn-success" href="' . base_url('home/absenpulang') . '"><i class="fas fa-solid fa-plus"></i> Tambah Absen </a>';
+            }
+            ?>
+
         </div>
         <div class="row px-xl-5 pb-3">
             <div class="col-xl-12 card mb-4 bg-light">
@@ -144,19 +158,24 @@
                                 </tr>
                             </thead>
                             <tbody>
+                                <?php $i = 1; ?>
                                 <?php foreach ($absen as $absen) : ?>
                                     <tr>
                                         <td class="text-center <?php if ($absen['status'] == 1) {
                                                                     echo 'table-success';
                                                                 } else if ($absen['status'] == 2) {
                                                                     echo 'table-warning';
+                                                                } else if ($absen['status'] == 3) {
+                                                                    echo 'table-info';
                                                                 } else {
                                                                     echo 'table-danger';
-                                                                } ?>">#</td>
+                                                                } ?>"><?= $i; ?></td>
                                         <td class="text-center <?php if ($absen['status'] == 1) {
                                                                     echo 'table-success';
                                                                 } else if ($absen['status'] == 2) {
                                                                     echo 'table-warning';
+                                                                } else if ($absen['status'] == 3) {
+                                                                    echo 'table-info';
                                                                 } else {
                                                                     echo 'table-danger';
                                                                 } ?>"><?= date('j F Y H:i:s', strtotime($absen['tgl_absen'])) ?></td>
@@ -164,6 +183,8 @@
                                                         echo 'table-success';
                                                     } else if ($absen['status'] == 2) {
                                                         echo 'table-warning';
+                                                    } else if ($absen['status'] == 3) {
+                                                        echo 'table-info';
                                                     } else {
                                                         echo 'table-danger';
                                                     } ?>"><?= $absen['kegiatan'] ?></td>
@@ -171,6 +192,8 @@
                                                                     echo 'table-success';
                                                                 } else if ($absen['status'] == 2) {
                                                                     echo 'table-warning';
+                                                                } else if ($absen['status'] == 3) {
+                                                                    echo 'table-info';
                                                                 } else {
                                                                     echo 'table-danger';
                                                                 } ?>"><b><?php if ($absen['surat_ijin'] == null) {
@@ -183,17 +206,22 @@
                                                                     echo 'table-success';
                                                                 } else if ($absen['status'] == 2) {
                                                                     echo 'table-warning';
+                                                                } else if ($absen['status'] == 3) {
+                                                                    echo 'table-info';
                                                                 } else {
                                                                     echo 'table-danger';
                                                                 } ?>"><b><?php if ($absen['status'] == 0) {
                                                                                 echo '<span class="badge badge-danger"><span style="font-size:15px;">Belum Absen</span></span>';
                                                                             } else if ($absen['status'] == 1) {
-                                                                                echo '<span class="badge badge-success"><span style="font-size:15px;">Sudah Absen</span></span>';
+                                                                                echo '<span class="badge badge-success"><span style="font-size:15px;">Absen Masuk</span></span>';
+                                                                            } else if ($absen['status'] == 3) {
+                                                                                echo '<span class="badge badge-info"><span style="font-size:15px;">Absen Pulang</span></span>';
                                                                             } else {
                                                                                 echo '<span class="badge badge-warning"><span style="font-size:15px;">Ijin Absen</span></span>';
                                                                             } ?></b>
                                         </td>
                                     </tr>
+                                    <?php $i++; ?>
                                 <?php endforeach; ?>
                             </tbody>
                         </table>

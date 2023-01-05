@@ -214,10 +214,10 @@ $kode_kategori = $this->session->userdata['kode_kategori'];
 
 $sql1 = "select p.tingkat_pendidikan AS pendidikan,count(0) AS jumlah 
 from peserta_magang p
-where p.tingkat_pendidikan = 'mahasiswa' and p.kode_kategori = '$kode_kategori' union 
+where p.tingkat_pendidikan = 'mahasiswa' and p.kode_kategori = '$kode_kategori' and p.status='1' union 
 select p.tingkat_pendidikan AS pendidikan,count(0) AS jumlah 
 from peserta_magang p 
-where p.tingkat_pendidikan = 'siswa' and p.kode_kategori = '$kode_kategori'";
+where p.tingkat_pendidikan = 'siswa' and p.kode_kategori = '$kode_kategori' and p.status='1'";
 $result1 = mysqli_query($con, $sql1);
 $chart_data = "";
 while ($row1 = mysqli_fetch_array($result1)) {

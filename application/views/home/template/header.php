@@ -18,7 +18,7 @@
     <!-- bootstrap css -->
     <link rel="stylesheet" href="<?= base_url() ?>assets/css/home/bootstrap.min.css">
     <!-- style css -->
-    <link rel="stylesheet" href="<?= base_url() ?>assets/css/home/home-custom.css">
+    <link rel="stylesheet" href="<?= base_url() ?>assets/css/home/home.css">
     <!-- Responsive-->
     <link rel="stylesheet" href="<?= base_url() ?>assets/css/home/responsive.css">
     <!-- fevicon -->
@@ -66,7 +66,7 @@
                                 <div class="full">
                                     <div class="center-desk">
                                         <div class="logo">
-                                            <a href="<?= base_url('home') ?>"><img src="<?= base_url(); ?>assets/img/home/logo-simone.png" alt="#" /></a>
+                                            <a href="<?= base_url('home') ?>"><img src="<?= base_url(); ?>assets/img/home/logo-simone.png" alt="#" style="height: 40px; width:150px;" /></a>
                                         </div>
                                     </div>
                                 </div>

@@ -76,6 +76,10 @@
                                                                     <input type="text" class="form-control" name="nama" value="<?= $mhs['nama'] ?>" disabled>
                                                                 </div>
                                                                 <div class="form-group">
+                                                                    <label for="exampleInputEmail1">NIM</label>
+                                                                    <input type="text" class="form-control" name="nim" value="<?= $mhs['nim'] ?>" disabled>
+                                                                </div>
+                                                                <div class="form-group">
                                                                     <label for="exampleInputEmail1">Asal Sekolah</label>
                                                                     <input type="text" class="form-control" name="sekolah" value="<?= $mhs['sekolah'] ?>" disabled>
                                                                 </div>
@@ -228,8 +232,12 @@
                                                         <div class="modal-body text-left">
                                                             <form action="<?= base_url('dashboard/editdatamhs/') . $swa['kode_magang']; ?>" method="POST">
                                                                 <div class="form-group">
-                                                                    <label for="exampleInputEmail1">Nama Mahasiswa</label>
+                                                                    <label for="exampleInputEmail1">Nama Siswa</label>
                                                                     <input type="text" class="form-control" name="nama" value="<?= $swa['nama'] ?>" disabled>
+                                                                </div>
+                                                                <div class="form-group">
+                                                                    <label for="exampleInputEmail1">NISN</label>
+                                                                    <input type="text" class="form-control" name="nim" value="<?= $swa['nim'] ?>" disabled>
                                                                 </div>
                                                                 <div class="form-group">
                                                                     <label for="exampleInputEmail1">Asal Sekolah</label>

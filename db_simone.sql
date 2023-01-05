@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 02, 2022 at 03:18 AM
+-- Generation Time: Jan 03, 2023 at 03:13 AM
 -- Server version: 10.4.22-MariaDB
 -- PHP Version: 8.0.15
 
@@ -88,6 +88,7 @@ CREATE TABLE `job` (
   `registerend` date NOT NULL,
   `jobadded` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   `workingtype` char(3) NOT NULL,
+  `kuota` int(11) NOT NULL,
   `status` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -95,10 +96,9 @@ CREATE TABLE `job` (
 -- Dumping data for table `job`
 --
 
-INSERT INTO `job` (`jobid`, `kode_kategori`, `jobdesc`, `jobstart`, `jobend`, `registerend`, `jobadded`, `workingtype`, `status`) VALUES
-(1, 1, 'Mengatur instalasi Aplikasi, Mengawasi Jalannya Aplikasi, Membuat Aplikasi', '2022-11-16', '2023-04-16', '2022-12-05', '2022-12-01 02:46:45', 'WFH', 1),
-(2, 2, 'Mengatur Jaringan Internet Kantor, Instalasi Jaringan Internet, Membuat sambungan natar ruangan dengan mikrotik', '2022-11-16', '2023-03-18', '2022-11-30', '2022-11-24 14:54:08', 'WFO', 1),
-(8, 3, 'tes', '2022-11-24', '2022-11-30', '2022-11-25', '2022-11-24 14:54:13', 'WFH', 1);
+INSERT INTO `job` (`jobid`, `kode_kategori`, `jobdesc`, `jobstart`, `jobend`, `registerend`, `jobadded`, `workingtype`, `kuota`, `status`) VALUES
+(1, 1, 'Mengatur instalasi Aplikasi, Mengawasi Jalannya Aplikasi, Membuat Aplikasi', '2022-11-16', '2022-12-31', '2022-12-31', '2023-01-01 04:07:15', 'WFH', 0, 1),
+(2, 2, 'Mengatur Jaringan Internet Kantor, Instalasi Jaringan Internet, Membuat sambungan natar ruangan dengan mikrotik', '2022-11-16', '2023-03-18', '2023-01-05', '2023-01-01 04:43:45', 'WFH', 11, 1);
 
 -- --------------------------------------------------------
 
@@ -230,7 +230,8 @@ CREATE TABLE `penyelia` (
 
 INSERT INTO `penyelia` (`kode_penyelia`, `nama`, `nip`, `jeniskel`, `telepon`, `foto`, `email`, `password`, `idrole`, `is_active`, `kode_kategori`, `status`) VALUES
 (1, 'Penyelia 1', 'A22.2020.02820', 'P', '08976722313121', 'default.png', 'penyelia1@gmail.com', 'penyelia1', 4, 1, 1, 1),
-(2, 'Penyelia 2', 'A22.2020.02825', 'L', '0899873131231', 'default.png', 'penyelia2@gmail.com', 'penyelia2', 4, 1, 2, 1);
+(2, 'Penyelia 2', 'A22.2020.02825', 'L', '0899873131231', 'default.png', 'penyelia2@gmail.com', 'penyelia2', 4, 1, 2, 1),
+(6, 'Penyelia3', '12345678', 'L', '09878567565', 'default.png', 'penyelia3@gmail.com', 'penyelia3', 4, 1, 3, 1);
 
 -- --------------------------------------------------------
 
@@ -241,6 +242,7 @@ INSERT INTO `penyelia` (`kode_penyelia`, `nama`, `nip`, `jeniskel`, `telepon`, `
 CREATE TABLE `peserta_magang` (
   `kode_magang` int(11) NOT NULL,
   `nama` varchar(150) NOT NULL,
+  `nim` varchar(100) NOT NULL,
   `jurusan` varchar(150) NOT NULL,
   `sekolah` varchar(150) NOT NULL,
   `jeniskel` char(2) NOT NULL,
@@ -264,11 +266,11 @@ CREATE TABLE `peserta_magang` (
 -- Dumping data for table `peserta_magang`
 --
 
-INSERT INTO `peserta_magang` (`kode_magang`, `nama`, `jurusan`, `sekolah`, `jeniskel`, `telepon`, `foto`, `surat_pengantar`, `sertifikat`, `email`, `password`, `status`, `idrole`, `is_active`, `kode_kategori`, `tingkat_pendidikan`, `tgl_daftar`, `tgl_terima`, `konfirmasi`) VALUES
-(1, 'AYU RETNO WULAN DINI', 'TEKNIK INFORMATIKA', 'UDINUS', 'P', '62895376249050', '221117-A22.2020.02855.jpg', '221117-ALUR.pdf', '221201-certificate.pdf', 'ayu@gmail.com', 'ayu123', 1, 2, 1, 1, 'mahasiswa', '2022-11-21 17:47:19', '2022-11-21 11:46:21', 1),
-(5, 'CANDRA AGUNG PURNOMO', 'TEKNIK INFORMATIKA', 'UDINUS', 'L', '62895376249050', '221117-A22_2020_02820.jpg', '221117-ALUR.pdf', NULL, 'tes@gmail.com', 'tes123', 1, 2, 1, 2, 'siswa', '2022-11-21 17:49:29', '2022-11-24 13:51:33', 1),
-(14, 'biyu', 'TEKNIK INFORMATIKA', 'UDINUS', 'L', '625757567567757', '221125-avatar1.png', '221125-ALUR1.pdf', NULL, 'biyu@gmail.com', 'biyu123', 1, 2, 1, 3, 'siswa', '2022-11-25 10:27:28', '2022-11-25 11:06:43', 0),
-(15, 'Customer 1', 'TEKNIK INFORMATIKA', 'UDINUS', 'P', '6245345353', '221125-pakan.jpg', '221125-ALUR2.pdf', NULL, 'user@gmail.com', '74SHEY39', 2, 2, 1, 3, 'mahasiswa', '2022-11-25 11:08:48', '2022-11-25 11:12:45', 0);
+INSERT INTO `peserta_magang` (`kode_magang`, `nama`, `nim`, `jurusan`, `sekolah`, `jeniskel`, `telepon`, `foto`, `surat_pengantar`, `sertifikat`, `email`, `password`, `status`, `idrole`, `is_active`, `kode_kategori`, `tingkat_pendidikan`, `tgl_daftar`, `tgl_terima`, `konfirmasi`) VALUES
+(1, 'AYU RETNO WULAN DINI', 'A22.2020.02824', 'TEKNIK INFORMATIKA', 'UDINUS', 'P', '62895376249050', '221117-A22.2020.02855.jpg', '221117-ALUR.pdf', '221201-certificate.pdf', 'ayu@gmail.com', 'ayu123', 1, 2, 1, 1, 'mahasiswa', '2022-11-21 17:47:19', '2022-11-21 11:46:21', 1),
+(5, 'CANDRA AGUNG PURNOMO', 'A22.2020.02825', 'TEKNIK INFORMATIKA', 'UDINUS', 'L', '62895376249050', '221117-A22_2020_02820.jpg', '221117-ALUR.pdf', NULL, 'tes@gmail.com', 'tes123', 1, 2, 1, 2, 'siswa', '2022-11-21 17:49:29', '2022-11-24 13:51:33', 1),
+(14, 'biyu', 'A22.2020.02821', 'TEKNIK INFORMATIKA', 'UDINUS', 'L', '625757567567757', '221125-avatar1.png', '221125-ALUR1.pdf', NULL, 'biyu@gmail.com', 'biyu123', 1, 2, 1, 3, 'siswa', '2022-11-25 10:27:28', '2022-11-25 11:06:43', 1),
+(15, 'Customer 1', 'A23.2020.02819', 'TEKNIK INFORMATIKA', 'UDINUS', 'P', '6245345353', '221125-pakan.jpg', '221125-ALUR2.pdf', NULL, 'user@gmail.com', '74SHEY39', 2, 2, 1, 3, 'mahasiswa', '2022-11-25 11:08:48', '2022-11-25 11:12:45', 0);
 
 -- --------------------------------------------------------
 
@@ -312,7 +314,8 @@ INSERT INTO `submenu` (`submenuid`, `menuid`, `title`, `url`, `icon`, `is_active
 (24, 12, 'Data Anggota', 'penyelia/anggota', 'fas fa-user', 1),
 (25, 11, 'Monitoring', 'penyelia/monitoring', 'fas fa-desktop', 1),
 (26, 11, 'penilaian', 'penyelia/penilaian', 'fas fa-list', 1),
-(27, 10, 'Penilaian ', 'ketua/penilaian', 'fas fa-list', 1);
+(27, 10, 'Penilaian ', 'ketua/penilaian', 'fas fa-list', 1),
+(28, 1, 'Jadwal Absen', 'dashboard/jadwal_absen', 'fas fa-calendar', 1);
 
 -- --------------------------------------------------------
 
@@ -359,6 +362,25 @@ INSERT INTO `user_role` (`idrole`, `role`) VALUES
 (2, 'Peserta Magang'),
 (3, 'Ketua'),
 (4, 'Penyelia');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `waktu`
+--
+
+CREATE TABLE `waktu` (
+  `id` int(11) NOT NULL,
+  `masuk` time NOT NULL,
+  `pulang` time NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `waktu`
+--
+
+INSERT INTO `waktu` (`id`, `masuk`, `pulang`) VALUES
+(1, '07:30:00', '15:30:00');
 
 --
 -- Indexes for dumped tables
@@ -437,6 +459,12 @@ ALTER TABLE `user_role`
   ADD PRIMARY KEY (`idrole`);
 
 --
+-- Indexes for table `waktu`
+--
+ALTER TABLE `waktu`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- AUTO_INCREMENT for dumped tables
 --
 
@@ -450,7 +478,7 @@ ALTER TABLE `absensi`
 -- AUTO_INCREMENT for table `job`
 --
 ALTER TABLE `job`
-  MODIFY `jobid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `jobid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT for table `kategori_magang`
@@ -480,19 +508,19 @@ ALTER TABLE `penilaian_detail`
 -- AUTO_INCREMENT for table `penyelia`
 --
 ALTER TABLE `penyelia`
-  MODIFY `kode_penyelia` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `kode_penyelia` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `peserta_magang`
 --
 ALTER TABLE `peserta_magang`
-  MODIFY `kode_magang` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `kode_magang` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
 
 --
 -- AUTO_INCREMENT for table `submenu`
 --
 ALTER TABLE `submenu`
-  MODIFY `submenuid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
+  MODIFY `submenuid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
 
 --
 -- AUTO_INCREMENT for table `user_access_menu`
@@ -505,6 +533,12 @@ ALTER TABLE `user_access_menu`
 --
 ALTER TABLE `user_role`
   MODIFY `idrole` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
+
+--
+-- AUTO_INCREMENT for table `waktu`
+--
+ALTER TABLE `waktu`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

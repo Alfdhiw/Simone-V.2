@@ -173,32 +173,15 @@ class Penyelia extends CI_Controller
 
     public function upsertifmhs($kode_magang)
     {
-        if (!empty($_FILES["sertifikat"]["name"])) {
-            $date = substr(date('Ymd'), 2, 8);
-            $config = array();
-            $config['upload_path'] = './assets/data/peserta/sertifikat/';
-            $config['allowed_types'] = 'pdf';
-            $config['file_name']    = $date . '-' . $_FILES['sertifikat']['name'];
+        $data['con'] = mysqli_connect('localhost', 'root', '', $this->db->database);
+        $data = [
+            'sertifikat' => $this->input->post('sertif'),
 
-            $this->load->library('upload', $config, 'sertifikat');
-            $this->sertifikat->initialize($config);
-            $upload_sertifikat = $this->sertifikat->do_upload('sertifikat');
-
-            if ($upload_sertifikat) {
-                $this->db->set('sertifikat', $this->sertifikat->data("file_name"));
-                $this->db->where('kode_magang', $kode_magang);
-                $this->db->update('peserta_magang');
-                $this->session->set_flashdata('flash', '<div class="alert alert-success" role="alert">Sertifikat Berhasil Diupload!</div>');
-                redirect($_SERVER['HTTP_REFERER']);
-            } else {
-                $this->session->set_flashdata('flash', '<div class="alert alert-danger" role="alert">error' . $this->sertifikat->display_errors() . '!</div>');
-                redirect($_SERVER['HTTP_REFERER']);
-            }
-        } else {
-
-            $this->session->set_flashdata('flash', '<div class="alert alert-danger" role="alert">Inputan Harap Diisi!</div>');
-            redirect($_SERVER['HTTP_REFERER']);
-        }
+        ];
+        $this->db->where('kode_magang', $kode_magang);
+        $this->db->update('peserta_magang', $data);
+        $this->session->set_flashdata('flash', '<div class="alert alert-success" role="alert">Sertifikat berhasil dibuat</div>');
+        redirect($_SERVER['HTTP_REFERER']);
     }
 
     public function edit_profil()

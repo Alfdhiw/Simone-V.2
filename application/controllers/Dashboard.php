@@ -460,6 +460,7 @@ class Dashboard extends CI_Controller
 		$this->form_validation->set_rules('end', 'End', 'required');
 		$this->form_validation->set_rules('endregist', 'Endregist', 'required');
 		$this->form_validation->set_rules('workingtype', 'Workingtype', 'required');
+		$this->form_validation->set_rules('kuota', 'Kuota', 'required');
 
 		if ($this->form_validation->run() == false) {
 			$this->session->set_flashdata('flash', '<div class="alert alert-danger" role="alert">Lowongan Magang Gagal Ditambahkan!</div>');
@@ -472,7 +473,8 @@ class Dashboard extends CI_Controller
 				'jobend' => $this->input->post('end'),
 				'registerend' => $this->input->post('endregist'),
 				'status' => $this->input->post('status'),
-				'workingtype' => $this->input->post('workingtype')
+				'workingtype' => $this->input->post('workingtype'),
+				'kuota' => $this->input->post('kuota')
 			];
 			$this->db->insert('job', $data);
 			$this->session->set_flashdata('flash', '<div class="alert alert-success" role="alert">Lowongan Magang Berhasil Ditambahkan!</div>');
@@ -488,6 +490,7 @@ class Dashboard extends CI_Controller
 		$this->db->set('jobend', $this->input->post('end'));
 		$this->db->set('registerend', $this->input->post('endregist'));
 		$this->db->set('workingtype', $this->input->post('workingtype'));
+		$this->db->set('kuota', $this->input->post('kuota'));
 		$this->db->set('status', $this->input->post('status'));
 		$this->db->where('jobid', $id);
 		$this->db->update('job');
@@ -549,6 +552,19 @@ class Dashboard extends CI_Controller
 		$this->db->update('peserta_magang', $data);
 		$this->session->set_flashdata('flash', '<div class="alert alert-success" role="alert">Data Mahasiswa Berhasil Di Edit</div>');
 		redirect('dashboard/data_peserta');
+	}
+
+	public function editjadwal($id)
+	{
+		$data['id'] = $id;
+		$data = [
+			'masuk' => $this->input->post('masuk'),
+			'pulang' => $this->input->post('pulang')
+		];
+		$this->db->where('id', $id);
+		$this->db->update('waktu', $data);
+		$this->session->set_flashdata('flash', '<div class="alert alert-success" role="alert">Jadwal Berhasil Di Edit</div>');
+		redirect($_SERVER['HTTP_REFERER']);
 	}
 
 
@@ -847,6 +863,21 @@ class Dashboard extends CI_Controller
 		$this->load->view('admin/template/sidebar', $data);
 		$this->load->view('admin/template/topbar', $data);
 		$this->load->view('admin/penilaian', $data);
+		$this->load->view('admin/template/footer');
+	}
+
+	public function jadwal_absen()
+	{
+		$data['session'] = $this->session->userdata('nama');
+		$data['title'] = 'Jadwal Absen';
+		$id = $this->session->userdata('userid');
+		$data['nama'] = $this->db->get_where('admin', ['kode_admin' => $id])->row_array();
+		$data['jadwal'] = $this->dashboard->getAllJadwal();
+		$data['con'] = mysqli_connect('localhost', 'root', '', $this->db->database);
+		$this->load->view('admin/template/header', $data);
+		$this->load->view('admin/template/sidebar', $data);
+		$this->load->view('admin/template/topbar', $data);
+		$this->load->view('admin/jadwal', $data);
 		$this->load->view('admin/template/footer');
 	}
 }

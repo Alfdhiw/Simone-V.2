@@ -20,6 +20,10 @@
                                     <td><b><?php echo $pelamar['nama']; ?></b></td>
                                 </tr>
                                 <tr>
+                                    <td>NISN/NIM</td>
+                                    <td><b><?php echo $pelamar['nim']; ?></b></td>
+                                </tr>
+                                <tr>
                                     <td>Jurusan</td>
                                     <td><b><?php echo $pelamar['jurusan']; ?></b></td>
                                 </tr>

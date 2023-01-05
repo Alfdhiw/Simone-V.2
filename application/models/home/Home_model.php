@@ -8,13 +8,65 @@ class Home_model extends CI_Model
     {
         date_default_timezone_set("Asia/Bangkok");
         $date_now = date("Y-m-d");
-        $query = "SELECT j. * ,k.divisi from job j, kategori_magang k where  j.kode_kategori=k.kode_kategori and j.registerend > '" . $date_now . "'";
+        $query = "SELECT j. * ,k.divisi from job j, kategori_magang k where  j.kode_kategori=k.kode_kategori and j.registerend > '" . $date_now . "' and j.status = '1' ";
         return $this->db->query($query)->result_array();
     }
 
     public function getPesertaById($kode_magang)
     {
-        $query = "SELECT p. * ,k.divisi from peserta_magang p, kategori_magang k where  p.kode_kategori=k.kode_kategori and p.kode_magang = '" . $kode_magang . "'";
+        $query = "SELECT p. * ,k.divisi, a.nama as nama_penyelia from peserta_magang p, kategori_magang k, penyelia a  where  p.kode_kategori=k.kode_kategori and a.kode_kategori=k.kode_kategori and p.kode_magang = '" . $kode_magang . "'";
+        return $this->db->query($query)->row_array();
+    }
+
+    public function getWaktuById($jadwal_id)
+    {
+        $query = "SELECT * from waktu where id = '$jadwal_id' ";
+        return $this->db->query($query)->row_array();
+    }
+
+    public function getAbsenById($kode_magang)
+    {
+        $query = "SELECT * from absensi where kode_magang = '$kode_magang' ";
+        return $this->db->query($query)->result_array();
+    }
+
+    public function getPesertaByRow($id)
+    {
+        return $this->db->get_where('peserta_magang', ['kode_magang' => $id])->row_array();
+    }
+
+    public function getPenyeliaById($id)
+    {
+        $query = "SELECT p. * ,k.divisi from penyelia p, kategori_magang k  where  p.kode_kategori=k.kode_kategori and p.kode_penyelia = '$id'";
+        return $this->db->query($query)->row_array();
+    }
+
+    public function getNilaiById($id)
+    {
+        return $this->db->get_where('penilaian_detail', ['kode_magang' => $id])->result_array();
+    }
+
+    public function getTotalPraktek($id)
+    {
+        $query = "SELECT AVG(nilai_praktek) as total_praktek from penilaian_detail where  kode_magang = '$id'";
+        return $this->db->query($query)->row_array();
+    }
+
+    public function getTotalRata($id)
+    {
+        $query = "SELECT AVG(nilai_rata) as total_rata from penilaian_detail where  kode_magang = '$id'";
+        return $this->db->query($query)->row_array();
+    }
+
+    public function getTotalTanggung($id)
+    {
+        $query = "SELECT AVG(nilai_tanggungjawab) as total_tanggungjawab from penilaian_detail where  kode_magang = '$id'";
+        return $this->db->query($query)->row_array();
+    }
+
+    public function getTotalDisiplin($id)
+    {
+        $query = "SELECT AVG(nilai_disiplin) as total_disiplin from penilaian_detail where  kode_magang = '$id'";
         return $this->db->query($query)->row_array();
     }
 
@@ -26,7 +78,7 @@ class Home_model extends CI_Model
 
     public function getAllAbsenById($kode_magang)
     {
-        $query = "SELECT a. * from absensi a where  a.kode_magang = '" . $kode_magang . "'";
+        $query = "SELECT a. * from absensi a where  a.kode_magang = '" . $kode_magang . "' order by a.absen_id  desc";
         return $this->db->query($query)->result_array();
     }
 
@@ -65,6 +117,8 @@ class Home_model extends CI_Model
         $this->kode_magang = $post["kode_magang"];
 
         $this->nama = $post["nama"];
+
+        $this->nim = $post["nim"];
 
         $this->sekolah = $post["sekolah"];
 
@@ -125,7 +179,13 @@ class Home_model extends CI_Model
 
     public function getJobById($loker_id)
     {
-        $query = "SELECT j. * ,k.divisi from job j, kategori_magang k where  j.kode_kategori=k.kode_kategori and j.jobid = '" . $loker_id . "'";
+        $query = "SELECT j. * ,p.nama from job j, kategori_magang k where  j.kode_kategori=k.kode_kategori and j.jobid = '" . $loker_id . "'";
+        return $this->db->query($query)->row_array();
+    }
+
+    public function getJobMagang($id)
+    {
+        $query = "SELECT j. * ,p.kode_magang from job j, peserta_magang p where  j.kode_kategori=p.kode_kategori and p.kode_magang = '" . $id . "'";
         return $this->db->query($query)->row_array();
     }
     public function getPasswd()

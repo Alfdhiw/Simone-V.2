@@ -3,11 +3,11 @@
     <div class="row px-xl-5 pt-5">
         <div class="col-lg-4 col-md-12 mb-5 pr-3 pr-xl-5">
             <h2 class="text-light mb-3"><i class="fas fa-duotone fa-building-columns"></i> Alamat Kantor</h2>
-            <p><iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3960.2260776113494!2d110.40701211431778!3d-6.982626370317617!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e708b4ec52229d7%3A0xc791d6abc9236c7!2sUniversitas%20Dian%20Nuswantoro!5e0!3m2!1sen!2sid!4v1659882981258!5m2!1sen!2sid" width="300" height="200" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe></p>
+            <p><iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3960.1801118252693!2d110.3674613737322!3d-6.988054068432649!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e708adaabe29d41%3A0x85ad626156c1f298!2sPengadilan%20Negeri%20Semarang!5e0!3m2!1sid!2sid!4v1671686099363!5m2!1sid!2sid" width="350" height="300" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe></p>
             <br>
             <p class="mb-2"><i class="fa fa-map-marker-alt text-light mr-3"></i>Jl. Siliwangi No.512, Kembangarum, Kec. Semarang Barat, Kota Semarang, Jawa Tengah 50146</p>
-            <p class="mb-2"><i class="fa fa-envelope text-light mr-3"></i>ptjateng@gmail.com</p>
-            <p class="mb-0"><i class="fa fa-phone-alt text-light mr-3"></i>+024 7604041</p>
+            <p class="mb-2"><i class="fa fa-envelope text-light mr-3"></i>pn.semarangkota@gmail.com</p>
+            <p class="mb-0"><i class="fa fa-phone-alt text-light mr-3"></i>(024) 7616384</p>
         </div>
         <div class="col-lg-8 col-md-12">
             <div class="row">
@@ -32,10 +32,10 @@
                 <div class="col-md-4 mb-5">
                     <h2 class="text-light mb-3">Ikuti Kami</h2>
                     <div class="d-flex">
-                        <a class="btn btn-light btn-square mr-2" href="#"><i class="fab fa-twitter" style="color: #444444;"></i></a>
-                        <a class="btn btn-light btn-square mr-2" href="#"><i class="fab fa-facebook-f" style="color: #444444;"></i></a>
-                        <a class="btn btn-light btn-square mr-2" href="#"><i class="fab fa-linkedin-in" style="color: #444444;"></i></a>
-                        <a class="btn btn-light btn-square" href="#"><i class="fab fa-instagram" style="color: #444444;"></i></a>
+                        <a class="btn btn-light btn-square mr-2" href="https://www.youtube.com/channel/UC6WDF1UM20aYVq9XzarGZMA"><i class="fab fa-youtube" style="color: #444444;"></i></a>
+                        <a class="btn btn-light btn-square mr-2" href="https://www.facebook.com/people/Pengadilan-Negeri-Semarang/100069090014789/"><i class="fab fa-facebook-f" style="color: #444444;"></i></a>
+                        <a class="btn btn-light btn-square mr-2" href="https://pn-semarangkota.go.id/web/"><i class="fa fa-envelope" style="color: #444444;"></i></a>
+                        <a class="btn btn-light btn-square" href="https://www.instagram.com/pn.semarangkota/"><i class="fab fa-instagram" style="color: #444444;"></i></a>
                     </div>
                 </div>
             </div>
@@ -46,7 +46,7 @@
             <p class="mb-md-0 text-center text-md-center text-light">
                 &copy; <a class="text-success" href="#">2022</a>. All Rights Reserved. Designed
                 by
-                <a class="text-success" href="">UDINUS</a>
+                <a class="text-success" href="">Ayu Retno Wulan Dini</a>
             </p>
         </div>
     </div>
@@ -192,7 +192,7 @@
         $('.dataabsen').DataTable({
             "pageLength": 10,
             order: [
-                [0, 'desc']
+                [0, 'asc']
             ]
         });
     });

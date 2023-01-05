@@ -5,7 +5,32 @@
             <h1 class="section-title position-relative text-uppercase mx-xl-5 mb-4"><span class="pr-3" style="color: #444444; font-weight:500;">Penilaian Magang</span></h1>
         </div>
         <div class="row px-xl-5 pb-3">
-            <a class="btn btn-info" href="<?= base_url('home/absen') ?>"><i class="fas fa-solid fa-print"></i> Cetak Nilai </a>
+            <?php
+            if ($rownilai['sertifikat'] != null) {
+                echo '<a class="btn btn-info" href="' . base_url('home/invoice/') . $peserta['kode_magang'] . '"><i class="fas fa-solid fa-print"></i> Cetak Nilai </a>';
+            } else {
+                echo '<a class="btn btn-info" href="" data-toggle="modal" data-target="#konfrModal"><i class="fas fa-solid fa-print"></i> Cetak Nilai </a>';
+            }
+            ?>
+            <!-- Modal konfirmasi-->
+            <div class="modal fade" id="konfrModal" tabindex="-1" aria-labelledby="konfrModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="konfrModalLabel">Perhatian!</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            Penyelia Belum Mencantumkan Sertifikat !
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
         <div class="row px-xl-5 pb-3">
             <div class="col-xl-12 card mb-4 bg-light">

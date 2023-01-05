@@ -25,10 +25,10 @@
                         <!-- Modal body -->
                         <div class="modal-body">
                             <div class="form-group">
-                                Kategori Magang<select name="kode_kategori" id="kode_kategori" class="custom-select">
+                                Kategori Magang: <select name="kode_kategori" id="kode_kategori" class="custom-select">
                                     <option value="">Pilih Divisi</option>
-                                    <?php foreach ($divisi as $divisi) : ?>
-                                        <option value="<?= $divisi['kode_kategori']; ?>"><?= $divisi['divisi']; ?></option>
+                                    <?php foreach ($kerja as $k) : ?>
+                                        <option value="<?= $k['kode_kategori']; ?>"><?= $k['divisi']; ?></option>
                                     <?php endforeach; ?>
                                 </select>
                             </div>
@@ -52,9 +52,12 @@
                                 </select>
                             </div>
                             <div class="form-group">
+                                Kuota Magang: <input type="number" name="kuota" class="form-control" placeholder="Kuota Magang"><br>
+                            </div>
+                            <div class="form-group">
                                 <div class="form-check">
                                     <input class="form-check-input" type="checkbox" name="status" value="1" id="status" checked>
-                                    Kuota Tersedia
+                                    Status Aktif
                                     </label>
                                 </div>
                             </div>
@@ -88,6 +91,7 @@
                                 <th>Posisi Tersedia</th>
                                 <th>Periode</th>
                                 <th>Maks Pendaftaran</th>
+                                <th>Kuota</th>
                                 <th>Status</th>
                                 <th>Aksi</th>
                             </tr>
@@ -100,10 +104,17 @@
                                     <td class="text-center"><?php echo date('j M Y', strtotime($loker['jobstart'])) ?> - <?php echo date('j M Y', strtotime($loker['jobend'])) ?></td>
                                     <td class="text-center"><?php echo date('j M Y', strtotime($loker['registerend'])) ?></td>
                                     <td class="text-center"><?php
+                                                            if ($loker['kuota'] > 0) {
+                                                                echo '<span class="badge text-light bg-success"><span style="font-size:15px;">Kuota Tersedia</span></span>';
+                                                            } else if ($loker['kuota'] == 0) {
+                                                                echo '<span class="badge text-light bg-danger"><span style="font-size:15px;">Kuota Penuh</span></span>';
+                                                            }
+                                                            ?></td>
+                                    <td class="text-center"><?php
                                                             if ($loker['status'] == 1) {
-                                                                echo '<span class="badge text-light bg-success"><span style="font-size:15px;">Lowongan Tersedia</span></span>';
+                                                                echo '<span class="badge text-light bg-success"><span style="font-size:15px;">Aktif</span></span>';
                                                             } else {
-                                                                echo '<span class="badge text-light bg-secondary"><span style="font-size:15px;">Lowongan Penuh</span></span>';
+                                                                echo '<span class="badge text-light bg-secondary"><span style="font-size:15px;">Tidak Aktif</span></span>';
                                                             }
                                                             ?></td>
                                     <td class="text-center">
@@ -147,6 +158,9 @@
                                                                     <option value="Mix">MIX WFH-WFO / Rolling</option>
                                                                 </select>
                                                             </div>
+                                                            <div class="form-group">
+                                                                Kuota Magang: <input type="number" name="kuota" class="form-control" value="<?= $loker['kuota'] ?>"><br>
+                                                            </div>
                                                             <div class=" input-group mt-3 mb-3">
                                                                 <div class="form-check">
                                                                     <?php
@@ -158,7 +172,7 @@
                                                                         echo '<input type="checkbox" class="form-check-input" id="status" name="status" value="1">';
                                                                     }
                                                                     ?>
-                                                                    Kuota Tersedia
+                                                                    Status Aktif
                                                                     </label>
                                                                 </div>
                                                             </div>

@@ -205,6 +205,33 @@
             ]
         });
     });
+
+    $(document).ready(function() {
+        $('.absen_mhs').DataTable({
+            "pageLength": 10,
+            order: [
+                [0, 'asc']
+            ]
+        });
+    });
+
+    $(document).ready(function() {
+        $('.absen_swa').DataTable({
+            "pageLength": 10,
+            order: [
+                [0, 'asc']
+            ]
+        });
+    });
+
+    $(document).ready(function() {
+        $('.dataunverifabsen').DataTable({
+            "pageLength": 10,
+            order: [
+                [0, 'asc']
+            ]
+        });
+    });
 </script>
 </script>
 

@@ -35,6 +35,8 @@
                                                                 echo 'table-success';
                                                             } else if ($absen['status'] == 2) {
                                                                 echo 'table-warning';
+                                                            } else if ($absen['status'] == 3) {
+                                                                echo 'table-info';
                                                             } else {
                                                                 echo 'table-danger';
                                                             } ?>">#</td>
@@ -42,6 +44,8 @@
                                                                 echo 'table-success';
                                                             } else if ($absen['status'] == 2) {
                                                                 echo 'table-warning';
+                                                            } else if ($absen['status'] == 3) {
+                                                                echo 'table-info';
                                                             } else {
                                                                 echo 'table-danger';
                                                             } ?>"><?= date('j F Y H:i:s', strtotime($absen['tgl_absen'])) ?></td>
@@ -49,6 +53,8 @@
                                                     echo 'table-success';
                                                 } else if ($absen['status'] == 2) {
                                                     echo 'table-warning';
+                                                } else if ($absen['status'] == 3) {
+                                                    echo 'table-info';
                                                 } else {
                                                     echo 'table-danger';
                                                 } ?>"><?= $absen['kegiatan'] ?></td>
@@ -56,6 +62,8 @@
                                                                 echo 'table-success';
                                                             } else if ($absen['status'] == 2) {
                                                                 echo 'table-warning';
+                                                            } else if ($absen['status'] == 3) {
+                                                                echo 'table-info';
                                                             } else {
                                                                 echo 'table-danger';
                                                             } ?>"><b><?php if ($absen['surat_ijin'] == null) {
@@ -68,12 +76,16 @@
                                                                 echo 'table-success';
                                                             } else if ($absen['status'] == 2) {
                                                                 echo 'table-warning';
+                                                            } else if ($absen['status'] == 3) {
+                                                                echo 'table-info';
                                                             } else {
                                                                 echo 'table-danger';
                                                             } ?>"><b><?php if ($absen['status'] == 0) {
                                                                             echo '<span class="badge badge-danger"><span style="font-size:15px;">Belum Absen</span></span>';
                                                                         } else if ($absen['status'] == 1) {
                                                                             echo '<span class="badge badge-success"><span style="font-size:15px;">Sudah Absen</span></span>';
+                                                                        } else if ($absen['status'] == 3) {
+                                                                            echo '<span class="badge badge-info"><span style="font-size:15px;">Absen Pulang</span></span>';
                                                                         } else {
                                                                             echo '<span class="badge badge-warning"><span style="font-size:15px;">Ijin Absen</span></span>';
                                                                         } ?></b>

@@ -78,7 +78,7 @@ class Home_model extends CI_Model
 
     public function getAllAbsenById($kode_magang)
     {
-        $query = "SELECT a. * from absensi a where  a.kode_magang = '" . $kode_magang . "' order by a.absen_id  desc";
+        $query = "SELECT a. * from absensi a where  a.kode_magang = '" . $kode_magang . "' and a.status != '4' order by a.absen_id  desc";
         return $this->db->query($query)->result_array();
     }
 

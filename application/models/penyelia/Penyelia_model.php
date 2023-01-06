@@ -36,6 +36,18 @@ class Penyelia_model extends CI_Model
         return $this->db->query($query)->result_array();
     }
 
+    public function getMhsByAbsenMhs($kategori)
+    {
+        $query = "SELECT p.kode_magang, p.nama, p.foto, k.divisi, a.tgl_absen, a.status, a.absen_id FROM peserta_magang p, kategori_magang k, absensi a WHERE p.kode_kategori = k.kode_kategori and p.kode_magang = a.kode_magang and a.status ='4' and p.kode_kategori = $kategori and p.tingkat_pendidikan = 'mahasiswa' ORDER BY a.absen_id DESC";
+        return $this->db->query($query)->result_array();
+    }
+
+    public function getMhsByAbsenSwa($kategori)
+    {
+        $query = "SELECT p.kode_magang, p.nama, p.foto, k.divisi, a.tgl_absen, a.status, a.absen_id FROM peserta_magang p, kategori_magang k, absensi a WHERE p.kode_kategori = k.kode_kategori and p.kode_magang = a.kode_magang and a.status ='4' and p.kode_kategori = $kategori and p.tingkat_pendidikan = 'siswa' ORDER BY a.absen_id DESC";
+        return $this->db->query($query)->result_array();
+    }
+
     public function getPesertaByid($kode_nilai)
     {
         $query = "SELECT p. *, j.divisi, a.nama as nama_penyelia from peserta_magang p, kategori_magang j, penyelia a where  p.kode_kategori=j.kode_kategori and a.kode_kategori=j.kode_kategori and p.kode_magang = '$kode_nilai'";
@@ -77,6 +89,18 @@ class Penyelia_model extends CI_Model
         $query = "SELECT `peserta_magang`.*
         FROM peserta_magang WHERE kode_kategori = '$kategori' and konfirmasi = '0' ";
         return $this->db->query($query)->num_rows();
+    }
+
+    public function countAllUnverifAbsenById($kategori)
+    {
+        $query = "SELECT p.kode_magang, p.nama, p.foto, k.divisi, a.tgl_absen, a.status, a.absen_id FROM peserta_magang p, kategori_magang k, absensi a WHERE p.kode_kategori = k.kode_kategori and p.kode_magang = a.kode_magang and a.status ='4' and p.kode_kategori = $kategori ORDER BY a.absen_id DESC";
+        return $this->db->query($query)->num_rows();
+    }
+
+    public function getAllUnverifAbsenById($kategori)
+    {
+        $query = "SELECT p.kode_magang, p.nama, p.foto, k.divisi, a.tgl_absen, a.status, a.absen_id FROM peserta_magang p, kategori_magang k, absensi a WHERE p.kode_kategori = k.kode_kategori and p.kode_magang = a.kode_magang and a.status ='4' and p.kode_kategori = $kategori ORDER BY a.absen_id DESC";
+        return $this->db->query($query)->result_array();
     }
 
     public function getMhsByKuliah($kategori)

@@ -31,6 +31,8 @@ class Penyelia extends CI_Controller
         $data['totalmhs'] = $this->penyelia->countAllMhsById($kategori);
         $data['peserta'] = $this->penyelia->getAllPesertaByid($kategori);
         $data['unverif'] = $this->penyelia->countAllUnverifById($kategori);
+        $data['unverifabsen'] = $this->penyelia->countAllUnverifAbsenById($kategori);
+        $data['unverifabsenuser'] = $this->penyelia->getAllUnverifAbsenById($kategori);
         $data['unverifuser'] = $this->penyelia->getAllUnverifById($kategori);
         $data['con'] = mysqli_connect('localhost', 'root', '', $this->db->database);
         $this->load->view('penyelia/template/header');
@@ -119,6 +121,15 @@ class Penyelia extends CI_Controller
         redirect('penyelia/konfirmasi');
     }
 
+    public function verifconfirm($absen_id)
+    {
+        $this->db->set('status', $this->input->post('status'));
+        $this->db->where('absen_id', $absen_id);
+        $this->db->update('absensi');
+        $this->session->set_flashdata('flash', '<div class="alert alert-success" role="alert">Absen Telah Berhasil Diverifikasi!</div>');
+        redirect($_SERVER['HTTP_REFERER']);
+    }
+
     public function monitoring()
     {
         $data['session'] = $this->session->userdata('nama');
@@ -168,6 +179,23 @@ class Penyelia extends CI_Controller
         $this->load->view('penyelia/template/sidebar', $data);
         $this->load->view('penyelia/template/topbar', $data);
         $this->load->view('penyelia/penilaian', $data);
+        $this->load->view('penyelia/template/footer');
+    }
+
+    public function verifabsen()
+    {
+        $data['session'] = $this->session->userdata('nama');
+        $data['title'] = 'Verifikasi Absen';
+        $id = $this->session->userdata('userid');
+        $data['penyelia'] = $this->penyelia->getPenyeliaById($id);
+        $kategori = $this->session->userdata('kode_kategori');
+        $data['absenmhs'] = $this->penyelia->getMhsByAbsenMhs($kategori);
+        $data['absenswa'] = $this->penyelia->getMhsByAbsenSwa($kategori);
+        $data['con'] = mysqli_connect('localhost', 'root', '', $this->db->database);
+        $this->load->view('penyelia/template/header', $data);
+        $this->load->view('penyelia/template/sidebar', $data);
+        $this->load->view('penyelia/template/topbar', $data);
+        $this->load->view('penyelia/verifabsen', $data);
         $this->load->view('penyelia/template/footer');
     }
 

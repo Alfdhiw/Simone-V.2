@@ -30,7 +30,7 @@
 
         <select class="form-control shadow" name="status" id="status">
             <option value="0">-- Pilih -- </option>
-            <option value="1">Hadir</option>
+            <option value="4">Hadir</option>
             <option value="2">Ijin</option>
         </select>
     </div>
@@ -39,7 +39,6 @@
         <label for="ijin">Upload Surat Ijin</label>
         <input type="file" class="form-control-file" name="surat_ijin" id="surat_ijin">
         <small class="form-text text-muted">Upload saat akan mengajukan ijin absen</small>
-
     </div>
 
     <input type="hidden" name="tgl_absen" value="<?php date_default_timezone_set('Asia/Jakarta');

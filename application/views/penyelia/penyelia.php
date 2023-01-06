@@ -73,7 +73,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-xl-6 col-md-6 mb-4">
+        <div class="col-xl-4 col-md-6 mb-4">
             <div class="card border-left-info shadow h-100 py-2">
                 <a type="button" data-toggle="modal" data-target="#pendaftarModal" class="card-body">
                     <div class="row no-gutters align-items-center">
@@ -146,6 +146,85 @@
                                                                                     }
                                                                                     if ($us['konfirmasi'] == 1) {
                                                                                         echo '<span class="badge text-light bg-success"><span style="font-size:15px;">Sudah</span></span>';
+                                                                                    }
+                                                                                    ?>
+                                                            </td>
+                                                        </tr>
+                                                    <?php endforeach; ?>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-auto">
+                            <i class="fa-solid fa-angle-right"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-4 col-md-6 mb-4">
+            <div class="card border-left-warning shadow h-100 py-2">
+                <a type="button" data-toggle="modal" data-target="#pendaftarModal" class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="text-md font-weight-bold text-warning text-uppercase mb-3">Total Anggota Magang Yang Menunggu Absen Diverifikasi
+                            </div>
+                            <div class="row no-gutters align-items-center">
+                                <div class="col-auto">
+                                    <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800"><?= $unverifabsen ?> Anggota</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-auto ml-3">
+                            <i class="fas fa-pencil fa-3x text-gray-300"></i>
+                        </div>
+                    </div>
+                </a>
+                <div class="card-footer text-warning">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <a type="button" data-toggle="modal" data-target="#unverifabsenModal" class="text-xs font-weight-bold text-warning text-uppercase mb-1">
+                                View Detail
+                            </a>
+                        </div>
+                        <!-- Modal Total unverifabsen -->
+                        <div class="modal fade" id="unverifabsenModal" tabindex="-1" aria-labelledby="unverifabsenModalLabel" aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-centered">
+                                <div class="modal-content" style="width: 1000px;">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title text-secondary" id="unverifabsenModalLabel"><i class="fas fa-clipboard-list"></i> Total Peserta Yang Belum Diverifikasi</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body text-secondary">
+                                        <div class="table-responsive">
+                                            <table class="table table-hover table-bordered dataunverifabsen" id="dataunverifabsen" width="100%" cellspacing="0">
+                                                <thead class="thead-dark text-center">
+                                                    <tr>
+                                                        <th>Nama Siswa</th>
+                                                        <th>Divisi</th>
+                                                        <th>Absen Masuk</th>
+                                                        <th>Status</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <?php foreach ($unverifabsenuser as $ua) : ?>
+                                                        <tr>
+                                                            <td><b><?= $ua['nama'] ?></b></td>
+                                                            <td><b><?= $ua['divisi'] ?></b></td>
+                                                            <td><b><?= date('j F Y H:i:s', strtotime($ua['tgl_absen'])) ?></b></td>
+                                                            <td class="text-center"><?php
+                                                                                    if ($ua['status'] == 4) {
+                                                                                        echo '<span class="badge text-light bg-danger"><span style="font-size:14px;">Unverif</span></span>';
                                                                                     }
                                                                                     ?>
                                                             </td>

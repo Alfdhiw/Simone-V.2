@@ -184,7 +184,8 @@ class Dashboard_model extends CI_Model
 
     public function getAbsenById($kode_absen)
     {
-        return $this->db->get_where('absensi', ['kode_magang' => $kode_absen])->result_array();
+        $query = "SELECT * FROM absensi where kode_magang = $kode_absen and status != '4' order by absen_id ASC ";
+        return $this->db->query($query)->result_array();
     }
 
     public function getLokerById($id)

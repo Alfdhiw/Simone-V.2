@@ -4,7 +4,7 @@
         <div class="row px-xl-5 pb-3">
             <div class="col-xl-4 col-md-6">
                 <div class="card bg-dark text-white mb-4">
-                    <div class="card-body" style="font-size: 20px; font-weight:500;"><i class="fa-solid fa-boxes-stacked"></i> Data Absen
+                    <div class="card-body" style="font-size: 20px; font-weight:500;"><i class="fa-solid fa-file-pen"></i> Data Absen
                         </br>
                         <h4 class="mx-auto my-auto text-white"><?= $totalabsen ?> Absen</h4>
                     </div>
@@ -60,7 +60,7 @@
             </div>
             <div class="col-xl-4 col-md-6">
                 <div class="card bg-primary text-white mb-4">
-                    <div class="card-body" style="font-size: 20px; font-weight:500;"><i class="fa-solid fa-boxes-stacked"></i> Penilaian Magang
+                    <div class="card-body" style="font-size: 20px; font-weight:500;"><i class="fa-solid fa-star"></i> Penilaian Magang
                         </br>
                         <h5 class="mx-auto my-auto text-white"><?= $totalnilai ?> Penilaian</h5>
                     </div>
@@ -72,7 +72,7 @@
             </div>
             <div class="col-xl-4 col-md-6">
                 <div class="card bg-warning text-white mb-4">
-                    <div class="card-body" style="font-size: 20px; font-weight:500;"><i class="fa-solid fa-arrow-right-arrow-left"></i> sertifikat Magang
+                    <div class="card-body" style="font-size: 20px; font-weight:500;"><i class="fa-solid fa-trophy"></i> sertifikat Magang
                         </br>
                         <?php
                         if ($peserta['sertifikat'] == !null) {

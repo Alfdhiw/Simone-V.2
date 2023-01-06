@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.1.1
+-- version 5.0.4
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 03, 2023 at 03:13 AM
--- Server version: 10.4.22-MariaDB
--- PHP Version: 8.0.15
+-- Generation Time: Jan 06, 2023 at 09:13 AM
+-- Server version: 10.4.17-MariaDB
+-- PHP Version: 8.0.2
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -43,9 +43,11 @@ CREATE TABLE `absensi` (
 --
 
 INSERT INTO `absensi` (`absen_id`, `kode_magang`, `nama`, `tgl_absen`, `jobname`, `kegiatan`, `surat_ijin`, `status`) VALUES
-(1, 1, 'AYU RETNO WULAN DINI ', '2022-11-23 19:33:23', 'IT Enginering', 'Mencoba membuat website', NULL, 1),
+(1, 1, 'AYU RETNO WULAN DINI ', '2022-11-23 19:33:23', 'IT Enginering', 'Mencoba membuat website', NULL, 3),
 (2, 1, 'AYU RETNO WULAN DINI ', '2022-11-24 10:16:52', 'IT Enginering', 'IJIN SAKIT', '221124-ALUR.pdf', 2),
-(3, 1, 'AYU RETNO WULAN DINI ', '2022-11-24 10:17:45', 'IT Enginering', '', NULL, 0);
+(3, 1, 'AYU RETNO WULAN DINI ', '2022-11-24 10:17:45', 'IT Enginering', '', NULL, 0),
+(4, 1, 'AYU RETNO WULAN DINI', '2023-01-05 14:47:12', 'Marketing Officer', '', NULL, 1),
+(5, 1, 'AYU RETNO WULAN DINI', '2023-01-05 14:51:49', 'Marketing Officer', 'hari ini hanya bengong', NULL, 4);
 
 -- --------------------------------------------------------
 
@@ -249,7 +251,7 @@ CREATE TABLE `peserta_magang` (
   `telepon` varchar(20) NOT NULL,
   `foto` varchar(255) NOT NULL,
   `surat_pengantar` varchar(255) NOT NULL,
-  `sertifikat` varchar(255) DEFAULT NULL,
+  `sertifikat` int(11) DEFAULT NULL,
   `email` varchar(255) NOT NULL,
   `password` varchar(150) NOT NULL,
   `status` int(2) NOT NULL,
@@ -259,18 +261,19 @@ CREATE TABLE `peserta_magang` (
   `tingkat_pendidikan` varchar(30) NOT NULL,
   `tgl_daftar` datetime NOT NULL,
   `tgl_terima` datetime DEFAULT NULL,
-  `konfirmasi` int(11) NOT NULL
+  `konfirmasi` int(11) NOT NULL,
+  `absen` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `peserta_magang`
 --
 
-INSERT INTO `peserta_magang` (`kode_magang`, `nama`, `nim`, `jurusan`, `sekolah`, `jeniskel`, `telepon`, `foto`, `surat_pengantar`, `sertifikat`, `email`, `password`, `status`, `idrole`, `is_active`, `kode_kategori`, `tingkat_pendidikan`, `tgl_daftar`, `tgl_terima`, `konfirmasi`) VALUES
-(1, 'AYU RETNO WULAN DINI', 'A22.2020.02824', 'TEKNIK INFORMATIKA', 'UDINUS', 'P', '62895376249050', '221117-A22.2020.02855.jpg', '221117-ALUR.pdf', '221201-certificate.pdf', 'ayu@gmail.com', 'ayu123', 1, 2, 1, 1, 'mahasiswa', '2022-11-21 17:47:19', '2022-11-21 11:46:21', 1),
-(5, 'CANDRA AGUNG PURNOMO', 'A22.2020.02825', 'TEKNIK INFORMATIKA', 'UDINUS', 'L', '62895376249050', '221117-A22_2020_02820.jpg', '221117-ALUR.pdf', NULL, 'tes@gmail.com', 'tes123', 1, 2, 1, 2, 'siswa', '2022-11-21 17:49:29', '2022-11-24 13:51:33', 1),
-(14, 'biyu', 'A22.2020.02821', 'TEKNIK INFORMATIKA', 'UDINUS', 'L', '625757567567757', '221125-avatar1.png', '221125-ALUR1.pdf', NULL, 'biyu@gmail.com', 'biyu123', 1, 2, 1, 3, 'siswa', '2022-11-25 10:27:28', '2022-11-25 11:06:43', 1),
-(15, 'Customer 1', 'A23.2020.02819', 'TEKNIK INFORMATIKA', 'UDINUS', 'P', '6245345353', '221125-pakan.jpg', '221125-ALUR2.pdf', NULL, 'user@gmail.com', '74SHEY39', 2, 2, 1, 3, 'mahasiswa', '2022-11-25 11:08:48', '2022-11-25 11:12:45', 0);
+INSERT INTO `peserta_magang` (`kode_magang`, `nama`, `nim`, `jurusan`, `sekolah`, `jeniskel`, `telepon`, `foto`, `surat_pengantar`, `sertifikat`, `email`, `password`, `status`, `idrole`, `is_active`, `kode_kategori`, `tingkat_pendidikan`, `tgl_daftar`, `tgl_terima`, `konfirmasi`, `absen`) VALUES
+(1, 'AYU RETNO WULAN DINI', 'A22.2020.02824', 'TEKNIK INFORMATIKA', 'UDINUS', 'P', '62895376249050', '221117-A22.2020.02855.jpg', '221117-ALUR.pdf', 1, 'ayu@gmail.com', 'ayu123', 1, 2, 1, 1, 'mahasiswa', '2022-11-21 17:47:19', '2022-11-21 11:46:21', 1, 0),
+(5, 'CANDRA AGUNG PURNOMO', 'A22.2020.02825', 'TEKNIK INFORMATIKA', 'UDINUS', 'L', '62895376249050', '221117-A22_2020_02820.jpg', '221117-ALUR.pdf', NULL, 'tes@gmail.com', 'tes123', 1, 2, 1, 2, 'siswa', '2022-11-21 17:49:29', '2022-11-24 13:51:33', 1, 0),
+(14, 'biyu', 'A22.2020.02821', 'TEKNIK INFORMATIKA', 'UDINUS', 'L', '625757567567757', '221125-avatar1.png', '221125-ALUR1.pdf', NULL, 'biyu@gmail.com', 'biyu123', 1, 2, 1, 3, 'siswa', '2022-11-25 10:27:28', '2022-11-25 11:06:43', 1, 0),
+(15, 'Customer 1', 'A23.2020.02819', 'TEKNIK INFORMATIKA', 'UDINUS', 'P', '6245345353', '221125-pakan.jpg', '221125-ALUR2.pdf', NULL, 'user@gmail.com', '74SHEY39', 2, 2, 1, 3, 'mahasiswa', '2022-11-25 11:08:48', '2022-11-25 11:12:45', 0, 0);
 
 -- --------------------------------------------------------
 
@@ -315,7 +318,8 @@ INSERT INTO `submenu` (`submenuid`, `menuid`, `title`, `url`, `icon`, `is_active
 (25, 11, 'Monitoring', 'penyelia/monitoring', 'fas fa-desktop', 1),
 (26, 11, 'penilaian', 'penyelia/penilaian', 'fas fa-list', 1),
 (27, 10, 'Penilaian ', 'ketua/penilaian', 'fas fa-list', 1),
-(28, 1, 'Jadwal Absen', 'dashboard/jadwal_absen', 'fas fa-calendar', 1);
+(28, 1, 'Jadwal Absen', 'dashboard/jadwal_absen', 'fas fa-calendar', 1),
+(29, 11, 'Verifikasi Absen', 'penyelia/verifabsen', 'fas fa-pen', 1);
 
 -- --------------------------------------------------------
 
@@ -380,7 +384,7 @@ CREATE TABLE `waktu` (
 --
 
 INSERT INTO `waktu` (`id`, `masuk`, `pulang`) VALUES
-(1, '07:30:00', '15:30:00');
+(1, '12:09:00', '15:30:00');
 
 --
 -- Indexes for dumped tables
@@ -472,7 +476,7 @@ ALTER TABLE `waktu`
 -- AUTO_INCREMENT for table `absensi`
 --
 ALTER TABLE `absensi`
-  MODIFY `absen_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `absen_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `job`
@@ -520,7 +524,7 @@ ALTER TABLE `peserta_magang`
 -- AUTO_INCREMENT for table `submenu`
 --
 ALTER TABLE `submenu`
-  MODIFY `submenuid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
+  MODIFY `submenuid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
 
 --
 -- AUTO_INCREMENT for table `user_access_menu`

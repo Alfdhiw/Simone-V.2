@@ -10,11 +10,16 @@
   
   body {
     position: relative;
-    width: 20cm;  
+    width: 21cm;  
     height: 29.7cm; 
     margin: 0 auto; 
     color: #001028;
-    background: #FFFFFF; 
+    background-image: url("./backgroun.png");
+    background-blend-mode: screen;
+    background-position:180px 100px;
+    background-repeat: no-repeat;
+    background-size: 500px 500px;
+    
     font-family: Arial, sans-serif; 
     font-size: 12px; 
     font-family: Arial;
@@ -26,8 +31,28 @@
   }
   
   #logo {
-    text-align: left;
-    margin-bottom: 10px;
+    text-align: center;
+    margin-left: 42px;
+    font-size: 40px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-style:italic;
+    text-decoration: underline;
+    text-decoration-color: #5D6975;
+    color: black;
+  }
+
+  #nomor {
+    text-align: center;
+    margin-left: 42px;
+    font-size: 12px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-style:italic;
+    text-decoration-color: #5D6975;
+    color: black;
+  }
+
+  #logo img {
+    height: 90px;
   }
 
   #kop {
@@ -41,17 +66,19 @@
 
   #cepak {
     text-align: center;
-    font-size: 14px;
-    color: #5D6975;
+    font-size: 15px;
+    font-weight: 600;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    color: black;
     text-transform: capitalize;
     margin-left: 50px;
     margin-right: 0px;
-    margin-bottom: 10px;
+    margin-bottom: 0px;
     margin-top: 0px;
   }
 
   #cepak img {
-    width: 100px;
+    width: 80px;
     border-style: solid;
     border-color: #5D6975;
     border-width: 5px;
@@ -80,22 +107,32 @@
 
   #deskripsi {
     text-align: center;
-    font-size: 12px;
-    color: #5D6975;
+    font-size: 15px;
+    font-weight: 600;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    color: black;
     text-transform: capitalize;
-    margin-left: 50px;
-    margin-right: 0px;
-    margin-bottom: 20px;
   }
 
   #ttd {
-    text-align: right;
+    text-align: center;
     font-size: 12px;
-    color: #5D6975;
+    color: black;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
     text-transform: capitalize;
-    margin-left: 50px;
+    margin-left: 550px;
     margin-right: 0px;
-    margin-bottom: 20px;
+    margin-bottom: 60px;
+  }
+
+  #ketua {
+    text-align: center;
+    font-size: 12px;
+    color: black;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    text-transform: capitalize;
+    margin-left: 550px;
+    margin-right: 0px;
   }
   
   #logo img {
@@ -105,8 +142,9 @@
   h1 {
     text-transform: uppercase;
     text-decoration: underline;
-    color: #5D6975;
-    font-size: 2em;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    color: black;
+    font-size: 3em;
     font-weight: 60px;
     text-align: center;
     margin-top: 0;

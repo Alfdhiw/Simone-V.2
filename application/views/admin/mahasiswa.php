@@ -67,6 +67,10 @@
                                     </td>
                                 </tr>
                                 <tr>
+                                    <td>Penanggung Jawab</td>
+                                    <td><b><?= $info['nama_penyelia'] ?> ( <?= $info['nip'] ?> )</b></td>
+                                </tr>
+                                <tr>
                                     <td>Divisi Magang</td>
                                     <td>
                                         <div class="badge badge-secondary"><b style="font-size: 15px;"><?= $role['divisi'] ?></b></div>

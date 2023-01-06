@@ -97,7 +97,7 @@ class Home extends CI_Controller
     public function sertifikat()
     {
         $id = $this->session->userdata('userid');
-        $data['penyelia'] = $this->home->getPenyeliaById($id);
+        $data['ketua'] = $this->home->getKetua();
         $data['peserta'] = $this->home->getPesertaById($id);
         $data['nilai'] = $this->home->getNilaiById($id);
         $data['disiplin'] = $this->home->getTotalDisiplin($id);
@@ -113,6 +113,8 @@ class Home extends CI_Controller
         // orientasi paper potrait / landscape
         $orientation = "landscape";
         $data['date'] = date('d F Y');
+        $data['nomor'] = date('dmy');
+        $data['tahun'] = date('Y');
         $html = $this->load->view('home/sertifikat_magang', $data, true);
         // $this->load->view('home/sertifikat_magang', $data);
         $this->dompdfgenerator->generate($html, $file_pdf, $paper, $orientation);

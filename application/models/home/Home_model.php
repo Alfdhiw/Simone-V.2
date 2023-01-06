@@ -41,6 +41,12 @@ class Home_model extends CI_Model
         return $this->db->query($query)->row_array();
     }
 
+    public function getKetua()
+    {
+        $query = "SELECT * FROM ketua";
+        return $this->db->query($query)->row_array();
+    }
+
     public function getNilaiById($id)
     {
         return $this->db->get_where('penilaian_detail', ['kode_magang' => $id])->result_array();

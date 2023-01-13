@@ -31,10 +31,10 @@
                                 <td class="text-center">
                                     <img src="<?= base_url('assets/data/peserta/pas_foto/' . $mhs['foto']); ?>" class="img-thumbnail" width="80px" alt="Foto <?= $mhs['nama'] ?>">
                                 </td>
-                                <td><a href="<?= base_url('ketua/datamhs/' . $mhs['kode_magang'])  ?>"><b><?= $mhs['nama']; ?></b> <i class="fa-solid fa-eye"></i></a></td>
-                                <td><b><?= $mhs['sekolah']; ?></b></td>
-                                <td><b><?= $mhs['jurusan']; ?></b></td>
-                                <td><b><?= $mhs['divisi'] ?></b></td>
+                                <td style="text-transform:capitalize;"><a href="<?= base_url('ketua/datamhs/' . $mhs['kode_magang'])  ?>"><b><?= $mhs['nama']; ?></b> <i class="fa-solid fa-eye"></i></a></td>
+                                <td style="text-transform:capitalize;"><b><?= $mhs['sekolah']; ?></b></td>
+                                <td style="text-transform:capitalize;"><b><?= $mhs['jurusan']; ?></b></td>
+                                <td style="text-transform:capitalize;"><b><?= $mhs['divisi'] ?></b></td>
                                 <td class="text-center"><?php
                                                         if ($mhs['status'] == 0) {
                                                             echo '<span class="badge text-light bg-danger"><span style="font-size:15px;">Unverified</span></span>';
@@ -91,10 +91,10 @@
                                 <td class="text-center">
                                     <img src="<?= base_url('assets/data/peserta/pas_foto/' . $swa['foto']); ?>" class="img-thumbnail zoom" width="80px" alt="Foto <?= $swa['nama'] ?>">
                                 </td>
-                                <td><a href="<?= base_url('ketua/datamhs/' . $swa['kode_magang'])  ?>"><b><?= $swa['nama']; ?> <i class="fa-solid fa-eye"></i></b></a></td>
-                                <td><b><?= $swa['sekolah']; ?></b></td>
-                                <td><b><?= $swa['jurusan']; ?></b></td>
-                                <td><b><?= $swa['divisi']; ?></td>
+                                <td style="text-transform:capitalize;"><a href="<?= base_url('ketua/datamhs/' . $swa['kode_magang'])  ?>"><b><?= $swa['nama']; ?> <i class="fa-solid fa-eye"></i></b></a></td>
+                                <td style="text-transform:capitalize;"><b><?= $swa['sekolah']; ?></b></td>
+                                <td style="text-transform:capitalize;"><b><?= $swa['jurusan']; ?></b></td>
+                                <td style="text-transform:capitalize;"><b><?= $swa['divisi']; ?></td>
                                 <td class="text-center"><?php
                                                         if ($swa['status'] == 0) {
                                                             echo '<span class="badge text-light bg-danger"><span style="font-size:15px;">Unverified</span></span>';

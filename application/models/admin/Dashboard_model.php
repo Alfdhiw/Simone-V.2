@@ -137,7 +137,8 @@ class Dashboard_model extends CI_Model
 
     public function getAllMonitor()
     {
-        return $this->db->get('kategori_magang')->result_array();
+        $query = "SELECT d.kode_kategori, d.divisi, p.nama, d.kode_penyelia FROM penyelia p, kategori_magang d where p.kode_kategori = d.kode_kategori and d.status = '1'";
+        return $this->db->query($query)->result_array();
     }
 
     public function getAllPenyelia()

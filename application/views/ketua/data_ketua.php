@@ -27,7 +27,7 @@
                                 <td class="text-center">
                                     <img src="<?= base_url('assets/data/ketua/pas_foto/' . $k['foto']); ?>" class="img-thumbnail zoom" width="80px" alt="Foto <?= $k['nama'] ?>">
                                 </td>
-                                <td><a href="<?= base_url('ketua/detailketua/' . $k['kode_ketua'])  ?>"><b><?= $k['nama']; ?> <i class="fa-solid fa-eye"></i></b></a></td>
+                                <td style="text-transform:capitalize;"><a href="<?= base_url('ketua/detailketua/' . $k['kode_ketua'])  ?>"><b><?= $k['nama']; ?> <i class="fa-solid fa-eye"></i></b></a></td>
                                 <td><b><?= $k['nip']; ?></b></td>
                                 <td class="text-center"><?php
                                                         if ($k['is_active'] == 0) {

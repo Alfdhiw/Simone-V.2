@@ -48,6 +48,24 @@ class Ketua extends CI_Controller
         $this->load->view('ketua/template/footer', $data);
     }
 
+    public function datapelamar()
+    {
+        $kode_id = $this->uri->segment(3);
+        $data['pelamar'] = $this->peserta->getMhsById($kode_id);
+        $data['role'] = $this->peserta->getRoleById($kode_id);
+        $data['session'] = $this->session->userdata('nama');
+        $data['title'] = 'Detail Data';
+        $data['con'] = mysqli_connect('localhost', 'root', '', $this->db->database);
+        $idadm = $this->session->userdata('userid');
+        $data['nama'] = $this->db->get_where('ketua', ['kode_ketua' => $idadm])->row_array();
+
+        $this->load->view('ketua/template/header');
+        $this->load->view('ketua/template/sidebar', $data);
+        $this->load->view('ketua/template/topbar', $data);
+        $this->load->view('ketua/verif_detail', $data);
+        $this->load->view('ketua/template/footer', $data);
+    }
+
     public function edit_profil()
     {
         $data['session'] = $this->session->userdata('nama');

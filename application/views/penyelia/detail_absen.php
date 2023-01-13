@@ -11,84 +11,91 @@
             <?php if ($this->session->flashdata('flash')) {
                 echo '<p class="warning" style="margin: 10px 20px;">' . $this->session->flashdata('flash') . '</p>';
             } ?>
-        </div>
-        <div class="table-responsive">
-            <table class="table table-bordered dataabsen" width="100%" cellspacing="0">
-                <thead class="thead-dark text-center">
-                    <tr>
-                        <th>#</th>
-                        <th>Tanggal</th>
-                        <th>Kegiatan</th>
-                        <th>Surat Ijin</th>
-                        <th>Status</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <?php foreach ($absen as $absen) : ?>
-                        <tr>
-                            <td class="text-center <?php if ($absen['status'] == 1) {
-                                                        echo 'table-success';
-                                                    } else if ($absen['status'] == 2) {
-                                                        echo 'table-warning';
-                                                    } else if ($absen['status'] == 3) {
-                                                        echo 'table-info';
-                                                    } else {
-                                                        echo 'table-danger';
-                                                    } ?>">#</td>
-                            <td class="text-center <?php if ($absen['status'] == 1) {
-                                                        echo 'table-success';
-                                                    } else if ($absen['status'] == 2) {
-                                                        echo 'table-warning';
-                                                    } else if ($absen['status'] == 3) {
-                                                        echo 'table-info';
-                                                    } else {
-                                                        echo 'table-danger';
-                                                    } ?>"><?= date('j F Y H:i:s', strtotime($absen['tgl_absen'])) ?></td>
-                            <td class="<?php if ($absen['status'] == 1) {
-                                            echo 'table-success';
-                                        } else if ($absen['status'] == 2) {
-                                            echo 'table-warning';
-                                        } else if ($absen['status'] == 3) {
-                                            echo 'table-info';
-                                        } else {
-                                            echo 'table-danger';
-                                        } ?>"><?= $absen['kegiatan'] ?></td>
-                            <td class="text-center <?php if ($absen['status'] == 1) {
-                                                        echo 'table-success';
-                                                    } else if ($absen['status'] == 2) {
-                                                        echo 'table-warning';
-                                                    } else if ($absen['status'] == 3) {
-                                                        echo 'table-info';
-                                                    } else {
-                                                        echo 'table-danger';
-                                                    } ?>"><b><?php if ($absen['surat_ijin'] == null) {
-                                                                    echo '<a type="button" class="badge badge-secondary"><span class="text-light" style="font-size:15px;">No Data <i class ="fas fa-exclamation"></i></span></a>';
-                                                                } else {
-                                                                    echo '<a type="button" href="' . base_url('assets/data/peserta/surat_ijin/') . '' . $absen['surat_ijin'] . '" target="_blank" class="btn btn-success"><span style="font-size:15px;">Download File <i class ="text-light fas fa-solid fa-download"> </i></span></a>';
-                                                                } ?> </b>
-                            </td>
-                            <td class="text-center <?php if ($absen['status'] == 1) {
-                                                        echo 'table-success';
-                                                    } else if ($absen['status'] == 2) {
-                                                        echo 'table-warning';
-                                                    } else if ($absen['status'] == 3) {
-                                                        echo 'table-info';
-                                                    } else {
-                                                        echo 'table-danger';
-                                                    } ?>"><b><?php if ($absen['status'] == 0) {
-                                                                    echo '<span class="badge badge-danger"><span style="font-size:15px;">Belum Absen</span></span>';
-                                                                } else if ($absen['status'] == 1) {
-                                                                    echo '<span class="badge badge-success"><span style="font-size:15px;">Sudah Absen</span></span>';
+            <div class="card shadow mb-4">
+                <div class="card-header py-3">
+                    <h6 class="m-0 font-weight-bold text-primary"><i class="fa-regular fa-pen-to-square"></i> Detail Absen</h6>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-bordered dataabsen" width="100%" cellspacing="0">
+                            <thead class="thead-dark text-center">
+                                <tr>
+                                    <th>#</th>
+                                    <th>Tanggal</th>
+                                    <th>Kegiatan</th>
+                                    <th>Surat Ijin</th>
+                                    <th>Status</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <?php foreach ($absen as $absen) : ?>
+                                    <tr>
+                                        <td class="text-center <?php if ($absen['status'] == 1) {
+                                                                    echo 'table-success';
+                                                                } else if ($absen['status'] == 2) {
+                                                                    echo 'table-warning';
                                                                 } else if ($absen['status'] == 3) {
-                                                                    echo '<span class="badge badge-info"><span style="font-size:15px;">Absen Pulang</span></span>';
+                                                                    echo 'table-info';
                                                                 } else {
-                                                                    echo '<span class="badge badge-warning"><span style="font-size:15px;">Ijin Absen</span></span>';
-                                                                } ?></b>
-                            </td>
-                        </tr>
-                    <?php endforeach; ?>
-                </tbody>
-            </table>
+                                                                    echo 'table-danger';
+                                                                } ?>">#</td>
+                                        <td class="text-center <?php if ($absen['status'] == 1) {
+                                                                    echo 'table-success';
+                                                                } else if ($absen['status'] == 2) {
+                                                                    echo 'table-warning';
+                                                                } else if ($absen['status'] == 3) {
+                                                                    echo 'table-info';
+                                                                } else {
+                                                                    echo 'table-danger';
+                                                                } ?>"><?= date('j F Y H:i:s', strtotime($absen['tgl_absen'])) ?></td>
+                                        <td class="<?php if ($absen['status'] == 1) {
+                                                        echo 'table-success';
+                                                    } else if ($absen['status'] == 2) {
+                                                        echo 'table-warning';
+                                                    } else if ($absen['status'] == 3) {
+                                                        echo 'table-info';
+                                                    } else {
+                                                        echo 'table-danger';
+                                                    } ?>"><?= $absen['kegiatan'] ?></td>
+                                        <td class="text-center <?php if ($absen['status'] == 1) {
+                                                                    echo 'table-success';
+                                                                } else if ($absen['status'] == 2) {
+                                                                    echo 'table-warning';
+                                                                } else if ($absen['status'] == 3) {
+                                                                    echo 'table-info';
+                                                                } else {
+                                                                    echo 'table-danger';
+                                                                } ?>"><b><?php if ($absen['surat_ijin'] == null) {
+                                                                                echo '<a type="button" class="badge badge-secondary"><span class="text-light" style="font-size:15px;">No Data <i class ="fas fa-exclamation"></i></span></a>';
+                                                                            } else {
+                                                                                echo '<a type="button" href="' . base_url('assets/data/peserta/surat_ijin/') . '' . $absen['surat_ijin'] . '" target="_blank" class="btn btn-success"><span style="font-size:15px;">Download File <i class ="text-light fas fa-solid fa-download"> </i></span></a>';
+                                                                            } ?> </b>
+                                        </td>
+                                        <td class="text-center <?php if ($absen['status'] == 1) {
+                                                                    echo 'table-success';
+                                                                } else if ($absen['status'] == 2) {
+                                                                    echo 'table-warning';
+                                                                } else if ($absen['status'] == 3) {
+                                                                    echo 'table-info';
+                                                                } else {
+                                                                    echo 'table-danger';
+                                                                } ?>"><b><?php if ($absen['status'] == 0) {
+                                                                                echo '<span class="badge badge-danger"><span style="font-size:15px;">Belum Absen</span></span>';
+                                                                            } else if ($absen['status'] == 1) {
+                                                                                echo '<span class="badge badge-success"><span style="font-size:15px;">Sudah Absen</span></span>';
+                                                                            } else if ($absen['status'] == 3) {
+                                                                                echo '<span class="badge badge-info"><span style="font-size:15px;">Absen Pulang</span></span>';
+                                                                            } else {
+                                                                                echo '<span class="badge badge-warning"><span style="font-size:15px;">Ijin Absen</span></span>';
+                                                                            } ?></b>
+                                        </td>
+                                    </tr>
+                                <?php endforeach; ?>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
     <!-- /.container-fluid -->

@@ -19,7 +19,7 @@
 
                         <!-- Modal Header -->
                         <div class="modal-header">
-                            <h4 class="modal-title">Tambah Lowongan Magang Baru</h4>
+                            <h4 class="modal-title">Tambah Kuota Magang Baru</h4>
                         </div>
 
                         <!-- Modal body -->
@@ -81,7 +81,7 @@
         <!-- DataTales Example -->
         <div class="card shadow mb-4">
             <div class="card-header py-3">
-                <h6 class="m-0 font-weight-bold text-primary"><i class="fas fa-pencil-ruler"></i> List Lowongan Magang</h6>
+                <h6 class="m-0 font-weight-bold text-primary"><i class="fas fa-pencil-ruler"></i> List Kuota Magang</h6>
             </div>
             <div class="card-body">
                 <div class="table-responsive">
@@ -126,7 +126,7 @@
 
                                                     <!-- Modal Header -->
                                                     <div class="modal-header">
-                                                        <h4 class="modal-title">Edit Lowongan Magang</h4>
+                                                        <h4 class="modal-title">Edit Kuota Magang</h4>
                                                     </div>
                                                     <!-- Modal body -->
                                                     <div class="modal-body text-left">

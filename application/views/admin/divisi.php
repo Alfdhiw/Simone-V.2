@@ -25,6 +25,8 @@
                         <div class="modal-body">
                             <div class="form-group">
                                 Nama Divisi: <input type="text" name="divisi" placeholder="Nama Divisi" class="form-control" required><br>
+                                <input type="hidden" name="status" value="1">
+                                <input type="hidden" name="kode_penyelia" value="0">
                             </div>
                         </div>
                         <!-- Modal footer -->
@@ -37,78 +39,84 @@
             </div>
         </div>
     </div>
-</div>
-<!-- Content Row -->
-<div class="row">
-    <div class="col-xl-12 col-md-12 mb-6">
-        <!-- DataTales Example -->
-        <div class="card shadow mb-4">
-            <div class="card-header py-3">
-                <h6 class="m-0 font-weight-bold text-primary"><i class="fas fa-folder"></i> List Lowongan Magang</h6>
-            </div>
-            <div class="card-body">
-                <div class="table-responsive">
-                    <table class="table table-hover table-bordered divisi" id="datadivisi" width="100%" cellspacing="0">
-                        <thead class="thead-dark text-center">
-                            <tr>
-                                <th>#</th>
-                                <th>Nama Divisi</th>
-                                <th>Aksi</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <?php foreach ($divisi as $divisi) : ?>
-                                <tr>
-                                    <td class="text-center">#</td>
-                                    <td class="text-center"><?= $divisi['divisi']; ?></td>
-                                    <td class="text-center">
-                                        <a type="button" class="btn btn-success btn-sm" data-toggle="modal" data-target="#editdivisiModal<?= $divisi['kode_kategori'] ?>"><i class="fa-solid fa-pen-to-square"></i> <span style="font-size:15px;">Kelola</span></a>&ensp;
-                                        <!-- The Modal -->
-                                        <div class="modal fade" id="editdivisiModal<?= $divisi['kode_kategori'] ?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                            <div class="modal-dialog">
-                                                <div class="modal-content">
 
-                                                    <!-- Modal Header -->
-                                                    <div class="modal-header">
-                                                        <h4 class="modal-title">Edit Divisi</h4>
-                                                    </div>
-                                                    <!-- Modal body -->
-                                                    <div class="modal-body text-left">
-                                                        <form action="<?= base_url('dashboard/editdivisi/' . $divisi['kode_kategori']) ?>" method="post">
-                                                            <div class="form-group">
-                                                                Nama Divisi: <input type="text" name="divisi" placeholder="Nama Divisi" class="form-control" required value="<?= $divisi['divisi'] ?>"><br>
-                                                            </div>
-                                                            <!-- Modal footer -->
-                                                            <div class="modal-footer">
-                                                                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-                                                                <button type="submit" class="btn btn-primary" name="addjob">Submit</button>
-                                                            </div>
-                                                        </form>
+    <!-- Content Row -->
+    <div class="row">
+        <div class="col-xl-12 col-md-6 mb-6">
+            <!-- DataTales Example -->
+            <div class="card shadow mb-4">
+                <div class="card-header py-3">
+                    <h6 class="m-0 font-weight-bold text-primary"><i class="fas fa-folder"></i> List Kuota Magang</h6>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-hover table-bordered datadivisi" width="100%" cellspacing="0">
+                            <thead class="thead-dark text-center">
+                                <tr>
+                                    <th>#</th>
+                                    <th>Nama Divisi</th>
+                                    <th>Nama Penanggung Jawab</th>
+                                    <th>Aksi</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <?php foreach ($divisi as $dv) : ?>
+                                    <tr>
+                                        <td class="text-center">#</td>
+                                        <td class="text-center"><?= $dv['divisi']; ?></td>
+                                        <td class="text-center"><?= $dv['nama']; ?></td>
+                                        <td class="text-center">
+                                            <a type="button" class="btn btn-success btn-sm" data-toggle="modal" data-target="#editdivisiModal<?= $dv['kode_kategori'] ?>"><i class="fa-solid fa-pen-to-square"></i> <span style="font-size:15px;">Kelola</span></a>&ensp;
+                                            <!-- The Modal -->
+                                            <div class="modal fade" id="editdivisiModal<?= $dv['kode_kategori'] ?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                <div class="modal-dialog">
+                                                    <div class="modal-content">
+
+                                                        <!-- Modal Header -->
+                                                        <div class="modal-header">
+                                                            <h4 class="modal-title">Edit Divisi</h4>
+                                                        </div>
+                                                        <!-- Modal body -->
+                                                        <div class="modal-body text-left">
+                                                            <form action="<?= base_url('dashboard/editdivisi/' . $dv['kode_kategori']) ?>" method="post">
+                                                                <div class="form-group">
+                                                                    Nama Divisi: <input type="text" name="divisi" placeholder="Nama Divisi" class="form-control" required value="<?= $dv['divisi'] ?>"><br>
+                                                                    Nama Penanggung Jawab: <select name="kode_penyelia" id="kode_penyelia" class="custom-select">
+                                                                        <option value="<?= $dv['kode_penyelia'] ?>"><?= $dv['nama'] ?></option>
+                                                                        <?php
+                                                                        $kode_kategori = $dv['kode_kategori'];
+                                                                        $sql1 = "SELECT * FROM penyelia where kode_kategori = $kode_kategori";
+                                                                        $result1 = mysqli_query($con, $sql1);
+                                                                        // while ($row1 = mysqli_fetch_array($result1))
+                                                                        foreach ($result1 as $rows1) : ?>
+                                                                            <option value="<?= $rows1['kode_penyelia'] ?>"><?= $rows1['nama'] ?></option>
+                                                                        <?php endforeach; ?>
+                                                                    </select>
+                                                                </div>
+                                                                <div class="form-group">
+
+                                                                </div>
+                                                                <!-- Modal footer -->
+                                                                <div class="modal-footer">
+                                                                    <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                                                                    <button type="submit" class="btn btn-primary" name="addjob">Submit</button>
+                                                                </div>
+                                                            </form>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
-                                        </div>
-                                        <a type="button" id="btn-hapus" href="<?= base_url('dashboard/deletedivisi/' . $divisi['kode_kategori']) ?>" class="btn btn-danger btn-sm"><i class="fa-solid fa-trash" style="font-size:15px;"></i> <span style="font-size:15px;">Hapus</span></a>&ensp;
-                                    </td>
-                                </tr>
-                            <?php endforeach; ?>
-                        </tbody>
-                    </table>
+                                            <a type="button" id="btn-hapus" href="<?= base_url('dashboard/deletedivisi/' . $dv['kode_kategori']) ?>" class="btn btn-danger btn-sm"><i class="fa-solid fa-trash" style="font-size:15px;"></i> <span style="font-size:15px;">Hapus</span></a>&ensp;
+                                        </td>
+                                    </tr>
+                                <?php endforeach; ?>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
-<!-- /.container-fluid -->
+    <!-- /.container-fluid -->
 </div>
 <!-- End of Main Content -->
-<script>
-    $(document).ready(function() {
-        $('.dataloker').DataTable({
-            "pageLength": 10,
-            order: [
-                [0, 'desc']
-            ]
-        });
-    });
-</script>

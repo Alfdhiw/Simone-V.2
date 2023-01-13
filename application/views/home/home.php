@@ -6,8 +6,9 @@
                     <div class="row">
                         <div class="col-xl-5 col-lg-5 col-md-5 col-sm-12">
                             <div class="text-bg">
-                                <h1>Sistem Magang Online Pengadilan Negeri Semarang</h1>
-                                <a class="read_more" href="#about"><span class="text-light">Read more</span></a>
+                                <h2 class="text-light mb-3" style="font-size: 40px;"><b>Sistem Magang Online Pengadilan Negeri Semarang</b></h2>
+                                <h5 class="text-light mt-5" style="font-size: 20px;">Simone adalah website untuk aplikasi Pendafataran Magang Online berbasis web di Pengadilan Negeri Semarang. Anda dapat menikmati beberapa fitur yang kami sediakan. antara lain, absensi, nilai, kuota tersedia, sertifikat.</h5>
+                                <a class="read_more mt-3" href="#about"><span class="text-light">Read more</span></a>
                             </div>
                         </div>
                         <div class="col-xl-7 col-lg-7 col-md-7 col-sm-12">
@@ -33,10 +34,13 @@
             </div>
             <div class="col-md-7">
                 <div class="titlepage">
-                    <h2>Apa Itu <span class="blu">Simone ?</span></h2>
+                    <h2>Tentang <span class="blu">Simone </span></h2>
                     <p>Simone adalah website untuk aplikasi Pendafataran Magang Online
                         berbasis web di Pengadilan Negeri Semarang. Anda dapat menikmati beberapa fitur yang kami sediakan.
-                        antara lain, absensi, nilai, kuota tersedia, sertifikat.</p>
+                        antara lain, persyaratan magang, absensi, nilai, kuota tersedia, sertifikat.</p>
+                    <p>Tujuan aplikasi Simone ini sangat membantu Mahasiswa / Siswa yang dari luar kota ingin magang di instansi Pengadilan Negeri
+                        Semarang. Mahasiswa / Siswa tidak perlu datang ke Pengadilan Negeri Semarang untuk mengajukan surat permohonan magang,
+                        cukup mendaftar online lewat website Simone.</p>
                 </div>
             </div>
         </div>

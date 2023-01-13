@@ -56,6 +56,7 @@ class Dashboard extends CI_Controller
 		$data['nama'] = $this->db->get_where('admin', ['kode_admin' => $id])->row_array();
 		$data['con'] = mysqli_connect('localhost', 'root', '', $this->db->database);
 		$data['divisi'] = $this->dashboard->getAllMonitor();
+		$data['penyelia'] = $this->dashboard->getAllPenyelia();
 		$this->load->view('admin/template/header', $data);
 		$this->load->view('admin/template/sidebar', $data);
 		$this->load->view('admin/template/topbar', $data);
@@ -73,6 +74,8 @@ class Dashboard extends CI_Controller
 		} else {
 			$data = [
 				'divisi' => $this->input->post('divisi'),
+				'kode_penyelia' => $this->input->post('kode_penyelia'),
+				'status' => $this->input->post('status'),
 			];
 			$this->db->insert('kategori_magang', $data);
 			$this->session->set_flashdata('flash', '<div class="alert alert-success" role="alert">Divisi Berhasil Ditambahkan!</div>');
@@ -105,7 +108,7 @@ class Dashboard extends CI_Controller
 	public function loker()
 	{
 		$data['session'] = $this->session->userdata('nama');
-		$data['title'] = 'Lowongan Magang';
+		$data['title'] = 'Kuota Magang';
 		$id = $this->session->userdata('userid');
 		$data['nama'] = $this->db->get_where('admin', ['kode_admin' => $id])->row_array();
 		$data['kerja'] = $this->dashboard->getAllDivisi();
@@ -267,6 +270,7 @@ class Dashboard extends CI_Controller
 		$data['session'] = $this->session->userdata('nama');
 
 		$this->db->set('divisi', $this->input->post('divisi'));
+		$this->db->set('kode_penyelia', $this->input->post('kode_penyelia'));
 		$this->db->where('kode_kategori', $id);
 		$this->db->update('kategori_magang');
 		$this->session->set_flashdata('flash', '<div class="alert alert-success" role="alert">Menu Berhasil Diubah!</div>');
@@ -463,7 +467,7 @@ class Dashboard extends CI_Controller
 		$this->form_validation->set_rules('kuota', 'Kuota', 'required');
 
 		if ($this->form_validation->run() == false) {
-			$this->session->set_flashdata('flash', '<div class="alert alert-danger" role="alert">Lowongan Magang Gagal Ditambahkan!</div>');
+			$this->session->set_flashdata('flash', '<div class="alert alert-danger" role="alert">Kuota Magang Gagal Ditambahkan!</div>');
 			redirect('dashboard/loker');
 		} else {
 			$data = [
@@ -477,7 +481,7 @@ class Dashboard extends CI_Controller
 				'kuota' => $this->input->post('kuota')
 			];
 			$this->db->insert('job', $data);
-			$this->session->set_flashdata('flash', '<div class="alert alert-success" role="alert">Lowongan Magang Berhasil Ditambahkan!</div>');
+			$this->session->set_flashdata('flash', '<div class="alert alert-success" role="alert">Kuota Magang Berhasil Ditambahkan!</div>');
 			redirect('dashboard/loker');
 		}
 	}
@@ -494,7 +498,7 @@ class Dashboard extends CI_Controller
 		$this->db->set('status', $this->input->post('status'));
 		$this->db->where('jobid', $id);
 		$this->db->update('job');
-		$this->session->set_flashdata('flash', '<div class="alert alert-success" role="alert">Lowongan Magang Berhasil Diedit!</div>');
+		$this->session->set_flashdata('flash', '<div class="alert alert-success" role="alert">Kuota Magang Berhasil Diedit!</div>');
 		redirect('dashboard/loker');
 	}
 
@@ -571,7 +575,7 @@ class Dashboard extends CI_Controller
 	public function deleteloker($id)
 	{
 		$this->dashboard->deleteLoker($id);
-		$this->session->set_flashdata('flash', '<div class="alert alert-success" role="alert">Lowongan Magang Terhapus!</div>');
+		$this->session->set_flashdata('flash', '<div class="alert alert-success" role="alert">Kuota Magang Terhapus!</div>');
 		redirect('dashboard/loker');
 	}
 

@@ -4,14 +4,14 @@
 <head>
     <meta charset="utf-8">
     <title>Laporan Penilaian Magang Pdf</title>
-    <link href="<?= base_url() ?>assets/css/admin/invoice.css" rel="stylesheet">
+    <link href="<?= base_url() ?>assets/css/admin/sertifikat-custom.css" rel="stylesheet">
 </head>
 
 <body>
     <div class="container-fluid">
         <header class="clearfix">
             <div id="logo">
-                <img src="<?= base_url() ?>assets/img/login/udinus.jpg">
+                <img src="<?= base_url() ?>assets/img/login/pn.png">
             </div>
             <h1>Laporan Penilaian Magang</h1>
             <div id="project">

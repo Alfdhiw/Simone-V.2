@@ -22,6 +22,7 @@
     </div>
 </div>
 <!-- end about -->
+
 <div class="choose mt-5">
     <div class="container">
         <div class="row">
@@ -37,65 +38,96 @@
             echo '<p class="warning" style="margin: 10px 20px;">' . $this->session->flashdata('flash') . '</p>';
         } ?>
         <div class="row">
-
             <div class="col-md-12">
-                <form action="<?= base_url('home/daftarloker') ?>" method="POST" enctype="multipart/form-data">
+                <form class="needs-validation" action="<?= base_url('home/daftarloker') ?>" method="POST" enctype="multipart/form-data" novalidate>
                     <div class="form-row">
                         <div class="form-group col-md-6">
-                            <label for="inputEmail4">Nama</label>
+                            <label for="inputEmail4">Nama<span class="text-danger">*</span></label>
                             <input type="text" class="form-control shadow" id="nama" name="nama" placeholder="Nama Lengkap" style="text-transform:uppercase" required>
+                            <div class="invalid-feedback">
+                                Tolong Lengkapi Nama.
+                            </div>
                         </div>
                         <div class="form-group col-md-6">
-                            <label for="inputPassword4">NIM / NISN</label>
+                            <label for="inputPassword4">NIM / NISN<span class="text-danger">*</span></label>
                             <input type="text" class="form-control shadow" id="nim" name="nim" placeholder="NIM / NISN" required>
+                            <div class="invalid-feedback">
+                                Tolong Lengkapi NIM / NISN.
+                            </div>
                         </div>
                     </div>
                     <div class="form-row">
                         <div class="form-group col-md-12">
-                            <label for="inputPassword4">Email</label>
+                            <label for="inputPassword4">Email<span class="text-danger">*</span></label>
                             <input type="email" class="form-control shadow" id="email" name="email" placeholder="Email Aktif" required>
+                            <div class="invalid-feedback">
+                                Tolong Lengkapi Email.
+                            </div>
                         </div>
                     </div>
                     <div class="form-row">
                         <div class="form-group col-md-6">
-                            <label for="exampleFormControlSelect1">Tingkat Pendidikan</label>
-                            <select class="form-control shadow" id="pendidikan" name="pendidikan">
+                            <label for="exampleFormControlSelect1">Tingkat Pendidikan<span class="text-danger">*</span></label>
+                            <select class="form-control shadow" id="pendidikan" name="pendidikan" required>
+                                <option selected value="" disabled>Pilih Pendidkan</option>
                                 <option value="siswa">Sekolah Menengah Kejuruan</option>
                                 <option value="mahasiswa">Perguruan Tinggi</option>
                             </select>
+                            <div class="invalid-feedback">
+                                Tolong Pilih Pendidikan.
+                            </div>
                         </div>
                         <div class="form-group col-md-6">
-                            <label for="exampleFormControlSelect1">Jenis Kelamin</label>
-                            <select class="form-control shadow" id="jeniskel" name="jeniskel">
+                            <label for="exampleFormControlSelect1">Jenis Kelamin<span class="text-danger">*</span></label>
+                            <select class="form-control shadow" id="jeniskel" name="jeniskel" required>
+                                <option selected value="" disabled>Pilih Jenis Kelamin</option>
                                 <option value="L">Laki-Laki</option>
                                 <option value="P">Perempuan</option>
                             </select>
+                            <div class="invalid-feedback">
+                                Tolong Pilih Jenis Kelamin.
+                            </div>
                         </div>
                     </div>
                     <div class="form-row">
                         <div class="form-group col-md-6">
-                            <label for="inputEmail4">Asal Sekolah</label>
+                            <label for="inputEmail4">Asal Sekolah<span class="text-danger">*</span></label>
                             <input type="text" class="form-control shadow" id="sekolah" name="sekolah" required placeholder="Nama Sekolah" style="text-transform:uppercase">
+                            <div class="invalid-feedback">
+                                Tolong Isi Asal Sekolah.
+                            </div>
                         </div>
                         <div class="form-group col-md-6">
-                            <label for="inputPassword4">Jurusan</label>
+                            <label for="inputPassword4">Jurusan<span class="text-danger">*</span></label>
                             <input type="text" class="form-control shadow" id="jurusan" name="jurusan" required placeholder="Nama Jurusan" style="text-transform:uppercase">
+                            <div class="invalid-feedback">
+                                Tolong Isi Jurusan.
+                            </div>
                         </div>
                     </div>
                     <div class="form-row">
                         <div class="form-group col-md-12">
-                            <label for="telepon">Telepon</label>
+                            <label for="telepon">Telepon<span class="text-danger">*</span></label>
                             <input type="text" class="form-control shadow" id="telepon" min="1" name="telepon" value="62" placeholder="Nomer Aktif" required>
+                            <div class="invalid-feedback">
+                                Tolong Isi Nomer Telp.
+                            </div>
                         </div>
                     </div>
                     <div class="form-row">
                         <div class="form-group col-md-6">
-                            <label for="foto">Foto Resmi 3X4</label>
+                            <label for="foto">Foto Resmi 3X4<span class="text-danger">*</span></label>
                             <input type="file" class="form-control-file" id="foto" name="foto">
+                            <div class="invalid-feedback">
+                                Tolong Upload Foto.
+                            </div>
                         </div>
                         <div class="form-group col-md-6">
-                            <label for="surat">Foto Surat Pengantar</label>
+                            <label for="surat">Foto Surat Pengantar<span class="text-danger">*</span></label>
                             <input type="file" class="form-control-file" id="surat_pengantar" name="surat_pengantar">
+                            <div class="invalid-feedback">
+                                Tolong Upload Surat Pengantar.
+                            </div>
                         </div>
                     </div>
                     <div class="form-row">
@@ -115,7 +147,6 @@
                     <button type="submit" id="confirm" name="confirm" class="btn btn-success">Confirm</button>
                 </form>
             </div>
-
         </div>
     </div>
 </div>

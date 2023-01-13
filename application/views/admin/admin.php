@@ -273,9 +273,9 @@
                                                             <td class="text-center">
                                                                 <img src="<?= base_url('assets/data/peserta/pas_foto/' . $us['foto']); ?>" class="img-thumbnail zoom" width="60px" alt="Foto <?= $us['nama'] ?>">
                                                             </td>
-                                                            <td><b><?= $us['nama'] ?></b></td>
-                                                            <td><b><?= $us['sekolah'] ?></b></td>
-                                                            <td><b><?= $us['divisi'] ?></b></td>
+                                                            <td style="text-transform:capitalize;"><b><?= $us['nama'] ?></b></td>
+                                                            <td style="text-transform:capitalize;"><b><?= $us['sekolah'] ?></b></td>
+                                                            <td style="text-transform:capitalize;"><b><?= $us['divisi'] ?></b></td>
                                                             <td class="text-center"><?php
                                                                                     if ($us['status'] == 0) {
                                                                                         echo '<span class="badge text-light bg-secondary"><span style="font-size:15px;">Unverif</span></span>';
@@ -330,9 +330,9 @@
                                         <td class="text-center">
                                             <img src="<?= base_url('assets/data/peserta/pas_foto/' . $p['foto']); ?>" class="img-thumbnail" width="80px" alt="Foto <?= $p['nama'] ?>">
                                         </td>
-                                        <td><a href="<?= base_url('dashboard/datapelamar/' . $p['kode_magang'])  ?>"><b><?= $p['nama']; ?> <i class="fa-solid fa-eye"></i></b></a></td>
-                                        <td><b><?= $p['sekolah']; ?></b></td>
-                                        <td><b><?= $p['divisi']; ?></b></td>
+                                        <td style="text-transform:capitalize;"><a href="<?= base_url('dashboard/datapelamar/' . $p['kode_magang'])  ?>"><b><?= $p['nama']; ?> <i class="fa-solid fa-eye"></i></b></a></td>
+                                        <td style="text-transform:capitalize;"><b><?= $p['sekolah']; ?></b></td>
+                                        <td style="text-transform:capitalize;"><b><?= $p['divisi']; ?></b></td>
                                         <td><b><?= date('j F Y H:i:s', strtotime($p['tgl_daftar'])) ?></b></td>
                                         <td class="text-center"><?php
                                                                 if ($p['status'] == 0) {

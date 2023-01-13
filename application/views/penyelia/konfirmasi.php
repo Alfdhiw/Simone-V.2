@@ -35,9 +35,9 @@
                                         <td class="text-center">
                                             <img src="<?= base_url('assets/data/peserta/pas_foto/' . $p['foto']); ?>" class="img-thumbnail" width="80px" alt="Foto <?= $p['nama'] ?>">
                                         </td>
-                                        <td><a href="<?= base_url('penyelia/datapelamar/' . $p['kode_magang'])  ?>"><b><?= $p['nama']; ?> <i class="fa-solid fa-eye"></i></b></a></td>
-                                        <td><b><?= $p['sekolah']; ?></b></td>
-                                        <td><b><?= $p['divisi']; ?></b></td>
+                                        <td style="text-transform:capitalize;"><a href="<?= base_url('penyelia/datapelamar/' . $p['kode_magang'])  ?>"><b><?= $p['nama']; ?> <i class="fa-solid fa-eye"></i></b></a></td>
+                                        <td style="text-transform:capitalize;"><b><?= $p['sekolah']; ?></b></td>
+                                        <td style="text-transform:capitalize;"><b><?= $p['divisi']; ?></b></td>
                                         <td class="text-center"><b><?= date('j F Y H:i:s', strtotime($p['tgl_terima'])) ?></b></td>
                                         <td><b><a href="https://wa.me/<?= $p['telepon'] ?>" target="_blank"><?= $p['telepon']; ?> <i class="fa-brands fa-whatsapp"></i></a></b></td>
                                         <td class="text-center"><?php

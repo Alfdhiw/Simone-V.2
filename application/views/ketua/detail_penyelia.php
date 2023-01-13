@@ -17,7 +17,7 @@
                             <table class="table table-hover table-striped table-hover">
                                 <tr>
                                     <td>Nama</td>
-                                    <td><b><?php echo $detail['nama']; ?></b></td>
+                                    <td style="text-transform:capitalize;"><b><?php echo $detail['nama']; ?></b></td>
                                 </tr>
                                 <tr>
                                     <td>NIP</td>

@@ -28,9 +28,9 @@
                                 <td class="text-center">
                                     <img src="<?= base_url('assets/data/penyelia/pas_foto/' . $p['foto']); ?>" class="img-thumbnail zoom" width="80px" alt="Foto <?= $p['nama'] ?>">
                                 </td>
-                                <td><a href="<?= base_url('ketua/detailpenyelia/' . $p['kode_penyelia'])  ?>"><b><?= $p['nama']; ?> <i class="fa-solid fa-eye"></i></b></a></td>
-                                <td><b><?= $p['nip']; ?></b></td>
-                                <td><b><?= $p['divisi']; ?></b></td>
+                                <td style="text-transform:capitalize;"><a href="<?= base_url('ketua/detailpenyelia/' . $p['kode_penyelia'])  ?>"><b><?= $p['nama']; ?> <i class="fa-solid fa-eye"></i></b></a></td>
+                                <td style="text-transform:capitalize;"><b><?= $p['nip']; ?></b></td>
+                                <td style="text-transform:capitalize;"><b><?= $p['divisi']; ?></b></td>
                                 <td class="text-center"><?php
                                                         if ($p['is_active'] == 0) {
                                                             echo '<span class="badge text-light bg-secondary"><span style="font-size:15px;">Mangkir</span></span>';

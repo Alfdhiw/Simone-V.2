@@ -11,7 +11,7 @@
     <div class="container-fluid">
         <header class="clearfix">
             <div id="logo">
-                <img src="<?= base_url() ?>assets/img/login/udinus.jpg">
+                <img src="<?= base_url() ?>assets/img/login/pn.png">
             </div>
             <h1>Laporan Penilaian Magang</h1>
             <div id="project">

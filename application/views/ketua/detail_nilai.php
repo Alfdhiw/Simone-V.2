@@ -3,7 +3,7 @@
     <!-- Page Heading -->
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
         <h1 class="h3 mb-0 text-gray-800" style="font-size: 40px;"><?= $title ?> <?= $nilai['divisi'] ?></h1>
-       
+
     </div>
     <!-- Content Row -->
     <div class="row">
@@ -31,7 +31,7 @@
                             <?php foreach ($detail as $dt) : ?>
                                 <tr>
                                     <td class="text-center"><img src="<?= base_url('assets/data/peserta/pas_foto/' . $dt['foto']); ?>" class="img-thumbnail" width="70px" alt="Foto <?= $dt['nama'] ?>"></td>
-                                    <td><b><?= $dt['nama'] ?></b></td>
+                                    <td style="text-transform:capitalize;"><b><?= $dt['nama'] ?></b></td>
                                     <td class="text-center">
                                         <?php
                                         if ($dt['is_active'] == 0) {

@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <title>Sertifikat Magang</title>
-    <link href="<?= base_url() ?>assets/css/admin/sertifikat.css" rel="stylesheet">
+    <link href="<?= base_url() ?>assets/css/admin/sertifikat_custom.css" rel="stylesheet">
 </head>
 
 

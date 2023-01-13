@@ -30,7 +30,7 @@
 
         <?php endif; ?>
 
-        <form action="" method="post" enctype="multipart/form-data" class="mt-5">
+        <form action="" method="post" enctype="multipart/form-data" class="mt-5 needs-validation" novalidate>
 
 
 
@@ -51,7 +51,10 @@
 
                     <input class="form-control-file" type="file" name="foto" />
 
-                    <input type="hidden" name="gambar_lama" value="<?= $profil['foto'] ?>" />
+                    <input type="hidden" name="gambar_lama" value="<?= $profil['foto'] ?>" required />
+                    <div class="invalid-feedback">
+                        Tolong Lengkapi Data.
+                    </div>
 
                 </div>
             </div>
@@ -63,6 +66,9 @@
                     <label for="nim">NISN / NIM</label>
 
                     <input id="nim" class="form-control shadow" type="text" name="nim" value="<?= $profil['nim'] ?>" required />
+                    <div class="invalid-feedback">
+                        Tolong Lengkapi Data.
+                    </div>
 
                 </div>
             </div>
@@ -74,6 +80,9 @@
                     <label for="nama">Nama Mahasiswa</label>
 
                     <input id="nama" class="form-control shadow" type="text" name="nama" value="<?= $profil['nama'] ?>" required />
+                    <div class="invalid-feedback">
+                        Tolong Lengkapi Data.
+                    </div>
 
                 </div>
 
@@ -92,10 +101,11 @@
                         <option value="L">Laki-Laki</option>
                         <option value="P">Perempuan</option>
                     </select>
+                    <div class="invalid-feedback">
+                        Tolong Lengkapi Data.
+                    </div>
 
                 </div>
-
-
 
             </div>
 
@@ -106,6 +116,9 @@
                     <label for="email">Email</label>
 
                     <input id="email" class="form-control shadow" type="email" name="email" value="<?= $profil['email'] ?>" required />
+                    <div class="invalid-feedback">
+                        Tolong Lengkapi Data.
+                    </div>
 
                 </div>
 
@@ -114,6 +127,9 @@
                     <label for="password">Kata Sandi</label>
 
                     <input id="password" class="input-100 form-control shadow" type="password" name="password" value="<?= $profil['password'] ?>" required />
+                    <div class="invalid-feedback">
+                        Tolong Lengkapi Data.
+                    </div>
 
                 </div>
             </div>
@@ -127,6 +143,9 @@
                     <label for="sekolah">Asal Sekolah</label>
 
                     <input id="sekolah" class="form-control shadow" type="text" name="sekolah" value="<?= $profil['sekolah'] ?>" required />
+                    <div class="invalid-feedback">
+                        Tolong Lengkapi Data.
+                    </div>
 
 
 
@@ -137,6 +156,9 @@
                     <label for="jurusan">Asal Jurusan</label>
 
                     <input id="jurusan" class="form-control shadow" type="jurusan" name="jurusan" value="<?= $profil['jurusan'] ?>" required />
+                    <div class="invalid-feedback">
+                        Tolong Lengkapi Data.
+                    </div>
 
                 </div>
 
@@ -147,6 +169,9 @@
                 <label for="telepon">Nomer Telp/HP.</label>
 
                 <input id="telepon" class="form-control shadow" type="text" name="telepon" value="<?= $profil['telepon'] ?>" required />
+                <div class="invalid-feedback">
+                    Tolong Lengkapi Data.
+                </div>
 
             </div>
 
@@ -173,10 +198,6 @@
                     </div>
                 </div>
             </div>
-
-
         </form>
-
     </div>
-
 </div>

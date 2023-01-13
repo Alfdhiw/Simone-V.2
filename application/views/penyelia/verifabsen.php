@@ -34,8 +34,8 @@
                                         <td class="text-center">
                                             <img src="<?= base_url('assets/data/peserta/pas_foto/' . $abm['foto']); ?>" class="img-thumbnail" width="80px" alt="Foto <?= $abm['nama'] ?>">
                                         </td>
-                                        <td class="text-center"><a href="<?= base_url('penyelia/datamhs/' . $abm['kode_magang'])  ?>"><b><?= $abm['nama']; ?></b> <i class="fa-solid fa-eye"></i></a></td>
-                                        <td class="text-center"><b><?= $abm['divisi']; ?></b></td>
+                                        <td class="text-center" style="text-transform:capitalize;"><a href="<?= base_url('penyelia/datamhs/' . $abm['kode_magang'])  ?>"><b><?= $abm['nama']; ?></b> <i class="fa-solid fa-eye"></i></a></td>
+                                        <td class="text-center" style="text-transform:capitalize;"><b><?= $abm['divisi']; ?></b></td>
                                         <td class="text-center"><b><?= date('j F Y H:i:s', strtotime($abm['tgl_absen'])) ?></b></td>
                                         <td class="text-center"><?php
                                                                 if ($abm['status'] == 4) {
@@ -108,8 +108,8 @@
                                         <td class="text-center">
                                             <img src="<?= base_url('assets/data/peserta/pas_foto/' . $asw['foto']); ?>" class="img-thumbnail zoom" width="80px" alt="Foto <?= $asw['nama'] ?>">
                                         </td>
-                                        <td class="text-center"><a href="<?= base_url('dashboard/datamhs/' . $asw['kode_magang'])  ?>"><b><?= $asw['nama']; ?> <i class="fa-solid fa-eye"></i></b></a></td>
-                                        <td class="text-center"><b><?= $asw['divisi']; ?></b></td>
+                                        <td class="text-center" style="text-transform:capitalize;"><a href="<?= base_url('dashboard/datamhs/' . $asw['kode_magang'])  ?>"><b><?= $asw['nama']; ?> <i class="fa-solid fa-eye"></i></b></a></td>
+                                        <td class="text-center" style="text-transform:capitalize;"><b><?= $asw['divisi']; ?></b></td>
                                         <td class="text-center"><b><?= date('j F Y H:i:s', strtotime($asw['tgl_absen'])) ?></b></td>
                                         <td class="text-center"><?php
                                                                 if ($asw['status'] == 4) {

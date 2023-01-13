@@ -33,7 +33,7 @@
                                         <td class="text-center">
                                             <img src="<?= base_url('assets/data/peserta/pas_foto/' . $mhs['foto']); ?>" class="img-thumbnail" width="80px" alt="Foto <?= $mhs['nama'] ?>">
                                         </td>
-                                        <td><b><?= $mhs['nama']; ?></b></td>
+                                        <td style="text-transform:capitalize;"><b><?= $mhs['nama']; ?></b></td>
                                         <td class="text-center">
                                             <?php
                                             if ($mhs['is_active'] == 0) {
@@ -89,7 +89,7 @@
                                         <td class="text-center">
                                             <img src="<?= base_url('assets/data/peserta/pas_foto/' . $swa['foto']); ?>" class="img-thumbnail" width="80px" alt="Foto <?= $swa['nama'] ?>">
                                         </td>
-                                        <td><b><?= $swa['nama']; ?></b></td>
+                                        <td style="text-transform:capitalize;"><b><?= $swa['nama']; ?></b></td>
                                         <td class="text-center">
                                             <?php
                                             if ($swa['is_active'] == 0) {

@@ -123,7 +123,7 @@ class Penyelia_model extends CI_Model
 
     public function getMhsById($id)
     {
-        $query = "SELECT p. * ,k.divisi from peserta_magang p, kategori_magang k where  p.kode_kategori=k.kode_kategori  and p.kode_magang='" . $id . "'; ";
+        $query = "SELECT p.*,k.divisi, a.nama as nama_penyelia, a.nip from peserta_magang p,kategori_magang k, penyelia a where  p.kode_kategori=k.kode_kategori and a.kode_penyelia = k.kode_penyelia and p.kode_magang='" . $id . "';";
         return $this->db->query($query)->row_array();
     }
 

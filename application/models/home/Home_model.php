@@ -185,7 +185,7 @@ class Home_model extends CI_Model
 
     public function getJobById($loker_id)
     {
-        $query = "SELECT j. * ,p.nama from job j, kategori_magang k where  j.kode_kategori=k.kode_kategori and j.jobid = '" . $loker_id . "'";
+        $query = "SELECT j. * ,k.divisi from job j, kategori_magang k where  j.kode_kategori=k.kode_kategori and j.jobid = '" . $loker_id . "'";
         return $this->db->query($query)->row_array();
     }
 

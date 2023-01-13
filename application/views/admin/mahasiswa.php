@@ -17,7 +17,7 @@
                             <table class="table table-hover table-striped table-hover">
                                 <tr>
                                     <td>Nama</td>
-                                    <td><b><?php echo $info['nama']; ?></b></td>
+                                    <td style="text-transform:capitalize;"><b><?php echo $info['nama']; ?></b></td>
                                 </tr>
                                 <tr>
                                     <td>NISN/NIM</td>
@@ -25,11 +25,11 @@
                                 </tr>
                                 <tr>
                                     <td>Jurusan</td>
-                                    <td><b><?php echo $info['jurusan']; ?></b></td>
+                                    <td style="text-transform:capitalize;"><b><?php echo $info['jurusan']; ?></b></td>
                                 </tr>
                                 <tr>
                                     <td>Asal Sekolah</td>
-                                    <td><b><?php echo $info['sekolah']; ?></b></td>
+                                    <td style="text-transform:capitalize;"><b><?php echo $info['sekolah']; ?></b></td>
                                 </tr>
                                 <tr>
                                     <td>Jenis Kelamin</td>
@@ -68,7 +68,7 @@
                                 </tr>
                                 <tr>
                                     <td>Penanggung Jawab</td>
-                                    <td><b><?= $info['nama_penyelia'] ?> ( <?= $info['nip'] ?> )</b></td>
+                                    <td style="text-transform:capitalize;"><b><?= $info['nama_penyelia'] ?> ( <?= $info['nip'] ?> )</b></td>
                                 </tr>
                                 <tr>
                                     <td>Divisi Magang</td>

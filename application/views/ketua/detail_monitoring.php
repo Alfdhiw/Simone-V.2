@@ -26,7 +26,7 @@
                         <?php foreach ($detail as $dt) : ?>
                             <tr>
                                 <td class="text-center"><img src="<?= base_url('assets/data/peserta/pas_foto/' . $dt['foto']); ?>" class="img-thumbnail" width="70px" alt="Foto <?= $dt['nama'] ?>"></td>
-                                <td><b><?= $dt['nama'] ?></b></td>
+                                <td style="text-transform:capitalize;"><b><?= $dt['nama'] ?></b></td>
                                 <td class="text-center">
                                     <?php
                                     if ($dt['is_active'] == 0) {

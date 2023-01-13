@@ -6,7 +6,7 @@ class DataPeserta_model extends CI_Model
 {
     public function getMhsById($kode_id)
     {
-        $query = "SELECT p.*,k.divisi, a.nama as nama_penyelia, a.nip from peserta_magang p,kategori_magang k, penyelia a where  p.kode_kategori=k.kode_kategori and a.kode_kategori = k.kode_kategori and p.kode_magang='" . $kode_id . "';";
+        $query = "SELECT p.*,k.divisi, a.nama as nama_penyelia, a.nip from peserta_magang p,kategori_magang k, penyelia a where  p.kode_kategori=k.kode_kategori and a.kode_penyelia = k.kode_penyelia and p.kode_magang='" . $kode_id . "';";
         return $this->db->query($query)->row_array();
     }
 

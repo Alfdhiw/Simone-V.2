@@ -96,6 +96,12 @@
 <script src="<?= base_url('assets/') ?>js/admin/datatables/js/dataTables.bootstrap4.min.js"></script>
 <script src="<?= base_url('assets/') ?>js/admin/demo/datatables-demo.js"></script>
 <script type="text/javascript">
+    var auto_refresh = setInterval(
+        function() {
+            $('#load_content').load('').fadeIn('slow');
+        }, 10000);
+</script>
+<script type="text/javascript">
     $(document).ready(function() {
         $("#sidebar").mCustomScrollbar({
             theme: "minimal"
@@ -297,6 +303,35 @@ while ($row1 = mysqli_fetch_array($result1)) {
         });
     });
 </script>
+
+<script>
+    // Example starter JavaScript for disabling form submissions if there are invalid fields
+    (() => {
+        'use strict'
+
+        // Fetch all the forms we want to apply custom Bootstrap validation styles to
+        const forms = document.querySelectorAll('.needs-validation')
+
+        // Loop over them and prevent submission
+        Array.from(forms).forEach(form => {
+            form.addEventListener('submit', event => {
+                if (!form.checkValidity()) {
+                    event.preventDefault()
+                    event.stopPropagation()
+                }
+
+                form.classList.add('was-validated')
+            }, false)
+        })
+    })()
+</script>
+<!-- <script type="text/javascript">
+    $(document).ready(function() {
+        setTimeout(function() {
+            location.reload();
+        }, 500);
+    })
+</script> -->
 <!-- google map js -->
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA8eaHt9Dh5H57Zh0xVTqxVdBFCvFMqFjQ&callback=initMap"></script>
 <!-- end google map js -->

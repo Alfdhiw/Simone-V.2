@@ -34,9 +34,9 @@
                                         <td class="text-center">
                                             <img src="<?= base_url('assets/data/peserta/pas_foto/' . $p['foto']); ?>" class="img-thumbnail zoom" width="80px" alt="Foto <?= $p['nama'] ?>">
                                         </td>
-                                        <td><a href="<?= base_url('dashboard/datapelamar/' . $p['kode_magang'])  ?>"><b><?= $p['nama']; ?> <i class="fa-solid fa-eye"></i></b></a></td>
-                                        <td><b><?= $p['sekolah']; ?></b></td>
-                                        <td><b><?= $p['divisi']; ?></b></td>
+                                        <td style="text-transform:capitalize;"><a href="<?= base_url('dashboard/datapelamar/' . $p['kode_magang'])  ?>"><b><?= $p['nama']; ?> <i class="fa-solid fa-eye"></i></b></a></td>
+                                        <td style="text-transform:capitalize;"><b><?= $p['sekolah']; ?></b></td>
+                                        <td style="text-transform:capitalize;"><b><?= $p['divisi']; ?></b></td>
                                         <td><b><?= date('j F Y H:i:s', strtotime($p['tgl_daftar'])) ?></b></td>
                                         <td class="text-center">
                                             <span><a type="button" class="badge badge-success" data-toggle="modal" data-target="#verifModal<?= $p['kode_magang']; ?>"><i class="fa-solid fa-check"></i> <span style="font-size:15px;">Verif</span></a></span>

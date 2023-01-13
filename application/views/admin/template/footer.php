@@ -212,6 +212,14 @@
             ]
         });
     });
+    $(document).ready(function() {
+        $('.datadivisi').DataTable({
+            "pageLength": 10,
+            order: [
+                [1, 'asc']
+            ]
+        });
+    });
 </script>
 </script>
 

@@ -17,13 +17,12 @@
                 </div>
                 <div class="card-body">
                     <div class="table-responsive">
-                        <table class="table table-hover table-bordered datapelamar" id="datapelamar" width="100%" cellspacing="0">
+                        <table class="table table-hover table-bordered dataverif" id="dataverif" width="100%" cellspacing="0">
                             <thead class="thead-dark text-center">
                                 <tr>
                                     <th>Foto</th>
                                     <th>Nama </th>
                                     <th>Sekolah</th>
-                                    <th>Divisi</th>
                                     <th>Tanggal Daftar</th>
                                     <th>Aksi</th>
                                 </tr>
@@ -36,7 +35,6 @@
                                         </td>
                                         <td style="text-transform:capitalize;"><a href="<?= base_url('dashboard/datapelamar/' . $p['kode_magang'])  ?>"><b><?= $p['nama']; ?> <i class="fa-solid fa-eye"></i></b></a></td>
                                         <td style="text-transform:capitalize;"><b><?= $p['sekolah']; ?></b></td>
-                                        <td style="text-transform:capitalize;"><b><?= $p['divisi']; ?></b></td>
                                         <td><b><?= date('j F Y H:i:s', strtotime($p['tgl_daftar'])) ?></b></td>
                                         <td class="text-center">
                                             <span><a type="button" class="badge badge-success" data-toggle="modal" data-target="#verifModal<?= $p['kode_magang']; ?>"><i class="fa-solid fa-check"></i> <span style="font-size:15px;">Verif</span></a></span>

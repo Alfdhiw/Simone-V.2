@@ -117,16 +117,16 @@
                     <div class="form-row">
                         <div class="form-group col-md-6">
                             <label for="foto">Foto Resmi 3X4<span class="text-danger">*</span></label>
-                            <input type="file" class="form-control-file" id="foto" name="foto">
+                            <input type="file" class="form-control-file" id="foto" name="foto" onchange="validateFileFoto()" required>
                             <div class="invalid-feedback">
-                                Tolong Upload Foto.
+                                Inputan harap diisi.
                             </div>
                         </div>
                         <div class="form-group col-md-6">
                             <label for="surat">Foto Surat Pengantar<span class="text-danger">*</span></label>
-                            <input type="file" class="form-control-file" id="surat_pengantar" name="surat_pengantar">
+                            <input type="file" class="form-control-file" id="surat_pengantar" name="surat_pengantar" oninput="validateFileSurat()" required>
                             <div class="invalid-feedback">
-                                Tolong Upload Surat Pengantar.
+                                Inputan harap diisi.
                             </div>
                         </div>
                     </div>
@@ -144,10 +144,76 @@
                     <input type="hidden" class="form-control" name="password" value="<?= $password ?>">
                     <input type="hidden" class="form-control" name="tgl_daftar" value="<?php date_default_timezone_set('Asia/Jakarta');
                                                                                         echo date('Y-m-d H:i:s'); ?>">
-                    <button type="submit" id="confirm" name="confirm" class="btn btn-success">Confirm</button>
+                    <button type="submit" id="confirm" name="confirm" class="btn btn-success" onclick="validateFile()">Confirm</button>
                 </form>
             </div>
         </div>
     </div>
 </div>
 </div>
+<script>
+    /* javascript function to validate file type */
+    function validateFileFoto() {
+        var inputElement = document.getElementById('foto');
+        var files = inputElement.files;
+        if (files.length > 0) {
+            var filename = files[0].name;
+
+            /* getting file extenstion eg- .jpg,.png, etc */
+            var extension = filename.substr(filename.lastIndexOf("."));
+
+            /* define allowed file types */
+            var allowedExtensionsRegx = /(\.jpg|\.jpeg|\.png)$/i;
+
+            /* testing extension with regular expression */
+            var isAllowed = allowedExtensionsRegx.test(extension);
+
+            if (isAllowed) {
+
+            } else {
+                Swal.fire({
+                    title: 'Invalid File',
+                    text: "Gunakan Ekstensi JPG, PNG, JPEG",
+                    icon: 'error',
+                    showCancelButton: false,
+                    confirmButtonColor: '#57c077',
+                    confirmButtonText: 'Oke'
+                })
+            }
+        }
+    }
+</script>
+<script>
+    /* javascript function to validate file type */
+    function validateFileSurat() {
+        var inputElement = document.getElementById('surat_pengantar');
+        var files = inputElement.files;
+        if (files.length > 0) {
+            var filename = files[0].name;
+
+            /* getting file extenstion eg- .jpg,.png, etc */
+            var extension = filename.substr(filename.lastIndexOf("."));
+
+            /* define allowed file types */
+            var allowedExtensionsRegx = /(\.pdf)$/i;
+
+            /* testing extension with regular expression */
+            var isAllowed = allowedExtensionsRegx.test(extension);
+
+            if (isAllowed) {
+
+            } else {
+                Swal.fire({
+                    title: 'Invalid File',
+                    text: "Gunakan Ekstensi PDF",
+                    icon: 'error',
+                    showCancelButton: false,
+                    confirmButtonColor: '#57c077',
+                    confirmButtonText: 'Oke'
+                })
+            }
+        } else {
+
+        }
+    }
+</script>

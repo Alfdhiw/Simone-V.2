@@ -87,7 +87,7 @@
                         <?php
                         if ($peserta['sertifikat'] == !null) {
 
-                            echo '<a class="large text-white stretched-link" href="' . base_url('home/sertifikat/') . $peserta['kode_magang'] . '" target="_blank">View Details</a>';
+                            echo '<a class="large text-white stretched-link" href="' . base_url('assets/data/peserta/sertifikat/') . $peserta['sertifikat'] . '" target="_blank">View Details</a>';
                         } else {
 
                             echo '<a class="large text-white stretched-link" href="" data-toggle="modal" data-target="#sertifModal">View Details</a>';

@@ -1,0 +1,407 @@
+<?php
+
+defined('BASEPATH') or exit('No direct script access allowed');
+
+class Dashboard_model extends CI_Model
+{
+    public function getAllRole()
+    {
+        return $this->db->get('user_role')->result_array();
+    }
+
+    public function getAllJadwal()
+    {
+        return $this->db->get('waktu')->result_array();
+    }
+
+    public function getAllPeserta()
+    {
+        $query = "SELECT p. *  from peserta_magang p";
+        return $this->db->query($query)->result_array();
+    }
+
+    public function getAllKetua()
+    {
+        $query = "SELECT k. * ,j.kode_kategori, j.divisi from ketua k, kategori_magang j where  k.kode_kategori=j.kode_kategori";
+        return $this->db->query($query)->result_array();
+    }
+
+    public function getAllUnverif()
+    {
+        $query = "SELECT p. * from peserta_magang p where p.status = '0'";
+        return $this->db->query($query)->result_array();
+    }
+
+    public function getAllUnproses()
+    {
+        $query = "SELECT p. * from peserta_magang p where p.status = '2'";
+        return $this->db->query($query)->result_array();
+    }
+
+    public function getPeserta()
+    {
+        $query = "SELECT p. * from peserta_magang p where p.status = '0'";
+        return $this->db->query($query)->result_array();
+    }
+
+    public function getKelompok()
+    {
+        $query = "SELECT p. * from peserta_kelompok p where p.status = '0'";
+        return $this->db->query($query)->result_array();
+    }
+
+    public function getPesertaBerkas()
+    {
+        $query = "SELECT p. *, k.divisi from peserta_magang p, kategori_magang k where k.kode_kategori = p.kode_kategori and p.status = '2'";
+        return $this->db->query($query)->result_array();
+    }
+
+    public function getKelompokBerkas()
+    {
+        $query = "SELECT p. * from peserta_kelompok p where p.status = '2'";
+        return $this->db->query($query)->result_array();
+    }
+
+    public function getPesertaById($kode_nilai)
+    {
+        $query = "SELECT p. * ,k.divisi from peserta_magang p, kategori_magang k where  p.kode_kategori=k.kode_kategori and p.kode_magang ='$kode_nilai'";
+        return $this->db->query($query)->row_array();
+    }
+
+    public function getSekretarisById($id)
+    {
+        $query = "SELECT s. * ,k.divisi from sekretaris s, kategori_magang k where  s.kode_kategori=k.kode_kategori and s.kode_sekretaris='$id'";
+        return $this->db->query($query)->row_array();
+    }
+
+    public function getPesertaVerif()
+    {
+        $query = "SELECT p. * ,k.kode_kategori,k.divisi from peserta_magang p, kategori_magang k  where  p.kode_kategori=k.kode_kategori and p.status = '1'";
+        return $this->db->query($query)->result_array();
+    }
+
+    public function getPesertaTolak()
+    {
+        $query = "SELECT p. * from peserta_magang p  where p.status = '3'";
+        return $this->db->query($query)->result_array();
+    }
+
+    public function getPesertaProses()
+    {
+        $query = "SELECT p. * ,k.kode_kategori,k.divisi from peserta_magang p, kategori_magang k  where  p.kode_kategori=k.kode_kategori and p.status = '2'";
+        return $this->db->query($query)->result_array();
+    }
+
+    public function getRoleById($id)
+    {
+        return $this->db->get_where('user_role', ['idrole' => $id])->row_array();
+    }
+
+    public function countAllPengguna()
+    {
+        $peserta = $this->db->get('peserta_magang')->num_rows();
+        return $peserta;
+    }
+
+    public function countAllUnverif()
+    {
+        $peserta = $this->db->get_where('peserta_magang', ['status' => 0])->num_rows();
+        return $peserta;
+    }
+
+    public function countAllProses()
+    {
+        $peserta = $this->db->get_where('peserta_magang', ['status' => 2])->num_rows();
+        return $peserta;
+    }
+
+    public function countAllMagang()
+    {
+        $query = "SELECT SUM(kuota) AS total from kategori_magang";
+        return $this->db->query($query)->row_array();
+    }
+
+    public function getAllKuota()
+    {
+        $query = "SELECT * from kategori_magang";
+        return $this->db->query($query)->result_array();
+    }
+
+    public function getAllKuotaById($kode_kategori)
+    {
+        $query = "SELECT * from kategori_magang where kode_kategori = $kode_kategori ";
+        return $this->db->query($query)->row_array();
+    }
+
+    public function countAllPenyelia()
+    {
+        $penyelia = $this->db->get('penyelia')->num_rows();
+        return $penyelia;
+    }
+
+    public function countAllSwa($swa)
+    {
+        $query = "SELECT `peserta_magang`.*
+        FROM peserta_magang WHERE tingkat_pendidikan = '$swa' ";
+        return $this->db->query($query)->num_rows();
+    }
+
+    public function countAllLaki($laki)
+    {
+        $query = "SELECT `penyelia`.*
+        FROM penyelia WHERE jeniskel = '$laki' ";
+        return $this->db->query($query)->num_rows();
+    }
+
+    public function countAllCewe($cewe)
+    {
+        $query = "SELECT `penyelia`.*
+        FROM penyelia WHERE jeniskel = '$cewe' ";
+        return $this->db->query($query)->num_rows();
+    }
+
+    public function countAllMhs($mhs)
+    {
+        $query = "SELECT `peserta_magang`.*
+        FROM peserta_magang WHERE tingkat_pendidikan = '$mhs' ";
+        return $this->db->query($query)->num_rows();
+    }
+
+
+    public function deleteRole($id)
+    {
+        $this->db->delete('user_role', ['idrole' => $id]);
+    }
+
+    public function getAllMenu()
+    {
+        return $this->db->get('menu')->result_array();
+    }
+
+    public function getAllDivisi()
+    {
+        $query = "SELECT * from kategori_magang where kategori_magang.kuota != 0";
+        return $this->db->query($query)->result_array();
+    }
+
+    public function getAllLoker()
+    {
+        $query = "SELECT j. * ,p.kode_kategori,p.divisi from kategori_magang p, job j where  p.kode_kategori=j.kode_kategori";
+        return $this->db->query($query)->result_array();
+    }
+
+    public function getAllMonitor()
+    {
+        $query = "SELECT d.kode_kategori, d.divisi, p.nama, d.kode_penyelia FROM penyelia p, kategori_magang d where p.kode_penyelia = d.kode_penyelia and d.status = '1'";
+        return $this->db->query($query)->result_array();
+    }
+
+    public function getAllPenyelia()
+    {
+        $query = "SELECT p. * ,k.divisi from penyelia p, kategori_magang k where  p.kode_kategori=k.kode_kategori";
+        return $this->db->query($query)->result_array();
+    }
+
+    public function getPenyeliaById($kode_id)
+    {
+        $query = "SELECT p. * ,k.divisi from penyelia p, kategori_magang k where  p.kode_kategori=k.kode_kategori and p.kode_penyelia = '" . $kode_id . "';";
+        return $this->db->query($query)->row_array();
+    }
+
+    public function getKetuaById($kode_id)
+    {
+        $query = "SELECT k. *, j.divisi from ketua k, kategori_magang j where  k.kode_kategori = j.kode_kategori and k.kode_ketua = '" . $kode_id . "';";
+        return $this->db->query($query)->row_array();
+    }
+
+    public function getSubMenu()
+    {
+        $query = "SELECT `submenu`.*, `menu`.`menu`
+                    FROM `submenu` JOIN `menu`
+                    ON `submenu`.`menuid` = `menu`.`menuid`
+                    ";
+        return $this->db->query($query)->result_array();
+    }
+
+    public function getMenuById($id)
+    {
+        return $this->db->get_where('menu', ['menuid' => $id])->row_array();
+    }
+
+    public function getDivisiById($id)
+    {
+        return $this->db->get_where('kategori_magang', ['kode_kategori' => $id])->row_array();
+    }
+
+    public function getDivisiByKategori($kode_monitor)
+    {
+        return $this->db->get_where('kategori_magang', ['kode_kategori' => $kode_monitor])->row_array();
+    }
+
+    public function getAbsenById($kode_absen)
+    {
+        $query = "SELECT * FROM absensi where kode_magang = $kode_absen and status != '4' order by absen_id ASC ";
+        return $this->db->query($query)->result_array();
+    }
+
+    public function getLokerById($id)
+    {
+        return $this->db->get_where('job', ['kode_kategori' => $id])->row_array();
+    }
+
+    public function deleteMenu($id)
+    {
+        $this->db->delete('menu', ['menuid' => $id]);
+    }
+
+    public function deleteDivisi($id)
+    {
+        $this->db->delete('kategori_magang', ['kode_kategori' => $id]);
+    }
+
+    public function deleteLoker($id)
+    {
+        $this->db->delete('job', ['jobid' => $id]);
+    }
+
+    public function getSubMenuById($id)
+    {
+        return $this->db->get_where('submenu', ['submenuid' => $id])->row_array();
+    }
+
+    public function deleteSubMenu($id)
+    {
+        $this->db->delete('submenu', ['submenuid' => $id]);
+    }
+
+    public function deleteMhs($id)
+    {
+        $this->db->delete('peserta_magang', ['kode_magang' => $id]);
+    }
+
+    public function deletePenyelia($id)
+    {
+        $this->db->delete('penyelia', ['kode_penyelia' => $id]);
+    }
+
+    public function deleteKetua($id)
+    {
+        $this->db->delete('ketua', ['kode_ketua' => $id]);
+    }
+
+    public function getMhsById($id)
+    {
+        $query = "SELECT p. * ,k.divisi from peserta_magang p, kategori_magang k where  p.kode_kategori=k.kode_kategori  and p.kode_magang='" . $id . "'; ";
+        return $this->db->query($query)->row_array();
+    }
+
+    public function getMonitorById($kode_monitor)
+    {
+        $query = "SELECT p. * ,k.divisi from peserta_magang p, kategori_magang k where  p.kode_kategori=k.kode_kategori  and p.kode_kategori='" . $kode_monitor . "'; ";
+        return $this->db->query($query)->result_array();
+    }
+
+    public function getNilaiById($kode_nilai)
+    {
+        $query = "SELECT p. * ,k.divisi from peserta_magang p, kategori_magang k where  p.kode_kategori=k.kode_kategori  and p.kode_kategori='" . $kode_nilai . "'; ";
+        return $this->db->query($query)->result_array();
+    }
+
+    public function getMhsByKuliah($kuliah)
+    {
+        $query = "SELECT p. * ,k.divisi from peserta_magang p, kategori_magang k where  p.kode_kategori=k.kode_kategori  and p.tingkat_pendidikan='" . $kuliah . "' and p.status='1'; ";
+        return $this->db->query($query)->result_array();
+    }
+
+    public function getSwaBySmk($smk)
+    {
+        $query = "SELECT p. * ,k.divisi from peserta_magang p, kategori_magang k where  p.kode_kategori=k.kode_kategori  and p.tingkat_pendidikan='" . $smk . "' and p.status='1'; ";
+        return $this->db->query($query)->result_array();
+    }
+
+    public function getProfile($id = 0)
+    {
+
+        if ($id < 1) {
+            $id = $this->session->userdata('userid');
+        }
+
+        return $this->db->get_where('sekretaris', ["kode_sekretaris" => $id])->row_array();
+    }
+
+    public function update()
+    {
+
+        $post = $this->input->post();
+
+
+        $this->kode_sekretaris = $post["kode_sekretaris"];
+
+        $this->nama = $post["nama"];
+
+        $this->nip = $post["nip"];
+
+        $this->jeniskel = $post["jeniskel"];
+
+        $this->telepon = $post["telepon"];
+
+        $this->email = $post["email"];
+
+        $this->password = $post['password'];
+
+        if (!empty($_FILES["foto"]["name"])) {
+
+            $this->foto = $this->_uploadImage();
+        } else {
+
+            $this->foto = $post["gambar_lama"];
+        }
+
+        return $this->db->update('sekretaris', $this, array('kode_sekretaris' => $post['kode_sekretaris']));
+    }
+
+    private function _uploadImage()
+    {
+        $date = substr(date('Ymd'), 2, 8);
+
+        $post = $this->input->post();
+
+        $config['upload_path']          = './assets/data/sekretaris/pas_foto/';
+
+        $config['allowed_types']        = 'gif|jpg|png|jpeg';
+
+        $config['file_name']            = $date . '-' . $_FILES['foto']['name'];
+
+        $config['overwrite']            = true;
+
+        $config['max_size']             = 5000; // 1MB
+
+        // $config['max_width']            = 1024;
+
+        // $config['max_height']           = 768;
+
+
+
+        $this->load->library('upload', $config);
+
+
+
+        if ($this->upload->do_upload('foto')) {
+
+            return $this->upload->data("file_name");
+        }
+
+        return base_url('assets/data/sekretaris/pas_foto/') . $post["gambar_lama"];
+    }
+    public function getAllData($from = 0, $to = 0)
+    {
+        $query = "SELECT p. * ,k.divisi from peserta_magang p, kategori_magang k where p.kode_kategori=k.kode_kategori and p.tgl_terima BETWEEN '" . $from . "' and '" . $to . "'";
+        return $this->db->query($query)->result_array();
+    }
+
+    public function getAllDataKelompok($from = 0, $to = 0)
+    {
+        $query = "SELECT p. * from peserta_kelompok p where p.tgl_terima BETWEEN '" . $from . "' and '" . $to . "'";
+        return $this->db->query($query)->result_array();
+    }
+}

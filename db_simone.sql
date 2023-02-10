@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 10, 2023 at 06:27 PM
+-- Generation Time: Feb 10, 2023 at 07:09 AM
 -- Server version: 10.4.22-MariaDB
 -- PHP Version: 8.0.15
 
@@ -43,16 +43,7 @@ CREATE TABLE `absensi` (
 --
 
 INSERT INTO `absensi` (`absen_id`, `kode_magang`, `nama`, `tgl_absen`, `jobname`, `kegiatan`, `surat_ijin`, `status`) VALUES
-(1, 1, 'AYU RETNO WULAN DINI ', '2022-11-23 19:33:23', 'IT Enginering', 'Mencoba membuat website', NULL, 3),
-(2, 1, 'AYU RETNO WULAN DINI ', '2022-11-24 10:16:52', 'IT Enginering', 'IJIN SAKIT', '221124-ALUR.pdf', 2),
-(3, 1, 'AYU RETNO WULAN DINI ', '2022-11-24 10:17:45', 'IT Enginering', '', NULL, 0),
-(4, 1, 'AYU RETNO WULAN DINI', '2023-01-05 14:47:12', 'Marketing Officer', '', NULL, 1),
-(5, 1, 'AYU RETNO WULAN DINI', '2023-01-05 14:51:49', 'Marketing Officer', 'hari ini hanya bengong', NULL, 1),
-(6, 28, 'anggita oktaviana', '2023-01-09 10:06:23', 'Panitera Muda Perdata', '', NULL, 1),
-(7, 30, 'rizqi fajriati', '2023-01-09 13:24:50', 'Panitera Muda Perdata', '', NULL, 4),
-(8, 28, 'anggita oktaviana', '2023-01-09 20:47:55', 'Panitera Muda Perdata', 'membantu staff IT memasukan data', NULL, 3),
-(9, 32, 'Tanaya azka nariswari', '2023-01-10 21:50:42', 'Panitera Muda Perdata', '', NULL, 4),
-(10, 32, 'Tanaya azka nariswari', '2023-01-10 21:53:35', 'Panitera Muda Perdata', 'hahhoo', NULL, 3);
+(11, 35, 'testing', '2023-02-07 18:23:07', 'IT Enginering', '', NULL, 1);
 
 -- --------------------------------------------------------
 
@@ -121,7 +112,8 @@ INSERT INTO `job` (`jobid`, `kode_kategori`, `jobdesc`, `jobstart`, `jobend`, `r
 CREATE TABLE `kategori_magang` (
   `kode_kategori` int(11) NOT NULL,
   `divisi` varchar(150) NOT NULL,
-  `kode_penyelia` int(11) NOT NULL,
+  `kode_penyelia` int(11) DEFAULT NULL,
+  `kuota` int(11) NOT NULL,
   `status` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -129,14 +121,15 @@ CREATE TABLE `kategori_magang` (
 -- Dumping data for table `kategori_magang`
 --
 
-INSERT INTO `kategori_magang` (`kode_kategori`, `divisi`, `kode_penyelia`, `status`) VALUES
-(1, 'Panitera Muda Perdata', 1, 1),
-(2, 'IT Enginering', 2, 1),
-(3, 'Panitera Muda Pidana', 6, 1),
-(6, 'Ketua', 0, 0),
-(7, 'Admin', 0, 0),
-(13, 'Tipikor', 8, 1),
-(14, 'Kepegawaian', 7, 1);
+INSERT INTO `kategori_magang` (`kode_kategori`, `divisi`, `kode_penyelia`, `kuota`, `status`) VALUES
+(1, 'Panitera Muda Perdata', 1, 9, 1),
+(2, 'IT Enginering', 2, 2, 1),
+(3, 'Panitera Muda Pidana', 6, 10, 1),
+(6, 'Ketua', 0, 0, 0),
+(7, 'Admin', 0, 0, 0),
+(13, 'Tipikor', 8, 10, 1),
+(14, 'Kepegawaian', 7, 10, 1),
+(15, 'Sekretaris', 0, 0, 1);
 
 -- --------------------------------------------------------
 
@@ -187,7 +180,10 @@ INSERT INTO `menu` (`menuid`, `menu`) VALUES
 (3, 'Proses'),
 (10, 'Ketua'),
 (11, 'Penyelia'),
-(12, 'Keanggotaan');
+(12, 'Keanggotaan'),
+(13, 'Sekretaris'),
+(14, 'Seleksi'),
+(15, 'Input Data');
 
 -- --------------------------------------------------------
 
@@ -205,19 +201,6 @@ CREATE TABLE `penilaian_detail` (
   `nilai_rata` double NOT NULL,
   `grade` char(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data for table `penilaian_detail`
---
-
-INSERT INTO `penilaian_detail` (`nilai_id`, `tanggal_penilaian`, `kode_magang`, `nilai_disiplin`, `nilai_tanggungjawab`, `nilai_praktek`, `nilai_rata`, `grade`) VALUES
-(1, '2022-11-29', 1, 90, 70, 60, 73, 'B'),
-(2, '2022-12-29', 1, 70, 80, 60, 70, 'B'),
-(3, '2023-01-29', 1, 80, 70, 90, 80, 'A'),
-(4, '2023-02-28', 1, 90, 70, 90, 83, 'A'),
-(5, '2023-03-29', 1, 90, 80, 80, 83, 'A'),
-(8, '2022-12-01', 5, 90, 90, 90, 90, 'A'),
-(9, '2023-01-09', 28, 80, 80, 80, 80, 'A');
 
 -- --------------------------------------------------------
 
@@ -254,6 +237,47 @@ INSERT INTO `penyelia` (`kode_penyelia`, `nama`, `nip`, `jeniskel`, `telepon`, `
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `peserta_kelompok`
+--
+
+CREATE TABLE `peserta_kelompok` (
+  `kode_kelompok` int(11) NOT NULL,
+  `sekolah` varchar(120) NOT NULL,
+  `jurusan` varchar(120) NOT NULL,
+  `surat_pengantar` varchar(120) NOT NULL,
+  `transkip_nilai` varchar(120) NOT NULL,
+  `email_kampus` varchar(120) NOT NULL,
+  `status` int(11) NOT NULL,
+  `tingkat_pendidikan` varchar(120) NOT NULL,
+  `tgl_daftar` datetime NOT NULL,
+  `tgl_terima` date NOT NULL,
+  `nama_1` varchar(120) NOT NULL,
+  `nama_2` varchar(120) NOT NULL,
+  `nama_3` varchar(120) DEFAULT NULL,
+  `nim_1` varchar(120) NOT NULL,
+  `nim_2` varchar(120) NOT NULL,
+  `nim_3` varchar(120) DEFAULT NULL,
+  `email_1` varchar(120) NOT NULL,
+  `email_2` varchar(120) NOT NULL,
+  `email_3` varchar(120) DEFAULT NULL,
+  `telp_1` varchar(120) NOT NULL,
+  `telp_2` varchar(120) NOT NULL,
+  `telp_3` varchar(120) DEFAULT NULL,
+  `jeniskel_1` char(11) NOT NULL,
+  `jeniskel_2` char(11) NOT NULL,
+  `jeniskel_3` char(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `peserta_kelompok`
+--
+
+INSERT INTO `peserta_kelompok` (`kode_kelompok`, `sekolah`, `jurusan`, `surat_pengantar`, `transkip_nilai`, `email_kampus`, `status`, `tingkat_pendidikan`, `tgl_daftar`, `tgl_terima`, `nama_1`, `nama_2`, `nama_3`, `nim_1`, `nim_2`, `nim_3`, `email_1`, `email_2`, `email_3`, `telp_1`, `telp_2`, `telp_3`, `jeniskel_1`, `jeniskel_2`, `jeniskel_3`) VALUES
+(2, 'UDINUS', 'TI', '230207-Undangan_Sosialisasi_Jepang.pdf', '230207-Revisi.pdf', 'januartegar504@gmail.com', 2, 'mahasiswa', '2023-02-07 20:14:07', '2023-02-07', 'ayu', 'ari', '', 'a22.2020.02825', 'a22.2020.0282283', '', 'ayu@gmail.com', 'ari@gmail.com', '', '08955544344', '0986655343434', NULL, 'P', 'L', NULL);
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `peserta_magang`
 --
 
@@ -266,17 +290,19 @@ CREATE TABLE `peserta_magang` (
   `jeniskel` char(2) NOT NULL,
   `telepon` varchar(20) NOT NULL,
   `foto` varchar(255) NOT NULL,
-  `surat_pengantar` varchar(255) NOT NULL,
-  `sertifikat` int(11) DEFAULT NULL,
+  `surat_pengantar` varchar(255) DEFAULT NULL,
+  `transkip_nilai` varchar(120) DEFAULT NULL,
+  `sertifikat` varchar(250) DEFAULT NULL,
   `email` varchar(255) NOT NULL,
+  `email_kampus` varchar(120) DEFAULT NULL,
   `password` varchar(150) NOT NULL,
   `status` int(2) NOT NULL,
   `idrole` int(10) NOT NULL,
   `is_active` int(10) NOT NULL,
-  `kode_kategori` int(11) NOT NULL,
+  `kode_kategori` int(11) DEFAULT NULL,
   `tingkat_pendidikan` varchar(30) NOT NULL,
   `tgl_daftar` datetime NOT NULL,
-  `tgl_terima` datetime DEFAULT NULL,
+  `tgl_terima` date DEFAULT NULL,
   `konfirmasi` int(11) NOT NULL,
   `absen` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
@@ -285,12 +311,37 @@ CREATE TABLE `peserta_magang` (
 -- Dumping data for table `peserta_magang`
 --
 
-INSERT INTO `peserta_magang` (`kode_magang`, `nama`, `nim`, `jurusan`, `sekolah`, `jeniskel`, `telepon`, `foto`, `surat_pengantar`, `sertifikat`, `email`, `password`, `status`, `idrole`, `is_active`, `kode_kategori`, `tingkat_pendidikan`, `tgl_daftar`, `tgl_terima`, `konfirmasi`, `absen`) VALUES
-(1, 'AYU RETNO WULAN DINI', 'A22.2020.02824', 'TEKNIK INFORMATIKA', 'UDINUS', 'P', '62895376249050', '221117-A22.2020.02855.jpg', '221117-ALUR.pdf', 1, 'ayu@gmail.com', 'ayu123', 1, 2, 1, 1, 'mahasiswa', '2022-11-21 17:47:19', '2022-11-21 11:46:21', 1, 0),
-(28, 'anggita oktaviana', 'A22.2020.02817', 'hukum', 'UDINUS', 'P', '6286748593846', '230109-ANGGITA.jpg', '230109-surat_magang.pdf', 1, 'anggita@gmail.com', 'anggita', 1, 2, 1, 1, 'mahasiswa', '2023-01-09 09:54:57', '2023-01-09 10:01:36', 1, 0),
-(31, 'rizqi fajriati', 'A22.2020.02816', 'TEKNIK INFORMATIKA', 'UDINUS', 'P', '6289667498880', '230109-kiki2.png', '230109-surat_magang3.pdf', NULL, 'rizqi@gmail.com', 'rizqi', 1, 2, 1, 2, 'mahasiswa', '2023-01-09 20:22:51', '2023-01-09 21:48:18', 1, 0),
-(32, 'Tanaya azka nariswari', 'A22.2020.02856', 'Hukum', 'UDINUS', 'P', '6289667498880', '230110-girl.png', '230110-surat_magang.pdf', NULL, 'tanaya@gmail.com', 'x2k6ph3f', 1, 2, 1, 1, 'mahasiswa', '2023-01-10 10:15:55', '2023-01-10 10:18:19', 0, 0),
-(33, 'Fakta fidinia', 'A22.2020.02857', 'TEKNIK INFORMATIKA', 'trisakti', 'P', '6289667498880', '230110-girl1.png', '230110-surat_magang1.pdf', NULL, 'fatkafidinia@gmail.com', '5bkjzo1q', 2, 2, 1, 1, 'mahasiswa', '2023-01-10 13:22:21', '2023-01-10 13:30:32', 0, 0);
+INSERT INTO `peserta_magang` (`kode_magang`, `nama`, `nim`, `jurusan`, `sekolah`, `jeniskel`, `telepon`, `foto`, `surat_pengantar`, `transkip_nilai`, `sertifikat`, `email`, `email_kampus`, `password`, `status`, `idrole`, `is_active`, `kode_kategori`, `tingkat_pendidikan`, `tgl_daftar`, `tgl_terima`, `konfirmasi`, `absen`) VALUES
+(35, 'testing', '12345678', 'tkj', 'smkn8', 'P', '628953765434', '230205-selfi_cewek1.jpg', '230205-Revisi1.pdf', '230205-ELS-20-Januari-20231.pdf', NULL, 'tes@gmail.com', 'tumbalgendhon22@gmail.com', 'dc97zwis', 1, 2, 1, 2, 'siswa', '2023-02-05 19:30:08', '2023-02-07', 1, 1),
+(36, 'bagus tri', 'A22.2020.02825', 'informatika', 'udinus', 'L', '62895376249050', '230207-selfi.jpeg', '230207-Jadwal_Ujian_Sertifikasi_Ganjil2022_2023.pdf', '230207-ELS-20-Januari-2023.pdf', NULL, 'bagus@gmail.com', 'tumbalgendhon22@gmail.com', 'pzrqecal', 1, 2, 1, 1, 'siswa', '2023-02-07 12:58:49', '2023-02-07', 1, 0);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `sekretaris`
+--
+
+CREATE TABLE `sekretaris` (
+  `kode_sekretaris` int(11) NOT NULL,
+  `nama` varchar(120) NOT NULL,
+  `nip` varchar(120) NOT NULL,
+  `email` varchar(120) NOT NULL,
+  `password` varchar(120) NOT NULL,
+  `idrole` int(11) NOT NULL,
+  `jeniskel` int(11) NOT NULL,
+  `telepon` varchar(120) NOT NULL,
+  `status` int(11) NOT NULL,
+  `is_active` int(11) NOT NULL,
+  `foto` varchar(120) NOT NULL,
+  `kode_kategori` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `sekretaris`
+--
+
+INSERT INTO `sekretaris` (`kode_sekretaris`, `nama`, `nip`, `email`, `password`, `idrole`, `jeniskel`, `telepon`, `status`, `is_active`, `foto`, `kode_kategori`) VALUES
+(1, 'sekretaris', '3374070205544', 'sekretaris@gmail.com', '12345', 5, 1, '0895376249050', 1, 1, '230205-selfi_cowok.jpeg', 15);
 
 -- --------------------------------------------------------
 
@@ -317,7 +368,7 @@ INSERT INTO `submenu` (`submenuid`, `menuid`, `title`, `url`, `icon`, `is_active
 (3, 1, 'Menu Management', 'dashboard/menu_management', 'fas fa-folder-plus', 1),
 (4, 2, 'Data Peserta Magang', 'dashboard/data_peserta', 'fas fa-user-graduate', 1),
 (5, 2, 'Data Penyelia', 'dashboard/data_penyelia', 'fas fa-user-tie', 1),
-(6, 3, 'Verifikasi Pelamar ', 'dashboard/verif', 'fas fa-user-check', 1),
+(6, 3, 'Verifikasi Pelamar ', 'dashboard/verif', 'fas fa-user-check', 0),
 (7, 3, 'Monitoring', 'dashboard/monitoring', 'fas fa-desktop', 1),
 (8, 3, 'Penilaian', 'dashboard/penilaian', 'fas fa-list', 1),
 (12, 1, 'Kuota Magang', 'dashboard/loker', 'fas fa-pen-ruler', 1),
@@ -330,13 +381,23 @@ INSERT INTO `submenu` (`submenuid`, `menuid`, `title`, `url`, `icon`, `is_active
 (20, 10, 'Data Ketua', 'ketua/data_ketua', 'fas fa-user-secret', 1),
 (21, 10, 'Monitoring', 'ketua/monitoring', 'fas fa-desktop', 1),
 (22, 11, 'Dashboard', 'penyelia', 'fas fa-tachometer-alt', 1),
-(23, 11, 'Konfirmasi Anggota', 'penyelia/konfirmasi', 'fas fa-user-check', 1),
+(23, 11, 'Konfirmasi Anggota', 'penyelia/konfirmasi', 'fas fa-user-check', 0),
 (24, 12, 'Data Anggota', 'penyelia/anggota', 'fas fa-user', 1),
 (25, 11, 'Monitoring', 'penyelia/monitoring', 'fas fa-desktop', 1),
 (26, 11, 'penilaian', 'penyelia/penilaian', 'fas fa-list', 1),
 (27, 10, 'Penilaian ', 'ketua/penilaian', 'fas fa-list', 1),
 (28, 1, 'Jadwal Absen', 'dashboard/jadwal_absen', 'fas fa-calendar', 1),
-(29, 11, 'Verifikasi Absen', 'penyelia/verifabsen', 'fas fa-pen', 1);
+(29, 11, 'Verifikasi Absen', 'penyelia/verifabsen', 'fas fa-pen', 1),
+(30, 13, 'Dashboard', 'sekretaris', 'fas fa-tachometer-alt', 1),
+(31, 13, 'Data Peserta', 'sekretaris/data_peserta', 'fas fa-user-graduate', 1),
+(32, 13, 'Data Penyelia', 'sekretaris/data_penyelia', 'fas fa-user-tie', 1),
+(33, 13, 'Data Ketua', 'sekretaris/data_ketua', 'fas fa-user-tie', 1),
+(34, 14, 'Pendaftar Individu', 'sekretaris/verif', 'fas fa-user-check', 1),
+(35, 13, 'Histori Pelamar', 'sekretaris/histori', 'fas fa-clock', 1),
+(36, 14, 'Konfirmasi Berkas', 'sekretaris/berkas', 'fas fa-folder-open', 1),
+(37, 14, 'Pendaftar Kelompok', 'sekretaris/verif_kelompok', 'fas fa-users', 1),
+(38, 13, 'Data Peserta Kelompok', 'sekretaris/kelompok', 'fas fa-users', 1),
+(39, 15, 'Input Peserta', 'sekretaris/daftarindividu', 'fas fa-pencil', 1);
 
 -- --------------------------------------------------------
 
@@ -361,7 +422,10 @@ INSERT INTO `user_access_menu` (`id`, `roleid`, `menuid`) VALUES
 (11, 1, 3),
 (14, 3, 10),
 (15, 4, 11),
-(16, 4, 12);
+(16, 4, 12),
+(22, 5, 13),
+(25, 5, 14),
+(26, 5, 15);
 
 -- --------------------------------------------------------
 
@@ -382,7 +446,8 @@ INSERT INTO `user_role` (`idrole`, `role`) VALUES
 (1, 'Admin'),
 (2, 'Peserta Magang'),
 (3, 'Ketua'),
-(4, 'Penyelia');
+(4, 'Penyelia'),
+(5, 'Sekretaris');
 
 -- --------------------------------------------------------
 
@@ -456,10 +521,22 @@ ALTER TABLE `penyelia`
   ADD PRIMARY KEY (`kode_penyelia`);
 
 --
+-- Indexes for table `peserta_kelompok`
+--
+ALTER TABLE `peserta_kelompok`
+  ADD PRIMARY KEY (`kode_kelompok`);
+
+--
 -- Indexes for table `peserta_magang`
 --
 ALTER TABLE `peserta_magang`
   ADD PRIMARY KEY (`kode_magang`);
+
+--
+-- Indexes for table `sekretaris`
+--
+ALTER TABLE `sekretaris`
+  ADD PRIMARY KEY (`kode_sekretaris`);
 
 --
 -- Indexes for table `submenu`
@@ -493,7 +570,7 @@ ALTER TABLE `waktu`
 -- AUTO_INCREMENT for table `absensi`
 --
 ALTER TABLE `absensi`
-  MODIFY `absen_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `absen_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT for table `job`
@@ -505,7 +582,7 @@ ALTER TABLE `job`
 -- AUTO_INCREMENT for table `kategori_magang`
 --
 ALTER TABLE `kategori_magang`
-  MODIFY `kode_kategori` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+  MODIFY `kode_kategori` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 
 --
 -- AUTO_INCREMENT for table `ketua`
@@ -517,7 +594,7 @@ ALTER TABLE `ketua`
 -- AUTO_INCREMENT for table `menu`
 --
 ALTER TABLE `menu`
-  MODIFY `menuid` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `menuid` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- AUTO_INCREMENT for table `penilaian_detail`
@@ -529,31 +606,43 @@ ALTER TABLE `penilaian_detail`
 -- AUTO_INCREMENT for table `penyelia`
 --
 ALTER TABLE `penyelia`
-  MODIFY `kode_penyelia` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `kode_penyelia` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+
+--
+-- AUTO_INCREMENT for table `peserta_kelompok`
+--
+ALTER TABLE `peserta_kelompok`
+  MODIFY `kode_kelompok` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `peserta_magang`
 --
 ALTER TABLE `peserta_magang`
-  MODIFY `kode_magang` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
+  MODIFY `kode_magang` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=39;
+
+--
+-- AUTO_INCREMENT for table `sekretaris`
+--
+ALTER TABLE `sekretaris`
+  MODIFY `kode_sekretaris` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `submenu`
 --
 ALTER TABLE `submenu`
-  MODIFY `submenuid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
+  MODIFY `submenuid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=40;
 
 --
 -- AUTO_INCREMENT for table `user_access_menu`
 --
 ALTER TABLE `user_access_menu`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
 
 --
 -- AUTO_INCREMENT for table `user_role`
 --
 ALTER TABLE `user_role`
-  MODIFY `idrole` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
+  MODIFY `idrole` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
 
 --
 -- AUTO_INCREMENT for table `waktu`

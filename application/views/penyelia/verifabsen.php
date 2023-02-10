@@ -130,7 +130,7 @@
                                             <span aria-hidden="true">&times;</span>
                                         </button>
                                     </div>
-                                    <form action="<?= base_url('penyelia/confirm/' . $asw['absen_id']) ?>" method="POST">
+                                    <form action="<?= base_url('penyelia/verifconfirm/' . $asw['absen_id']) ?>" method="POST">
                                         <div class="modal-body">
                                             Apakah siswa telah hadir di tempat kerja? jika iya klik 'confirm'
                                             <input type='hidden' name="status" id="status" value="1" />

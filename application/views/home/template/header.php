@@ -18,7 +18,7 @@
     <!-- bootstrap css -->
     <link rel="stylesheet" href="<?= base_url() ?>assets/css/home/bootstrap.min.css">
     <!-- style css -->
-    <link rel="stylesheet" href="<?= base_url() ?>assets/css/home/home.css">
+    <link rel="stylesheet" href="<?= base_url() ?>assets/css/home/homecustom.css">
     <!-- Responsive-->
     <link rel="stylesheet" href="<?= base_url() ?>assets/css/home/responsive.css">
     <!-- fevicon -->
@@ -29,6 +29,7 @@
     <!-- Tweaks for older IEs-->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+    <link href="<?= base_url('assets/') ?>js/admin/sweetalert2.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.5/jquery.fancybox.min.css" media="screen">
     <!--[if lt IE 9]>
       <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>

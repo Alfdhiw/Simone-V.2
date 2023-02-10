@@ -34,10 +34,10 @@
                                         <td class="text-center">
                                             <img src="<?= base_url('assets/data/peserta/pas_foto/' . $t['foto']); ?>" class="img-thumbnail zoom" width="80px" alt="Foto <?= $t['nama'] ?>">
                                         </td>
-                                        <td><a href="<?= base_url('dashboard/datapelamar/' . $t['kode_magang'])  ?>"><b><?= $t['nama']; ?> <i class="fa-solid fa-eye"></i></b></a></td>
+                                        <td class="text-center"><a href="<?= base_url('dashboard/datapelamar/' . $t['kode_magang'])  ?>"><b><?= $t['nama']; ?> <i class="fa-solid fa-eye"></i></b></a></td>
                                         <td class="text-center"><b><?= $t['sekolah']; ?></b></td>
                                         <td class="text-center"><b><?= $t['divisi']; ?></b></td>
-                                        <td class="text-center"><b><?= date('j F Y H:i:s', strtotime($t['tgl_terima'])) ?></b></td>
+                                        <td class="text-center"><b><?= date('j F Y', strtotime($t['tgl_terima'])) ?></b></td>
                                         <td class="text-center"><?php
                                                                 if ($t['status'] == 0) {
                                                                     echo '<span class="badge text-light bg-secondary"><span style="font-size:15px;">Unverified</span></span>';
@@ -79,16 +79,65 @@
                                         <td class="text-center">
                                             <img src="<?= base_url('assets/data/peserta/pas_foto/' . $tolak['foto']); ?>" class="img-thumbnail zoom" width="80px" alt="Foto <?= $tolak['nama'] ?>">
                                         </td>
-                                        <td><a href="<?= base_url('dashboard/datapelamar/' . $tolak['kode_magang'])  ?>"><b><?= $tolak['nama']; ?> <i class="fa-solid fa-eye"></i></b></a></td>
-                                        <td><b><?= $tolak['sekolah']; ?></b></td>
-                                        <td><b><?= $tolak['divisi']; ?></b></td>
-                                        <td class="text-center"><b><?= date('j F Y H:i:s', strtotime($tolak['tgl_terima'])) ?></b></td>
+                                        <td class="text-center"><a href="<?= base_url('dashboard/datapelamar/' . $tolak['kode_magang'])  ?>"><b><?= $tolak['nama']; ?> <i class="fa-solid fa-eye"></i></b></a></td>
+                                        <td class="text-center"><b><?= $tolak['sekolah']; ?></b></td>
+                                        <td class="text-center"><b>
+                                                <div class="badge badge-secondary">No Data !</div>
+                                            </b></td>
+                                        <td class="text-center"><b><?= date('j F Y', strtotime($tolak['tgl_terima'])) ?></b></td>
                                         <td class="text-center"><?php
                                                                 if ($tolak['status'] == 0) {
                                                                     echo '<span class="badge text-light bg-secondary"><span style="font-size:15px;">Unverified</span></span>';
                                                                 }
                                                                 if ($tolak['status'] == 1) {
                                                                     echo '<span class="badge text-light bg-success"><span style="font-size:15px;">Diterima</span></span>';
+                                                                } else {
+                                                                    echo '<span class="badge text-light bg-danger"><span style="font-size:15px;">Ditolak</span></span>';
+                                                                }
+                                                                ?></td>
+                                    </tr>
+                                <?php endforeach; ?>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="card shadow mb-4">
+                <div class="card-header py-3">
+                    <h6 class="m-0 font-weight-bold text-primary"><i class="fas fa-user-xmark"></i> List Peserta Yang Diproses</h6>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-hover table-bordered dataproses" id="dataproses" width="100%" cellspacing="0">
+                            <thead class="thead-dark text-center">
+                                <tr>
+                                    <th>Foto</th>
+                                    <th>Nama </th>
+                                    <th>Sekolah</th>
+                                    <th>Divisi</th>
+                                    <th>Tanggal Ditolak</th>
+                                    <th>Status</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <?php foreach ($proses as $proses) : ?>
+                                    <tr>
+                                        <td class="text-center">
+                                            <img src="<?= base_url('assets/data/peserta/pas_foto/' . $proses['foto']); ?>" class="img-thumbnail zoom" width="80px" alt="Foto <?= $proses['nama'] ?>">
+                                        </td>
+                                        <td class="text-center"><a href="<?= base_url('dashboard/datapelamar/' . $proses['kode_magang'])  ?>"><b><?= $proses['nama']; ?> <i class="fa-solid fa-eye"></i></b></a></td>
+                                        <td class="text-center"><b><?= $proses['sekolah']; ?></b></td>
+                                        <td class="text-center"><b><?= $proses['divisi']; ?></b></td>
+                                        <td class="text-center"><b><?= date('j F Y', strtotime($proses['tgl_terima'])) ?></b></td>
+                                        <td class="text-center"><?php
+                                                                if ($proses['status'] == 0) {
+                                                                    echo '<span class="badge text-light bg-secondary"><span style="font-size:15px;">Unverified</span></span>';
+                                                                }
+                                                                if ($proses['status'] == 1) {
+                                                                    echo '<span class="badge text-light bg-success"><span style="font-size:15px;">Diterima</span></span>';
+                                                                }
+                                                                if ($proses['status'] == 2) {
+                                                                    echo '<span class="badge text-light bg-warning"><span style="font-size:15px;">Menunggu Berkas</span></span>';
                                                                 } else {
                                                                     echo '<span class="badge text-light bg-danger"><span style="font-size:15px;">Ditolak</span></span>';
                                                                 }

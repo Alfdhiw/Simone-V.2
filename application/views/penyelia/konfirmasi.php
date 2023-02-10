@@ -49,32 +49,38 @@
                                                                 }
                                                                 ?></td>
                                     </tr>
+                                    <!-- Modal Konfirmasi -->
+                                    <div class="modal fade" id="konfirmasiModal" tabindex="-1" aria-labelledby="konfirmasiModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="konfirmasiModalLabel">Konfirmasi Anggota</h5>
+                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                        <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                </div>
+                                                <form action="<?= base_url('penyelia/confirm/' . $p['kode_magang']) ?>" method="POST">
+                                                    <div class="modal-body">
+                                                        Peserta Akan Dikonfirmasi Diterima Melalui Email.
+                                                        <input type='hidden' name="konfirmasi" id="konfirmasi" value="1" />
+                                                        <input type='hidden' name="email" id="email" value="<?= $p['email'] ?>" />
+                                                        <input type='hidden' name="nama" id="nama" value="<?= $p['nama'] ?>" />
+                                                        <input type='hidden' name="divisi" id="divisi" value="<?= $p['divisi'] ?>" />
+                                                        <input type='hidden' name="password" id="password" value="<?= $p['password'] ?>" />
+
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                                        <button type="submit" class="btn btn-success">Confirm</button>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
                                 <?php endforeach; ?>
                             </tbody>
                         </table>
-                        <!-- Modal Konfirmasi -->
-                        <div class="modal fade" id="konfirmasiModal" tabindex="-1" aria-labelledby="konfirmasiModalLabel" aria-hidden="true">
-                            <div class="modal-dialog">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <h5 class="modal-title" id="konfirmasiModalLabel">Konfirmasi Anggota</h5>
-                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                            <span aria-hidden="true">&times;</span>
-                                        </button>
-                                    </div>
-                                    <form action="<?= base_url('penyelia/confirm/' . $p['kode_magang']) ?>" method="POST">
-                                        <div class="modal-body">
-                                            Apakah Peserta telah dihubungi lewat wa? Jika sudah klik tombol "Confirm" untuk konfirmasi data Anggota
-                                            <input type='hidden' name="konfirmasi" id="konfirmasi" value="1" />
-                                        </div>
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                            <button type="submit" class="btn btn-success">Confirm</button>
-                                        </div>
-                                    </form>
-                                </div>
-                            </div>
-                        </div>
+
                     </div>
                 </div>
             </div>

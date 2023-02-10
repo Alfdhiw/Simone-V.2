@@ -4,6 +4,16 @@
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
         <h1 class="h3 mb-0 text-gray-800" style="font-size: 40px;">Dashboard</h1>
     </div>
+    <div class="row">
+        <div class="col-xl-12 col-md-6 mb-6">
+            <div class="alert alert-info alert-dismissible fade show" role="alert">
+                Selamat Datang <strong><?= $session ?></strong>
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+        </div>
+    </div>
     <!-- Content Row -->
     <div class="row">
         <!-- Card Total Mahasiswa -->
@@ -116,9 +126,8 @@
                                                         <th>Foto</th>
                                                         <th>Nama</th>
                                                         <th>Sekolah</th>
-                                                        <th>Divisi</th>
+                                                        <th>Jurusan</th>
                                                         <th>Status</th>
-                                                        <th>Konfirmasi</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
@@ -128,24 +137,12 @@
                                                             <td class="text-center">
                                                                 <img src="<?= base_url('assets/data/peserta/pas_foto/' . $us['foto']); ?>" class="img-thumbnail zoom" width="60px" alt="Foto <?= $us['nama'] ?>">
                                                             </td>
-                                                            <td style="text-transform:capitalize;"><b><?= $us['nama'] ?></b></td>
-                                                            <td style="text-transform:capitalize;"><b><?= $us['sekolah'] ?></b></td>
-                                                            <td style="text-transform:capitalize;"><b><?= $us['divisi'] ?></b></td>
+                                                            <td class="text-center" style="text-transform:capitalize;"><b><?= $us['nama'] ?></b></td>
+                                                            <td class="text-center" style="text-transform:capitalize;"><b><?= $us['sekolah'] ?></b></td>
+                                                            <td class="text-center" style="text-transform:capitalize;"><b><?= $us['jurusan'] ?></b></td>
                                                             <td class="text-center"><?php
-                                                                                    if ($us['status'] == 0) {
-                                                                                        echo '<span class="badge text-light bg-secondary"><span style="font-size:15px;">Unverif</span></span>';
-                                                                                    }
-                                                                                    if ($us['status'] == 1) {
-                                                                                        echo '<span class="badge text-light bg-success"><span style="font-size:15px;">Diterima</span></span>';
-                                                                                    }
-                                                                                    ?>
-                                                            </td>
-                                                            <td class="text-center"><?php
-                                                                                    if ($us['konfirmasi'] == 0) {
-                                                                                        echo '<span class="badge text-light bg-danger"><span style="font-size:15px;">Belum</span></span>';
-                                                                                    }
-                                                                                    if ($us['konfirmasi'] == 1) {
-                                                                                        echo '<span class="badge text-light bg-success"><span style="font-size:15px;">Sudah</span></span>';
+                                                                                    if ($us['status'] == 2) {
+                                                                                        echo '<span class="badge text-light bg-warning"><span style="font-size:15px;">Belum Diverifikasi</span></span>';
                                                                                     }
                                                                                     ?>
                                                             </td>
@@ -278,11 +275,11 @@
                                         <td class="text-center">
                                             <img src="<?= base_url('assets/data/peserta/pas_foto/' . $p['foto']); ?>" class="img-thumbnail" width="80px" alt="Foto <?= $p['nama'] ?>">
                                         </td>
-                                        <td style="text-transform:capitalize;"><a href="<?= base_url('penyelia/datapelamar/' . $p['kode_magang'])  ?>"><b><?= $p['nama']; ?> <i class="fa-solid fa-eye"></i></b></a></td>
-                                        <td style="text-transform:capitalize;"><b><?= $p['sekolah']; ?></b></td>
-                                        <td style="text-transform:capitalize;"><b><?= $p['divisi']; ?></b></td>
-                                        <td><b><?= date('j F Y H:i:s', strtotime($p['tgl_daftar'])) ?></b></td>
-                                        <td><b><?= date('j F Y H:i:s', strtotime($p['tgl_terima'])) ?></b></td>
+                                        <td class="text-center" style="text-transform:capitalize;"><a href="<?= base_url('penyelia/datapelamar/' . $p['kode_magang'])  ?>"><b><?= $p['nama']; ?> <i class="fa-solid fa-eye"></i></b></a></td>
+                                        <td class="text-center" style="text-transform:capitalize;"><b><?= $p['sekolah']; ?></b></td>
+                                        <td class="text-center" style="text-transform:capitalize;"><b><?= $p['divisi']; ?></b></td>
+                                        <td class="text-center"><b><?= date('j F Y', strtotime($p['tgl_daftar'])) ?></b></td>
+                                        <td class="text-center"><b><?= date('j F Y', strtotime($p['tgl_terima'])) ?></b></td>
                                         <td class="text-center"><?php
                                                                 if ($p['status'] == 0) {
                                                                     echo '<span class="badge text-light bg-secondary"><span style="font-size:15px;">Unverified</span></span>';

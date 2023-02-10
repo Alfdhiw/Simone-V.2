@@ -67,10 +67,6 @@
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td>Penanggung Jawab</td>
-                                    <td style="text-transform:capitalize;"><b><?= $pelamar['nama_penyelia'] ?> ( <?= $pelamar['nip'] ?> )</b></td>
-                                </tr>
-                                <tr>
                                     <td>Divisi Magang</td>
                                     <td>
                                         <div class="badge badge-secondary"><b style="font-size: 15px;"><?= $role['divisi'] ?></b></div>
@@ -83,17 +79,6 @@
                                             echo '<b><span class="badge badge-success" style="font-size:15px;"><b>Telah Diverifikasi</b></span>';
                                         } else {
                                             echo '<span class="badge badge-danger" style="background-color:danger;"><b>Belum Diverifikasi</b></span>';
-                                        }
-                                        ?>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>Status Magang</td>
-                                    <td><?php
-                                        if ($pelamar['is_active'] == 1) {
-                                            echo '<b><span class="badge badge-success" style="font-size:15px;"><b>Aktif</b></span>';
-                                        } else {
-                                            echo '<span class="badge badge-danger" style="background-color:danger;"><b>Mangkir</b></span>';
                                         }
                                         ?>
                                     </td>

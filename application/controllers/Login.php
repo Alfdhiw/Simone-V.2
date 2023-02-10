@@ -109,6 +109,22 @@ class Login extends CI_Controller
 							$this->session->set_flashdata('message', '<div class="alert alert-danger" style="color:red;" role="alert">' . 'Akun anda belum aktif, silahkan hubungi admin.' . '</div>');
 							redirect('login');
 						}
+					} elseif ($data->idrole == 5) {
+
+						if ($data->is_active == 1) {
+							$this->CI->session->set_userdata('userid', $data->kode);
+							$this->CI->session->set_userdata('username', $data->username);
+							$this->CI->session->set_userdata('nama', $data->nama);
+							$this->CI->session->set_userdata('foto', $data->foto);
+							$this->CI->session->set_userdata('email', $data->email);
+							$this->CI->session->set_userdata('kode_kategori', $data->kode_kategori);
+							$this->CI->session->set_userdata('role_id', 5);
+							$this->CI->session->set_userdata('logged_in', true);
+							redirect('sekretaris');
+						} else {
+							$this->session->set_flashdata('message', '<div class="alert alert-danger" style="color:red;" role="alert">' . 'Akun anda belum aktif, silahkan hubungi admin.' . '</div>');
+							redirect('login');
+						}
 					}
 				} else {
 					$this->session->set_flashdata('message', '<div class="alert alert-danger" style="color:red;" role="alert">Akun Login Salah</div>');

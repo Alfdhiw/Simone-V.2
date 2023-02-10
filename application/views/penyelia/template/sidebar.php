@@ -12,7 +12,7 @@
                     <i class="fas fa-solid fa-user-gear"></i>
                 </div>
 
-                <div class="sidebar-brand-text mx-3">Dashboard <?= $session ?></div>
+                <div class="sidebar-brand-text mx-3">Dashboard Penyelia</div>
             </a>
 
             <?php

@@ -44,14 +44,14 @@
                                             ?>
                                         </td>
                                         <td class="text-center">
-                                            <a class="btn btn-info" href="<?= base_url('penyelia/detailnilai/') . $mhs['kode_magang'] ?>">Detail <i class="fas fa-search"></i></a>
+                                            <a class="btn btn-info" href="<?= base_url('penyelia/detailnilai/') . $swa['kode_magang'] ?>">Detail <i class="fas fa-search"></i></a>
                                             <?php
-                                            if ($mhs['sertifikat'] == !null) {
+                                            if ($swa['sertifikat'] == !null) {
                                                 echo '<a type="button" class="btn btn-warning disabled">
                                                 Sertifikat <i class="fas fa-file"></i>
                                               </a>';
                                             } else {
-                                                echo '<a type="button" class="btn btn-warning" data-toggle="modal" data-target="#sertifModal' . $mhs['kode_magang'] . '">
+                                                echo '<a type="button" class="btn btn-warning" data-toggle="modal" data-target="#sertifModal' . $swa['kode_magang'] . '">
                                                 Sertifikat <i class="fas fa-file"></i>
                                               </a>';
                                             }
@@ -70,8 +70,10 @@
                                                 </div>
                                                 <form action="<?= base_url('penyelia/upsertifmhs/') . $mhs['kode_magang'] ?>" method="post" enctype="multipart/form-data">
                                                     <div class="modal-body">
-                                                        Sertifikat akan tercetak otomatis ke anggota
-                                                        <input type="text" name="sertif" value="1">
+                                                        <div class="form-group">
+                                                            <label for="sertifikat">Masukkan File Sertifikat</label>
+                                                            <input type="file" class="form-control-file" id="sertifikat" name="sertifikat">
+                                                        </div>
                                                     </div>
                                                     <div class="modal-footer">
                                                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -162,7 +164,7 @@
                                                     <div class="modal-body">
                                                         <div class="form-group">
                                                             <label for="sertifikat">Masukkan File Sertifikat</label>
-                                                            <input type="file" class="form-control-file" id="sertifikat" name="sertifikat">
+                                                            <input type="file" class="form-control-file" id="surat_sertifikat" name="surat_sertifikat">
                                                         </div>
                                                     </div>
                                                     <div class="modal-footer">

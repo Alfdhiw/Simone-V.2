@@ -25,8 +25,6 @@
                         <div class="modal-body">
                             <div class="form-group">
                                 Nama Divisi: <input type="text" name="divisi" placeholder="Nama Divisi" class="form-control" required><br>
-                                <input type="hidden" name="status" value="1">
-                                <input type="hidden" name="kode_penyelia" value="0">
                             </div>
                         </div>
                         <!-- Modal footer -->
@@ -50,7 +48,7 @@
                 </div>
                 <div class="card-body">
                     <div class="table-responsive">
-                        <table class="table table-hover table-bordered datadivisi" width="100%" cellspacing="0">
+                        <table class="table table-hover table-bordered datadivisi" id="datadivisi" width="100%" cellspacing="0">
                             <thead class="thead-dark text-center">
                                 <tr>
                                     <th>#</th>
@@ -64,7 +62,13 @@
                                     <tr>
                                         <td class="text-center">#</td>
                                         <td class="text-center"><?= $dv['divisi']; ?></td>
-                                        <td class="text-center"><?= $dv['nama']; ?></td>
+                                        <?php
+                                        if ($dv['kode_penyelia'] == 0) {
+                                            echo '<td class="text-center"><span class="badge badge-secondary text-bg-secondary">No data !</span></td>';
+                                        } else {
+                                            echo '<td class="text-center">' . $dv['nama'] . '</td>';
+                                        } ?>
+
                                         <td class="text-center">
                                             <a type="button" class="btn btn-success btn-sm" data-toggle="modal" data-target="#editdivisiModal<?= $dv['kode_kategori'] ?>"><i class="fa-solid fa-pen-to-square"></i> <span style="font-size:15px;">Kelola</span></a>&ensp;
                                             <!-- The Modal -->

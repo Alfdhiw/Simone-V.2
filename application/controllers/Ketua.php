@@ -27,6 +27,7 @@ class Ketua extends CI_Controller
         $data['nama'] = $this->db->get_where('ketua', ['kode_ketua' => $id])->row_array();
         $data['job'] = $this->dashboard->countAllMagang();
         $data['unverif'] = $this->dashboard->countAllUnverif();
+        $data['proses'] = $this->dashboard->countAllProses();
         $data['totalpeserta'] = $this->dashboard->countAllPengguna();
         $data['totalpenyelia'] = $this->dashboard->countAllPenyelia();
         $mhs = 'mahasiswa';
@@ -40,6 +41,7 @@ class Ketua extends CI_Controller
         $data['loker'] = $this->dashboard->getAllLoker();
         $data['peserta'] = $this->dashboard->getAllPeserta();
         $data['unverifuser'] = $this->dashboard->getAllUnverif();
+        $data['prosesuser'] = $this->dashboard->getAllUnproses();
         $data['con'] = mysqli_connect('localhost', 'root', '', $this->db->database);
         $this->load->view('ketua/template/header');
         $this->load->view('ketua/template/sidebar', $data);
@@ -96,7 +98,29 @@ class Ketua extends CI_Controller
         }
     }
 
-
+    public function cetak_laporan()
+    {
+        $from = $this->input->post('from');
+        $to = $this->input->post('to');
+        $id = $this->session->userdata('userid');
+        $data['nama'] = $this->db->get_where('admin', ['kode_admin' => $id])->row_array();
+        $data['from'] = $from;
+        $data['to'] = $to;
+        $data['datauser'] = $this->dashboard->getAllData($from, $to);
+        $data['title'] = 'Laporan Data Peserta';
+        // filename dari pdf ketika didownload
+        $file_pdf = 'Laporan Data Peserta';
+        // setting paper
+        $paper = 'A4';
+        //orientasi paper potrait / landscape
+        $orientation = "potrait";
+        $data['date_id'] = date('j / n / y');
+        $data['date'] = date('d F Y');
+        $html = $this->load->view('ketua/cetak_laporan', $data, true);
+        // $this->load->view('atasan/cetak_laporan', $data);
+        $this->dompdfgenerator->generate($html, $file_pdf, $paper, $orientation);
+        // $this->load->view('invoice', $data);
+    }
 
     public function data_peserta()
     {

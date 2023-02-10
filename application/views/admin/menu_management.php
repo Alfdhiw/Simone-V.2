@@ -46,7 +46,7 @@
                 </div>
                 <div class="card-body">
                     <div class="table-responsive">
-                        <table class="table table-hover table-bordered datamenu" id="dataUser" width="100%" cellspacing="0">
+                        <table class="table table-hover table-bordered datamenu" id="datamenu" width="100%" cellspacing="0">
                             <thead class="thead-dark text-center">
                                 <tr>
                                     <th>#</th>
@@ -169,7 +169,7 @@
                 </div>
                 <div class="card-body">
                     <div class="table-responsive">
-                        <table class="table table-hover table-bordered datamenusub" id="dataUser" width="100%" cellspacing="0">
+                        <table class="table table-hover table-bordered datasub" id="datasub" width="100%" cellspacing="0">
                             <thead class="thead-dark text-center">
                                 <tr>
                                     <th>#</th>
@@ -183,24 +183,24 @@
                             </thead>
                             <tbody>
                                 <?php $i = 1; ?>
-                                <?php foreach ($submenu as $sm) : ?>
+                                <?php foreach ($submenu as $submenu) : ?>
                                     <tr>
                                         <td><?= $i; ?></td>
-                                        <td><?= $sm['title']; ?></td>
-                                        <td><?= $sm['menu']; ?></td>
-                                        <td><?= $sm['url']; ?></td>
-                                        <td><?= $sm['icon']; ?></td>
+                                        <td><?= $submenu['title']; ?></td>
+                                        <td><?= $submenu['menu']; ?></td>
+                                        <td><?= $submenu['url']; ?></td>
+                                        <td><?= $submenu['icon']; ?></td>
                                         <td><?php
-                                            if ($sm['is_active'] == 1) {
+                                            if ($submenu['is_active'] == 1) {
                                                 echo '<span class="badge text-light bg-success">Active</span>';
                                             } else {
                                                 echo '<span class="badge text-light bg-secondary">Not Active</span>';
                                             }
                                             ?></td>
                                         <td class="text-center">
-                                            <a href="#" class="badge text-light bg-success" data-toggle="modal" data-target="#editSubMenuModal<?= $sm['submenuid']; ?>"><i class="fas fa-pen-to-square"></i> Kelola</a>
+                                            <a href="#" class="badge text-light bg-success" data-toggle="modal" data-target="#editSubMenuModal<?= $submenu['submenuid']; ?>"><i class="fas fa-pen-to-square"></i> Kelola</a>
                                             <!-- Edit SubMenu Modal -->
-                                            <div class="modal fade" id="editSubMenuModal<?= $sm['submenuid'] ?>" tabindex="-1" aria-labelledby="editSubMenuModalLabel" aria-hidden="true">
+                                            <div class="modal fade" id="editSubMenuModal<?= $submenu['submenuid'] ?>" tabindex="-1" aria-labelledby="editSubMenuModalLabel" aria-hidden="true">
                                                 <div class="modal-dialog">
                                                     <div class="modal-content bg-light">
                                                         <div class="modal-header">
@@ -209,31 +209,31 @@
                                                                 <span aria-hidden="true">&times;</span>
                                                             </button>
                                                         </div>
-                                                        <form action="<?= base_url('dashboard/editsubmenu/') . $sm['submenuid']; ?>" method="POST">
+                                                        <form action="<?= base_url('dashboard/editsubmenu/') . $submenu['submenuid']; ?>" method="POST">
                                                             <div class="modal-body">
                                                                 <div class="input-group">
-                                                                    <input type="text" class="form-control" placeholder="SubMenu Title" id="title" name="title" value="<?= $sm['title'] ?>">
+                                                                    <input type="text" class="form-control" placeholder="SubMenu Title" id="title" name="title" value="<?= $submenu['title'] ?>">
                                                                 </div>
                                                                 <div class="input-group mt-3">
                                                                     <select name="menu_id" id="menu_id" class="custom-select">
-                                                                        <option value="<?= $sm['menuid']; ?>">Pilih Menu</option>
+                                                                        <option value="<?= $submenu['menuid']; ?>">Pilih Menu</option>
                                                                         <?php foreach ($menu as $m) : ?>
                                                                             <option value="<?= $m['menuid']; ?>"><?= $m['menu']; ?></option>
                                                                         <?php endforeach; ?>
                                                                     </select>
                                                                 </div>
                                                                 <div class="input-group mt-3">
-                                                                    <input type="text" class="form-control" placeholder="SubMenu url" id="url" name="url" value="<?= $sm['url']; ?>">
+                                                                    <input type="text" class="form-control" placeholder="SubMenu url" id="url" name="url" value="<?= $submenu['url']; ?>">
                                                                 </div>
                                                                 <div class=" input-group mt-3">
-                                                                    <input type="text" class="form-control" placeholder="SubMenu Icon" id="icon" name="icon" value="<?= $sm['icon']; ?>">
+                                                                    <input type="text" class="form-control" placeholder="SubMenu Icon" id="icon" name="icon" value="<?= $submenu['icon']; ?>">
                                                                 </div>
                                                                 <div class=" input-group mt-3 mb-3">
                                                                     <div class="form-check">
                                                                         <?php
-                                                                        if ($sm['is_active'] == "1") {
+                                                                        if ($submenu['is_active'] == "1") {
                                                                             echo '<input type="checkbox" class="form-check-input" id="is_active" name="is_active" value="1" checked>';
-                                                                        } else if ($sm['is_active'] == "") {
+                                                                        } else if ($submenu['is_active'] == "") {
                                                                             echo '<input type="checkbox" class="form-check-input" id="is_active" name="is_active" value="1">';
                                                                         } else {
                                                                             echo '<input type="checkbox" class="form-check-input" id="is_active" name="is_active" value="1">';
@@ -252,7 +252,7 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <a id="btn-hapus" type="button" href="<?= base_url('dashboard/deletesubmenu/' . $sm['submenuid']) ?>" class="badge text-light bg-danger"><i class="fas fa-trash"></i> Hapus</a>
+                                            <a id="btn-hapus" type="button" href="<?= base_url('dashboard/deletesubmenu/' . $submenu['submenuid']) ?>" class="badge text-light bg-danger"><i class="fas fa-trash"></i> Hapus</a>
 
                                         </td>
                                     </tr>
@@ -277,8 +277,10 @@
             ]
         });
     });
+</script>
+<script>
     $(document).ready(function() {
-        $('.datamenusub').DataTable({
+        $('.datasub').DataTable({
             "pageLength": 10,
             order: [
                 [0, 'asc']

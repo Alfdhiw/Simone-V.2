@@ -32,7 +32,7 @@ class Penyelia_model extends CI_Model
 
     public function getAllPesertaByid($kategori)
     {
-        $query = "SELECT p. *, j.divisi from peserta_magang p, kategori_magang j where  p.kode_kategori=j.kode_kategori and P.kode_kategori = '$kategori' and p.konfirmasi='0'and p.status='1'";
+        $query = "SELECT p. *, j.divisi from peserta_magang p, kategori_magang j where  p.kode_kategori=j.kode_kategori and P.kode_kategori = '$kategori' and p.status='1'";
         return $this->db->query($query)->result_array();
     }
 
@@ -80,14 +80,14 @@ class Penyelia_model extends CI_Model
 
     public function getAllUnverifById($kategori)
     {
-        $query = "SELECT p. *, j.divisi from peserta_magang p, kategori_magang j where  p.kode_kategori=j.kode_kategori and p.konfirmasi = '0' and P.kode_kategori = '$kategori' and p.status ='1' and p.is_active='1'";
+        $query = "SELECT p. *, j.divisi from peserta_magang p, kategori_magang j where  p.kode_kategori=j.kode_kategori and p.status = '2' and p.kode_kategori = '$kategori' and p.is_active='1'";
         return $this->db->query($query)->result_array();
     }
 
     public function countAllUnverifById($kategori)
     {
         $query = "SELECT `peserta_magang`.*
-        FROM peserta_magang WHERE kode_kategori = '$kategori' and konfirmasi = '0' ";
+        FROM peserta_magang WHERE kode_kategori = '$kategori' and status = '2' ";
         return $this->db->query($query)->num_rows();
     }
 
@@ -214,6 +214,12 @@ class Penyelia_model extends CI_Model
     public function getTahunTransaksi()
     {
         $query = "SELECT DISTINCT year(`penilaian_detail`.tanggal_penilaian) as tahun from `penilaian_detail`";
+        return $this->db->query($query)->result_array();
+    }
+
+    public function getAllData($from = 0, $to = 0, $id = 0)
+    {
+        $query = "SELECT p. * ,k.divisi from peserta_magang p, kategori_magang k where p.kode_kategori=k.kode_kategori and p.tgl_terima BETWEEN '" . $from . "' and '" . $to . "' and p.kode_kategori = $id";
         return $this->db->query($query)->result_array();
     }
 }

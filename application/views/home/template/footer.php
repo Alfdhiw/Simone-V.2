@@ -91,6 +91,7 @@
 <script src="<?= base_url('assets/') ?>vendor/admin/chart.js/Chart.bundle.js"></script>
 <script src="<?= base_url('assets/') ?>js/admin/demo/chart-area-demo.js"></script>
 <script src="<?= base_url('assets/') ?>js/admin/demo/chart-pie-demo.js"></script>
+<script src="<?= base_url('assets/') ?>js/admin/sweetalert2.min.js"></script>
 <!-- Page level plugins -->
 <script src="<?= base_url('assets/') ?>js/admin/datatables/js/jquery.dataTables.min.js"></script>
 <script src="<?= base_url('assets/') ?>js/admin/datatables/js/dataTables.bootstrap4.min.js"></script>
@@ -124,8 +125,14 @@
     $(document).on('click', '#confirm', function() {
         var response = grecaptcha.getResponse();
         if (response == 0) {
-            alert("Tolong Verifikasi Captcha Terlebih Dahulu");
-            return false;
+            Swal.fire({
+                title: 'Invalid Captcha',
+                text: "Verifikasi Captcha Terlebih Dahulu",
+                icon: 'warning',
+                showCancelButton: false,
+                confirmButtonColor: '#57c077',
+                confirmButtonText: 'Oke'
+            })
         }
     });
 </script>

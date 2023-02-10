@@ -111,7 +111,44 @@
 </div>
 <!-- end choose  section -->
 <!-- pendaftaran -->
-<div id="pendaftaran" class="work">
+<div id="pendaftaran" class="about">
+    <div class="container-fluid">
+        <div class="row d_flex">
+            <div class="col-md-5">
+                <div class="about_img">
+                    <figure><img src="<?= base_url(); ?>assets/img/home/img2.png" alt="#" /></figure>
+                </div>
+            </div>
+            <div class="col-md-7">
+                <div class="titlepage">
+                    <h2>Magang <span class="blu">Individu </span></h2>
+                    <p>Bagi kalian yang ingin magang secara Individu / Perorangan kami menyediakan forum pendaftaran dibawah ini. Isi data diri lengkap sesuai arahan yang ada di forum pendaftaran</p>
+                    <p><a class="daftar mt-3" href="<?= base_url('home/daftarindividu') ?>"><span class="text-light">Daftar Sekarang !</span></a></p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <br>
+    <br>
+    <br>
+    <div class="container-fluid">
+        <div class="row d_flex">
+            <div class="ml-5 col-md-6">
+                <div class="titlepage">
+                    <h2>Magang <span class="blu">Kelompok </span></h2>
+                    <p>Untuk kalian yang ingin magang bersama teman satu sekolah / kampus, kalian bisa daftar melalui form dibawah ini. Isi data diri lengkap sesuai dengan perintah yang ada di forum</p>
+                    <p><a class="kelompok mt-3" href="<?= base_url('home/daftarkelompok') ?>"><span class="text-light">Daftar Sekarang !</span></a></p>
+                </div>
+            </div>
+            <div class="col-md-5">
+                <div class="about_img">
+                    <figure><img src="<?= base_url(); ?>assets/img/home/work_img.jpg" alt="#" /></figure>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- <div id="pendaftaran" class="work">
     <div class="container-fluid">
         <div class="row d_flex">
             <div class="col-md-7">
@@ -163,4 +200,4 @@
             </div>
         </div>
     </div>
-</div>
+</div> -->

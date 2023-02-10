@@ -4,6 +4,17 @@
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
         <h1 class="h3 mb-0 text-gray-800" style="font-size: 40px;">Dashboard</h1>
     </div>
+    <div class="row">
+        <div class="col-xl-12 col-md-6 mb-6">
+            <div class="alert alert-info alert-dismissible fade show" role="alert">
+                Selamat Datang <strong><?= $session ?></strong>
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+        </div>
+    </div>
+    <!-- Content Row 
     <!-- Content Row -->
     <div class="row">
         <!-- Card Total Mahasiswa -->
@@ -146,7 +157,7 @@
                         <div class="col mr-2">
                             <div class="text-sm font-weight-bold text-success text-uppercase mb-1">
                                 Total Kuota Magang</div>
-                            <div class="h5 mb-0 font-weight-bold text-gray-800"><?= $job ?> Kuota</div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800"><?= $job['total'] ?> Kuota</div>
                         </div>
                         <div class="col-auto">
                             <i class="fas fa-chart-pie fa-2x text-gray-300"></i>
@@ -179,9 +190,8 @@
                                         <table class="table table-hover table-bordered dataloker" id="dataloker" width="100%" cellspacing="0">
                                             <thead class="thead-dark text-center">
                                                 <tr>
-                                                    <th>Posisi Tersedia</th>
-                                                    <th>Periode</th>
-                                                    <th>Maks Pendaftaran</th>
+                                                    <th>Divisi</th>
+                                                    <th>Kuota</th>
                                                     <th>Status</th>
                                                 </tr>
                                             </thead>
@@ -190,13 +200,12 @@
                                                     <tr>
 
                                                         <td class="text-center"><?= $loker['divisi']; ?></td>
-                                                        <td class="text-center"><?php echo date('j M Y', strtotime($loker['jobstart'])) ?> - <?php echo date('j M Y', strtotime($loker['jobend'])) ?></td>
-                                                        <td class="text-center"><?php echo date('j M Y', strtotime($loker['registerend'])) ?></td>
+                                                        <td class="text-center"><?= $loker['kuota']; ?></td>
                                                         <td class="text-center"><?php
-                                                                                if ($loker['status'] == 1) {
-                                                                                    echo '<span class="badge text-light bg-success"><span style="font-size:15px;">Kuota Tersedia</span></span>';
+                                                                                if ($loker['kuota'] == 0) {
+                                                                                    echo '<span class="badge text-light bg-danger"><span style="font-size:15px;">Kuota Penuh</span></span>';
                                                                                 } else {
-                                                                                    echo '<span class="badge text-light bg-secondary"><span style="font-size:15px;">Kuota Penuh</span></span>';
+                                                                                    echo '<span class="badge text-light bg-success"><span style="font-size:15px;">Kuota Tersedia</span></span>';
                                                                                 }
                                                                                 ?>
                                                         </td>
@@ -303,6 +312,88 @@
                 </div>
             </div>
         </div>
+        <div class="col-xl-6 col-md-6 mb-4">
+            <div class="card border-left-info shadow h-100 py-2">
+                <a type="button" data-toggle="modal" data-target="#pendaftarModal" class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="text-md font-weight-bold text-info text-uppercase mb-3">Total Pendaftar Magang Yang Menunggu Berkas
+                            </div>
+                            <div class="row no-gutters align-items-center">
+                                <div class="col-auto">
+                                    <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800"><?= $proses ?> Pendaftar</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-auto ml-3">
+                            <i class="fas fa-clipboard-list fa-3x text-gray-300"></i>
+                        </div>
+                    </div>
+                </a>
+                <div class="card-footer text-info">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <a type="button" data-toggle="modal" data-target="#prosesModal" class="text-xs font-weight-bold text-info text-uppercase mb-1">
+                                View Detail
+                            </a>
+                        </div>
+                        <!-- Modal Total proses -->
+                        <div class="modal fade" id="prosesModal" tabindex="-1" aria-labelledby="prosesModalLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content" style="width: 800px;">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title text-secondary" id="prosesModalLabel"><i class="fas fa-clipboard-list"></i> Total Peserta Unverif</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body text-secondary">
+                                        <div class="table-responsive">
+                                            <table class="table table-hover table-bordered dataunproses" id="dataunproses" width="100%" cellspacing="0">
+                                                <thead class="thead-dark text-center">
+                                                    <tr>
+                                                        <th>Foto</th>
+                                                        <th>Nama</th>
+                                                        <th>Sekolah</th>
+                                                        <th>Status</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <?php foreach ($prosesuser as $us) : ?>
+                                                        <tr>
+
+                                                            <td class="text-center">
+                                                                <img src="<?= base_url('assets/data/peserta/pas_foto/' . $us['foto']); ?>" class="img-thumbnail zoom" width="60px" alt="Foto <?= $us['nama'] ?>">
+                                                            </td>
+                                                            <td class="text-center" style="text-transform:capitalize;"><b><?= $us['nama'] ?></b></td>
+                                                            <td class="text-center" style="text-transform:capitalize;"><b><?= $us['sekolah'] ?></b></td>
+                                                            <td class="text-center"><?php
+                                                                                    if ($us['status'] == 2) {
+                                                                                        echo '<span class="badge text-light bg-warning"><span style="font-size:15px;">Menunggu Berkas</span></span>';
+                                                                                    }
+                                                                                    ?>
+                                                            </td>
+                                                        </tr>
+                                                    <?php endforeach; ?>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-auto">
+                            <i class="fa-solid fa-angle-right"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
     <div class="row">
         <div class="col-xl-12 col-md-12 mb-6">
@@ -319,7 +410,6 @@
                                     <th>Foto</th>
                                     <th>Nama </th>
                                     <th>Sekolah</th>
-                                    <th>Divisi</th>
                                     <th>Tanggal Daftar</th>
                                     <th>Status</th>
                                 </tr>
@@ -330,18 +420,20 @@
                                         <td class="text-center">
                                             <img src="<?= base_url('assets/data/peserta/pas_foto/' . $p['foto']); ?>" class="img-thumbnail" width="80px" alt="Foto <?= $p['nama'] ?>">
                                         </td>
-                                        <td style="text-transform:capitalize;"><a href="<?= base_url('ketua/datapelamar/' . $p['kode_magang'])  ?>"><b><?= $p['nama']; ?> <i class="fa-solid fa-eye"></i></b></a></td>
-                                        <td style="text-transform:capitalize;"><b><?= $p['sekolah']; ?></b></td>
-                                        <td style="text-transform:capitalize;"><b><?= $p['divisi']; ?></b></td>
-                                        <td><b><?= date('j F Y H:i:s', strtotime($p['tgl_daftar'])) ?></b></td>
+                                        <td class="text-center" style="text-transform:capitalize;"><a href="<?= base_url('ketua/datapelamar/' . $p['kode_magang'])  ?>"><b><?= $p['nama']; ?> <i class="fa-solid fa-eye"></i></b></a></td>
+                                        <td class="text-center" style="text-transform:capitalize;"><b><?= $p['sekolah']; ?></b></td>
+                                        <td class="text-center"><b><?= date('j F Y H:i:s', strtotime($p['tgl_daftar'])) ?></b></td>
                                         <td class="text-center"><?php
                                                                 if ($p['status'] == 0) {
-                                                                    echo '<span class="badge text-light bg-secondary"><span style="font-size:15px;">Unverified</span></span>';
+                                                                    echo '<span class="badge text-light bg-secondary"><span style="font-size:15px;">Belum Aktif</span></span>';
                                                                 }
                                                                 if ($p['status'] == 1) {
                                                                     echo '<span class="badge text-light bg-success"><span style="font-size:15px;">Diterima</span></span>';
                                                                 }
                                                                 if ($p['status'] == 2) {
+                                                                    echo '<span class="badge text-light bg-warning"><span style="font-size:15px;">Menunggu Berkas</span></span>';
+                                                                }
+                                                                if ($p['status'] == 3) {
                                                                     echo '<span class="badge text-light bg-danger"><span style="font-size:15px;">Ditolak</span></span>';
                                                                 }
                                                                 ?></td>

@@ -394,7 +394,176 @@ class Home extends CI_Controller
                 $this->updatekuota($kuota, $jobid);
             } else {
                 $this->session->set_flashdata('flash', '<div class="alert alert-danger" role="alert">Gagal mendaftar, silahkan ulangi pendaftaran!</div>');
-                redirect('home');
+                redirect($_SERVER['HTTP_REFERER']);
+            }
+        }
+    }
+
+    public function daftarindividu()
+    {
+        $data['nama'] = $this->session->userdata('nama');
+        $data['role'] = $this->session->userdata('role');
+        $data['foto'] = $this->session->userdata('foto');
+        $data['userid'] = $this->session->userdata('userid');
+        $data['password'] =  $this->home->getPasswd();
+        $data['waktu'] = date_default_timezone_set('Asia/Jakarta');
+        $data['con'] = mysqli_connect('localhost', 'root', '', $this->db->database);
+        $this->form_validation->set_rules('nama', 'Nama', 'required');
+        $this->form_validation->set_rules('nim', 'nim', 'required');
+        $this->form_validation->set_rules('email_kampus', 'email_kampus', 'required');
+        $this->form_validation->set_rules('email', 'Email', 'required');
+        $this->form_validation->set_rules('pendidikan', 'Pendidikan', 'required');
+        $this->form_validation->set_rules('jeniskel', 'jeniskel', 'required');
+        $this->form_validation->set_rules('sekolah', 'Sekolah', 'required');
+        $this->form_validation->set_rules('jurusan', 'Jurusan', 'required');
+        $this->form_validation->set_rules('telepon', 'Telepon', 'required');
+
+        if ($this->form_validation->run() == false) {
+
+            $this->load->view('home/template/header', $data);
+            $this->load->view('home/daftar_individu', $data);
+            $this->load->view('home/template/footer');
+            // var_dump($this->form_validation->run());
+            // die;
+        } else {
+            $date = substr(date('Ymd'), 2, 8);
+            $config = array();
+            $config['upload_path'] = './assets/data/peserta/pas_foto';
+            $config['allowed_types'] = 'jpg|png|jpeg';
+            $config['file_name']    =  $date . '-' . $_FILES['foto']['name'];
+
+            $this->load->library('upload', $config, 'foto');
+            $this->foto->initialize($config);
+            $upload_foto = $this->foto->do_upload('foto');
+
+            $config = array();
+            $config['upload_path'] = './assets/data/peserta/surat_pengantar';
+            $config['allowed_types'] = 'pdf';
+            $config['file_name']    = $date . '-' . $_FILES['surat_pengantar']['name'];
+
+            $this->load->library('upload', $config, 'surat_pengantar');
+            $this->surat_pengantar->initialize($config);
+            $upload_surat_pengantar = $this->surat_pengantar->do_upload('surat_pengantar');
+
+            $config = array();
+            $config['upload_path'] = './assets/data/peserta/transkip_nilai';
+            $config['allowed_types'] = 'pdf';
+            $config['file_name']    = $date . '-' . $_FILES['transkip_nilai']['name'];
+
+            $this->load->library('upload', $config, 'transkip_nilai');
+            $this->transkip_nilai->initialize($config);
+            $upload_transkip_nilai = $this->transkip_nilai->do_upload('transkip_nilai');
+
+            if ($upload_foto && $upload_surat_pengantar && $upload_transkip_nilai) {
+                $length =  $this->home->getPasswd();
+
+                $data = array(
+                    'nama'              => $this->input->post('nama'),
+                    'nim'              => $this->input->post('nim'),
+                    'email'             => $this->input->post('email'),
+                    'email_kampus'             => $this->input->post('email_kampus'),
+                    'jeniskel'          => $this->input->post('jeniskel'),
+                    'sekolah'           => $this->input->post('sekolah'),
+                    'jurusan'           => $this->input->post('jurusan'),
+                    'kode_kategori'             => $this->input->post('kode_kategori'),
+                    'telepon'             => $this->input->post('telepon'),
+                    'idrole'             => $this->input->post('idrole'),
+                    'foto'              => $this->foto->data("file_name"),
+                    'surat_pengantar'   => $this->surat_pengantar->data("file_name"),
+                    'transkip_nilai'   => $this->transkip_nilai->data("file_name"),
+                    'is_active'         => 1,
+                    'status'            => 0,
+                    'password'          => $length,
+                    'tingkat_pendidikan' => $this->input->post('pendidikan'),
+                    'tgl_daftar' => $this->input->post('tgl_daftar')
+                );
+
+                $this->db->insert('peserta_magang', $data);
+                $this->session->set_flashdata('flash', '<div class="alert alert-success" role="alert">Anda telah terdaftar, silahkan menunggu konfirmasi!</div>');
+                redirect($_SERVER['HTTP_REFERER']);
+            } else {
+                $this->session->set_flashdata('flash', '<div class="alert alert-danger" role="alert">Gagal mendaftar, silahkan ulangi pendaftaran!</div>');
+                redirect($_SERVER['HTTP_REFERER']);
+            }
+        }
+    }
+
+    public function daftarkelompok()
+    {
+        $data['nama'] = $this->session->userdata('nama');
+        $data['role'] = $this->session->userdata('role');
+        $data['foto'] = $this->session->userdata('foto');
+        $data['userid'] = $this->session->userdata('userid');
+        $data['password'] =  $this->home->getPasswd();
+        $data['waktu'] = date_default_timezone_set('Asia/Jakarta');
+        $data['con'] = mysqli_connect('localhost', 'root', '', $this->db->database);
+        $this->form_validation->set_rules('email_kampus', 'email_kampus', 'required');
+        $this->form_validation->set_rules('tingkat_pendidikan', 'tingkat_pendidikan', 'required');
+        $this->form_validation->set_rules('sekolah', 'Sekolah', 'required');
+        $this->form_validation->set_rules('jurusan', 'Jurusan', 'required');
+
+        if ($this->form_validation->run() == false) {
+
+            $this->load->view('home/template/header', $data);
+            $this->load->view('home/daftar_kelompok', $data);
+            $this->load->view('home/template/footer');
+            // var_dump($this->form_validation->run());
+            // die;
+        } else {
+            $date = substr(date('Ymd'), 2, 8);
+            $config = array();
+            $config['upload_path'] = './assets/data/kelompok/surat_pengantar';
+            $config['allowed_types'] = 'pdf';
+            $config['file_name']    = $date . '-' . $_FILES['surat_pengantar']['name'];
+
+            $this->load->library('upload', $config, 'surat_pengantar');
+            $this->surat_pengantar->initialize($config);
+            $upload_surat_pengantar = $this->surat_pengantar->do_upload('surat_pengantar');
+
+            $config = array();
+            $config['upload_path'] = './assets/data/kelompok/transkip_nilai';
+            $config['allowed_types'] = 'pdf';
+            $config['file_name']    = $date . '-' . $_FILES['transkip_nilai']['name'];
+
+            $this->load->library('upload', $config, 'transkip_nilai');
+            $this->transkip_nilai->initialize($config);
+            $upload_transkip_nilai = $this->transkip_nilai->do_upload('transkip_nilai');
+
+            if ($upload_surat_pengantar && $upload_transkip_nilai) {
+                $length =  $this->home->getPasswd();
+
+                $data = array(
+                    'nama_1'              => $this->input->post('nama1'),
+                    'nama_2'              => $this->input->post('nama2'),
+                    'nama_3'              => $this->input->post('nama3'),
+                    'nim_1'              => $this->input->post('nim1'),
+                    'nim_2'              => $this->input->post('nim2'),
+                    'nim_3'              => $this->input->post('nim3'),
+                    'email_1'             => $this->input->post('email1'),
+                    'email_2'             => $this->input->post('email2'),
+                    'email_3'             => $this->input->post('email3'),
+                    'email_kampus'             => $this->input->post('email_kampus'),
+                    'jeniskel_1'          => $this->input->post('jeniskel1'),
+                    'jeniskel_2'          => $this->input->post('jeniskel2'),
+                    'jeniskel_3'          => $this->input->post('jeniskel3'),
+                    'sekolah'           => $this->input->post('sekolah'),
+                    'jurusan'           => $this->input->post('jurusan'),
+                    'telp_1'             => $this->input->post('telp1'),
+                    'telp_2'             => $this->input->post('telp2'),
+                    'telp_3'             => $this->input->post('telepon'),
+                    'surat_pengantar'   => $this->surat_pengantar->data("file_name"),
+                    'transkip_nilai'   => $this->transkip_nilai->data("file_name"),
+                    'status'            => 0,
+                    'tingkat_pendidikan' => $this->input->post('tingkat_pendidikan'),
+                    'tgl_daftar' => $this->input->post('tgl_daftar')
+                );
+
+                $this->db->insert('peserta_kelompok', $data);
+                $this->session->set_flashdata('flash', '<div class="alert alert-success" role="alert">Anda telah terdaftar, silahkan menunggu konfirmasi!</div>');
+                redirect($_SERVER['HTTP_REFERER']);
+            } else {
+                $this->session->set_flashdata('flash', '<div class="alert alert-danger" role="alert">Gagal mendaftar, silahkan ulangi pendaftaran!</div>');
+                redirect($_SERVER['HTTP_REFERER']);
             }
         }
     }

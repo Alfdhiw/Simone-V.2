@@ -3,6 +3,34 @@
     <!-- Page Heading -->
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
         <h1 class="h3 mb-0 text-gray-800" style="font-size: 40px;"><?= $title ?> Mahasiswa</h1>
+        <btn href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" data-toggle="modal" data-target="#dataModal"><i class="fas fa-download fa-sm text-white-50"></i> Cetak Report</btn>
+        <!-- Modal -->
+        <div class="modal fade" id="dataModal" tabindex="-1" aria-labelledby="dataModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="modal-title" id="dataModalLabel">Cetak Report Data</h1>
+                    </div>
+                    <form action="<?= base_url('penyelia/cetak_laporan') ?>" method="post" id="tes1">
+                        <div class="modal-body">
+                            <table>
+                                <tr>
+                                    <td><b>Periode</b></td>
+                                    <td>:</td>
+                                    <td></td>
+                                    <td><input class="form-control" type="date" name="from" id="from"></td>
+                                    <td><b>-</b></td>
+                                    <td><input class="form-control" type="date" name="to" id="to"></td>
+                                </tr>
+                            </table>
+                        </div>
+                        <div class="modal-footer">
+                            <a class="btn btn-primary" type="button" target="_blank" onclick="myFunction()">Cetak</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
     </div>
     <!-- Content Row -->
     <div class="row">
@@ -10,6 +38,21 @@
             <?php if ($this->session->flashdata('flash')) {
                 echo '<p class="warning" style="margin: 10px 20px;">' . $this->session->flashdata('flash') . '</p>';
             } ?>
+            <div class="row">
+                <div class="col-xl-12 col-md-12 mb-6">
+                    <form action="" method="get">
+                        <table class="text-right">
+                            <tr>
+                                <td><b>Periode :&ensp;</b></td>
+                                <td><input type="date" name="from" class="form-control" required></td>
+                                <td><b>-</b></td>
+                                <td><input type="date" name="to" class="form-control" required></td>
+                                <td>&ensp;<button class="btn btn-primary" type="submit"><i class="fas fa-magnifying-glass"></i></button></td>
+                            </tr>
+                        </table>
+                    </form>
+                </div>
+            </div>
             <!-- DataTales Example -->
             <div class="card shadow mb-4">
                 <div class="card-header py-3">
@@ -17,7 +60,7 @@
                 </div>
                 <div class="card-body">
                     <div class="table-responsive">
-                        <table class="table table-hover table-bordered data_mahasiswa" id="data_mahasiswa" width="100%" cellspacing="0">
+                        <table class="table table-hover table-bordered datamhs" id="datamhs" width="100%" cellspacing="0">
                             <thead class="thead-dark text-center">
                                 <tr>
                                     <th>Foto</th>
@@ -25,31 +68,33 @@
                                     <th>Asal Sekolah</th>
                                     <th>Jurusan</th>
                                     <th>Divisi</th>
-                                    <th>Konfirmasi</th>
                                     <th>Status Magang</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <?php foreach ($mahasiswa as $mhs) : ?>
+                                <?php
+                                $id = $this->session->userdata('userid');
+                                if (isset($_GET['from']) && isset($_GET['to'])) {
+                                    // tampilkan data yang sesuai dengan range tanggal yang dicari 
+                                    $data = mysqli_query($con, "SELECT p. * ,k.divisi from peserta_magang p, kategori_magang k where  p.kode_kategori=k.kode_kategori  and p.tingkat_pendidikan='mahasiswa' and p.status='1' and p.kode_kategori = $id and p.tgl_terima BETWEEN '" . $_GET['from'] . "' and '" . $_GET['to'] . "'");
+                                } else {
+                                    //jika tidak ada tanggal dari dan tanggal ke maka tampilkan seluruh data
+                                    $data = mysqli_query($con, "SELECT p. * ,k.divisi from peserta_magang p, kategori_magang k where  p.kode_kategori=k.kode_kategori  and p.tingkat_pendidikan='mahasiswa' and p.status='1' and p.kode_kategori = $id ");
+                                }
+                                while ($d = mysqli_fetch_array($data)) {
+                                ?>
                                     <tr>
                                         <!-- <td><?= $i; ?></td> -->
                                         <td class="text-center">
-                                            <img src="<?= base_url('assets/data/peserta/pas_foto/' . $mhs['foto']); ?>" class="img-thumbnail" width="80px" alt="Foto <?= $mhs['nama'] ?>">
+                                            <img src="<?= base_url('assets/data/peserta/pas_foto/' . $d['foto']); ?>" class="img-thumbnail" width="80px" alt="Foto <?= $d['nama'] ?>">
                                         </td>
-                                        <td style="text-transform:capitalize;"><a href="<?= base_url('penyelia/datamhs/' . $mhs['kode_magang'])  ?>"><b><?= $mhs['nama']; ?></b> <i class="fa-solid fa-eye"></i></a></td>
-                                        <td style="text-transform:capitalize;"><b><?= $mhs['sekolah']; ?></b></td>
-                                        <td style="text-transform:capitalize;"><b><?= $mhs['jurusan']; ?></b></td>
-                                        <td style="text-transform:capitalize;"><b><?= $mhs['divisi'] ?></b></td>
-                                        <td class="text-center"><?php
-                                                                if ($mhs['konfirmasi'] == 0) {
-                                                                    echo '<span class="badge text-light bg-danger"><span style="font-size:15px;">Belum</span></span>';
-                                                                } else {
-                                                                    echo '<span class="badge text-light bg-success"><span style="font-size:15px;">Sudah</span></span>';
-                                                                }
-                                                                ?></td>
+                                        <td style="text-transform:capitalize;"><a href="<?= base_url('penyelia/datamhs/' . $d['kode_magang'])  ?>"><b><?= $d['nama']; ?></b> <i class="fa-solid fa-eye"></i></a></td>
+                                        <td style="text-transform:capitalize;"><b><?= $d['sekolah']; ?></b></td>
+                                        <td style="text-transform:capitalize;"><b><?= $d['jurusan']; ?></b></td>
+                                        <td style="text-transform:capitalize;"><b><?= $d['divisi'] ?></b></td>
                                         <td class="text-center">
                                             <?php
-                                            if ($mhs['is_active'] == 0) {
+                                            if ($d['is_active'] == 0) {
                                                 echo '<span class="badge text-light bg-danger"><span style="font-size:15px;">Mangkir</span></span>';
                                             } else {
                                                 echo '<span class="badge text-light bg-success"><span style="font-size:15px;">Aktif</span></span>';
@@ -57,7 +102,7 @@
                                             ?>
                                         </td>
                                     </tr>
-                                <?php endforeach; ?>
+                                <?php } ?>
                             </tbody>
                         </table>
                     </div>
@@ -76,6 +121,21 @@
     <!-- Content Row -->
     <div class="row">
         <div class="col-xl-12 col-md-6 mb-6">
+            <div class="row">
+                <div class="col-xl-6 col-md-6 mb-4">
+                    <form action="" method="get">
+                        <table class="text-right">
+                            <tr>
+                                <td><b>Periode :&ensp;</b></td>
+                                <td><input type="date" name="dari" class="form-control" required></td>
+                                <td><b>-</b></td>
+                                <td><input type="date" name="ke" class="form-control" required></td>
+                                <td>&ensp;<button class="btn btn-primary" type="submit"><i class="fas fa-magnifying-glass"></i></button></td>
+                            </tr>
+                        </table>
+                    </form>
+                </div>
+            </div>
             <!-- DataTales Example -->
             <div class="card shadow mb-4">
                 <div class="card-header py-3">
@@ -83,7 +143,7 @@
                 </div>
                 <div class="card-body">
                     <div class="table-responsive">
-                        <table class="table table-hover table-bordered data_siswa" id="data_siswa" width="100%" cellspacing="0">
+                        <table class="table table-hover table-bordered dataswa" id="dataswa" width="100%" cellspacing="0">
                             <thead class="thead-dark text-center">
                                 <tr>
                                     <th>Foto</th>
@@ -91,36 +151,38 @@
                                     <th>Asal Sekolah</th>
                                     <th>Jurusan</th>
                                     <th>Divisi</th>
-                                    <th>Status Verif</th>
                                     <th>Status Magang</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <?php foreach ($siswa as $swa) : ?>
+                                <?php
+                                $id = $this->session->userdata('userid');
+                                if (isset($_GET['dari']) && isset($_GET['ke'])) {
+                                    // tampilkan data yang sesuai dengan range tanggal yang dicari 
+                                    $data = mysqli_query($con, "SELECT p. * ,k.divisi from peserta_magang p, kategori_magang k where  p.kode_kategori=k.kode_kategori  and p.tingkat_pendidikan='siswa' and p.status='1' and p.kode_kategori = $id and p.tgl_terima BETWEEN '" . $_GET['dari'] . "' and '" . $_GET['ke'] . "'");
+                                } else {
+                                    //jika tidak ada tanggal dari dan tanggal ke maka tampilkan seluruh data
+                                    $data = mysqli_query($con, "SELECT p. * ,k.divisi from peserta_magang p, kategori_magang k where  p.kode_kategori=k.kode_kategori  and p.tingkat_pendidikan='siswa' and p.status='1' and p.kode_kategori = $id");
+                                }
+                                while ($d = mysqli_fetch_array($data)) {
+                                ?>
                                     <tr>
                                         <td class="text-center">
-                                            <img src="<?= base_url('assets/data/peserta/pas_foto/' . $swa['foto']); ?>" class="img-thumbnail zoom" width="80px" alt="Foto <?= $swa['nama'] ?>">
+                                            <img src="<?= base_url('assets/data/peserta/pas_foto/' . $d['foto']); ?>" class="img-thumbnail zoom" width="80px" alt="Foto <?= $d['nama'] ?>">
                                         </td>
-                                        <td style="text-transform:capitalize;"><a href="<?= base_url('dashboard/datamhs/' . $swa['kode_magang'])  ?>"><b><?= $swa['nama']; ?> <i class="fa-solid fa-eye"></i></b></a></td>
-                                        <td style="text-transform:capitalize;"><b><?= $swa['sekolah']; ?></b></td>
-                                        <td style="text-transform:capitalize;"><b><?= $swa['jurusan']; ?></b></td>
-                                        <td style="text-transform:capitalize;"><b><?= $swa['divisi']; ?></td>
+                                        <td style="text-transform:capitalize;"><a href="<?= base_url('penyelia/datamhs/' . $d['kode_magang'])  ?>"><b><?= $d['nama']; ?> <i class="fa-solid fa-eye"></i></b></a></td>
+                                        <td style="text-transform:capitalize;"><b><?= $d['sekolah']; ?></b></td>
+                                        <td style="text-transform:capitalize;"><b><?= $d['jurusan']; ?></b></td>
+                                        <td style="text-transform:capitalize;"><b><?= $d['divisi']; ?></td>
                                         <td class="text-center"><?php
-                                                                if ($swa['status'] == 0) {
-                                                                    echo '<span class="badge text-light bg-danger"><span style="font-size:15px;">Unverified</span></span>';
-                                                                } else {
-                                                                    echo '<span class="badge text-light bg-success"><span style="font-size:15px;">Verified</span></span>';
-                                                                }
-                                                                ?></td>
-                                        <td class="text-center"><?php
-                                                                if ($swa['is_active'] == 0) {
+                                                                if ($d['is_active'] == 0) {
                                                                     echo '<span class="badge text-light bg-secondary"><span style="font-size:15px;">Mangkir</span></span>';
                                                                 } else {
                                                                     echo '<span class="badge text-light bg-success"><span style="font-size:15px;">Aktif</span></span>';
                                                                 }
                                                                 ?></td>
                                     </tr>
-                                <?php endforeach; ?>
+                                <?php } ?>
                             </tbody>
                         </table>
                     </div>

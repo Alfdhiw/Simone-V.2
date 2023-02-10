@@ -107,7 +107,7 @@
 </script>
 <script>
     $(document).ready(function() {
-        $('.datamahasiswa').DataTable({
+        $('.datamhs').DataTable({
             "pageLength": 10,
             order: [
                 [0, 'desc']
@@ -115,7 +115,7 @@
         });
     });
     $(document).ready(function() {
-        $('.datasiswa').DataTable({
+        $('.dataswa').DataTable({
             "pageLength": 10,
             order: [
                 [0, 'desc']
@@ -190,7 +190,7 @@
 
     $(document).ready(function() {
         $('.dataunverif').DataTable({
-            "pageLength": 10,
+            "pageLength": 5,
             order: [
                 [0, 'desc']
             ]
@@ -232,6 +232,11 @@
             ]
         });
     });
+</script>
+<script>
+    function myFunction() {
+        document.getElementById("tes1").submit();
+    }
 </script>
 </script>
 

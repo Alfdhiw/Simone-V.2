@@ -16,7 +16,7 @@ class Dashboard_model extends CI_Model
 
     public function getAllPeserta()
     {
-        $query = "SELECT p. * ,j.kode_kategori, j.divisi from peserta_magang p, kategori_magang j where  p.kode_kategori=j.kode_kategori";
+        $query = "SELECT p. * from peserta_magang p";
         return $this->db->query($query)->result_array();
     }
 
@@ -28,13 +28,19 @@ class Dashboard_model extends CI_Model
 
     public function getAllUnverif()
     {
-        $query = "SELECT p. * ,j.kode_kategori, j.divisi from peserta_magang p, kategori_magang j where  p.kode_kategori=j.kode_kategori and p.status = '0'";
+        $query = "SELECT p. * from peserta_magang p where p.status = '0'";
+        return $this->db->query($query)->result_array();
+    }
+
+    public function getAllUnproses()
+    {
+        $query = "SELECT p. * from peserta_magang p where p.status = '2'";
         return $this->db->query($query)->result_array();
     }
 
     public function getPeserta()
     {
-        $query = "SELECT p. * ,k.divisi from peserta_magang p, kategori_magang k where  p.kode_kategori=k.kode_kategori and p.status = '0'";
+        $query = "SELECT p. * from peserta_magang p where p.status = '0'";
         return $this->db->query($query)->result_array();
     }
 
@@ -51,6 +57,12 @@ class Dashboard_model extends CI_Model
     }
 
     public function getPesertaTolak()
+    {
+        $query = "SELECT p. * from peserta_magang p where p.status = '3'";
+        return $this->db->query($query)->result_array();
+    }
+
+    public function getPesertaProses()
     {
         $query = "SELECT p. * ,k.kode_kategori,k.divisi from peserta_magang p, kategori_magang k  where  p.kode_kategori=k.kode_kategori and p.status = '2'";
         return $this->db->query($query)->result_array();
@@ -73,10 +85,16 @@ class Dashboard_model extends CI_Model
         return $peserta;
     }
 
+    public function countAllProses()
+    {
+        $peserta = $this->db->get_where('peserta_magang', ['status' => 2])->num_rows();
+        return $peserta;
+    }
+
     public function countAllMagang()
     {
-        $job = $this->db->get('job')->num_rows();
-        return $job;
+        $query = "SELECT SUM(kuota) AS total from kategori_magang";
+        return $this->db->query($query)->row_array();
     }
 
     public function countAllPenyelia()
@@ -126,18 +144,25 @@ class Dashboard_model extends CI_Model
 
     public function getAllDivisi()
     {
-        return $this->db->get('kategori_magang')->result_array();
+        $query = "SELECT * from kategori_magang where kategori_magang.kuota != 0";
+        return $this->db->query($query)->result_array();
     }
 
     public function getAllLoker()
     {
-        $query = "SELECT j. * ,p.kode_kategori,p.divisi from kategori_magang p, job j where  p.kode_kategori=j.kode_kategori";
+        $query = "SELECT k. * ,p.nama from kategori_magang k, penyelia p where k.kode_penyelia = p.kode_penyelia";
+        return $this->db->query($query)->result_array();
+    }
+
+    public function getAllKuota()
+    {
+        $query = "SELECT * from kategori_magang";
         return $this->db->query($query)->result_array();
     }
 
     public function getAllMonitor()
     {
-        $query = "SELECT d.kode_kategori, d.divisi, p.nama, d.kode_penyelia FROM penyelia p, kategori_magang d where p.kode_kategori = d.kode_kategori and d.status = '1'";
+        $query = "SELECT d.kode_kategori, d.divisi, p.nama, d.kode_penyelia FROM penyelia p, kategori_magang d where p.kode_penyelia = d.kode_penyelia and d.status = '1'";
         return $this->db->query($query)->result_array();
     }
 
@@ -261,6 +286,12 @@ class Dashboard_model extends CI_Model
     public function getSwaBySmk($smk)
     {
         $query = "SELECT p. * ,k.divisi from peserta_magang p, kategori_magang k where  p.kode_kategori=k.kode_kategori  and p.tingkat_pendidikan='" . $smk . "' and p.status='1'; ";
+        return $this->db->query($query)->result_array();
+    }
+
+    public function getAllData($from = 0, $to = 0)
+    {
+        $query = "SELECT p. * ,k.divisi from peserta_magang p, kategori_magang k where p.kode_kategori=k.kode_kategori and p.tgl_terima BETWEEN '" . $from . "' and '" . $to . "'";
         return $this->db->query($query)->result_array();
     }
 }

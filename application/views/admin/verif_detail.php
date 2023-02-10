@@ -32,6 +32,10 @@
                                     <td><b><?php echo $pelamar['sekolah']; ?></b></td>
                                 </tr>
                                 <tr>
+                                    <td>Email Sekolah</td>
+                                    <td><b><?php echo $pelamar['email_kampus']; ?></b></td>
+                                </tr>
+                                <tr>
                                     <td>Jenis Kelamin</td>
                                     <td><?php
                                         if ($pelamar['jeniskel'] == 'L') {
@@ -56,7 +60,7 @@
                                     <td><b><?php echo $pelamar['telepon']; ?></b></td>
                                 </tr>
                                 <tr>
-                                    <td>Peserta Magang</td>
+                                    <td>Tingkat Pendidikan</td>
                                     <td><b><?php
                                             if ($pelamar['tingkat_pendidikan'] = 'mahasiswa') {
                                                 echo '<span class="text" style="font-size:16px"><b>Mahasiswa</b></span>';
@@ -67,29 +71,12 @@
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td>Divisi Magang</td>
-                                    <td>
-                                        <div class="badge badge-secondary"><b style="font-size: 15px;"><?= $role['divisi'] ?></b></div>
-                                    </td>
-                                </tr>
-                                <tr>
                                     <td>Status Akun</td>
                                     <td><?php
                                         if ($pelamar['status'] == 1) {
                                             echo '<b><span class="badge badge-success" style="font-size:15px;"><b>Telah Diverifikasi</b></span>';
                                         } else {
-                                            echo '<span class="badge badge-danger" style="background-color:danger;"><b>Belum Diverifikasi</b></span>';
-                                        }
-                                        ?>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>Status Magang</td>
-                                    <td><?php
-                                        if ($pelamar['is_active'] == 1) {
-                                            echo '<b><span class="badge badge-success" style="font-size:15px;"><b>Aktif</b></span>';
-                                        } else {
-                                            echo '<span class="badge badge-danger" style="background-color:danger;"><b>Mangkir</b></span>';
+                                            echo '<span class="badge badge-secondary" style="background-color:secondary;"><b>Belum Diverifikasi</b></span>';
                                         }
                                         ?>
                                     </td>

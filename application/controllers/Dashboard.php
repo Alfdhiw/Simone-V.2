@@ -27,6 +27,7 @@ class Dashboard extends CI_Controller
 		$data['nama'] = $this->db->get_where('admin', ['kode_admin' => $id])->row_array();
 		$data['job'] = $this->dashboard->countAllMagang();
 		$data['unverif'] = $this->dashboard->countAllUnverif();
+		$data['proses'] = $this->dashboard->countAllProses();
 		$data['totalpeserta'] = $this->dashboard->countAllPengguna();
 		$data['totalpenyelia'] = $this->dashboard->countAllPenyelia();
 		$mhs = 'mahasiswa';
@@ -37,9 +38,10 @@ class Dashboard extends CI_Controller
 		$data['totalmhs'] = $this->dashboard->countAllMhs($mhs);
 		$data['totallaki'] = $this->dashboard->countAllLaki($laki);
 		$data['totalcewe'] = $this->dashboard->countAllCewe($cewe);
-		$data['loker'] = $this->dashboard->getAllLoker();
+		$data['loker'] = $this->dashboard->getAllKuota();
 		$data['peserta'] = $this->dashboard->getAllPeserta();
 		$data['unverifuser'] = $this->dashboard->getAllUnverif();
+		$data['prosesuser'] = $this->dashboard->getAllUnproses();
 		$data['con'] = mysqli_connect('localhost', 'root', '', $this->db->database);
 		$this->load->view('admin/template/header');
 		$this->load->view('admin/template/sidebar', $data);
@@ -74,8 +76,8 @@ class Dashboard extends CI_Controller
 		} else {
 			$data = [
 				'divisi' => $this->input->post('divisi'),
-				'kode_penyelia' => $this->input->post('kode_penyelia'),
-				'status' => $this->input->post('status'),
+				'kode_penyelia' => 1,
+				'status' => 1,
 			];
 			$this->db->insert('kategori_magang', $data);
 			$this->session->set_flashdata('flash', '<div class="alert alert-success" role="alert">Divisi Berhasil Ditambahkan!</div>');
@@ -374,6 +376,7 @@ class Dashboard extends CI_Controller
 		$data['con'] = mysqli_connect('localhost', 'root', '', $this->db->database);
 		$data['terima'] = $this->dashboard->getPesertaVerif();
 		$data['tolak'] = $this->dashboard->getPesertaTolak();
+		$data['proses'] = $this->dashboard->getPesertaProses();
 		$data['loker'] = $this->dashboard->getAllLoker();
 
 		$this->load->view('admin/template/header', $data);
@@ -444,6 +447,7 @@ class Dashboard extends CI_Controller
 		$id = $this->session->userdata('userid');
 		$kuliah = 'mahasiswa';
 		$smk = 'siswa';
+		$data['con'] = mysqli_connect('localhost', 'root', '', $this->db->database);
 		$data['nama'] = $this->db->get_where('admin', ['kode_admin' => $id])->row_array();
 		$data['mahasiswa'] = $this->dashboard->getMhsByKuliah($kuliah);
 		$data['siswa'] = $this->dashboard->getSwaBySmk($smk);
@@ -454,6 +458,30 @@ class Dashboard extends CI_Controller
 		$this->load->view('admin/template/topbar', $data);
 		$this->load->view('admin/data_peserta', $data);
 		$this->load->view('admin/template/footer', $data);
+	}
+
+	public function cetak_laporan()
+	{
+		$from = $this->input->post('from');
+		$to = $this->input->post('to');
+		$id = $this->session->userdata('userid');
+		$data['nama'] = $this->db->get_where('admin', ['kode_admin' => $id])->row_array();
+		$data['from'] = $from;
+		$data['to'] = $to;
+		$data['datauser'] = $this->dashboard->getAllData($from, $to);
+		$data['title'] = 'Laporan Data Peserta';
+		// filename dari pdf ketika didownload
+		$file_pdf = 'Laporan Data Peserta';
+		// setting paper
+		$paper = 'A4';
+		//orientasi paper potrait / landscape
+		$orientation = "potrait";
+		$data['date_id'] = date('j / n / y');
+		$data['date'] = date('d F Y');
+		$html = $this->load->view('admin/cetak_laporan', $data, true);
+		// $this->load->view('atasan/cetak_laporan', $data);
+		$this->dompdfgenerator->generate($html, $file_pdf, $paper, $orientation);
+		// $this->load->view('invoice', $data);
 	}
 
 	public function tambahjob()
@@ -488,16 +516,9 @@ class Dashboard extends CI_Controller
 
 	public function editjob($id)
 	{
-		$this->db->set('kode_kategori', $this->input->post('kode_kategori'));
-		$this->db->set('jobdesc', $this->input->post('desc'));
-		$this->db->set('jobstart', $this->input->post('start'));
-		$this->db->set('jobend', $this->input->post('end'));
-		$this->db->set('registerend', $this->input->post('endregist'));
-		$this->db->set('workingtype', $this->input->post('workingtype'));
 		$this->db->set('kuota', $this->input->post('kuota'));
-		$this->db->set('status', $this->input->post('status'));
-		$this->db->where('jobid', $id);
-		$this->db->update('job');
+		$this->db->where('kode_kategori', $id);
+		$this->db->update('kategori_magang');
 		$this->session->set_flashdata('flash', '<div class="alert alert-success" role="alert">Kuota Magang Berhasil Diedit!</div>');
 		redirect('dashboard/loker');
 	}

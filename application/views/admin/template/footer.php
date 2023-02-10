@@ -131,14 +131,6 @@
         });
     });
     $(document).ready(function() {
-        $('.datapenyelia').DataTable({
-            "pageLength": 10,
-            order: [
-                [0, 'desc']
-            ]
-        });
-    });
-    $(document).ready(function() {
         $('.datapelamar').DataTable({
             "pageLength": 10,
             order: [
@@ -163,10 +155,18 @@
         });
     });
     $(document).ready(function() {
+        $('.dataproses').DataTable({
+            "pageLength": 10,
+            order: [
+                [0, 'desc']
+            ]
+        });
+    });
+    $(document).ready(function() {
         $('.dataloker').DataTable({
             "pageLength": 5,
             order: [
-                [0, 'desc']
+                [0, 'asc']
             ]
         });
     });
@@ -174,7 +174,7 @@
         $('.databaru').DataTable({
             "pageLength": 5,
             order: [
-                [date_create, 'desc']
+                [0, 'desc']
             ]
         });
     });
@@ -197,6 +197,24 @@
     });
     $(document).ready(function() {
         $('.dataunverif').DataTable({
+            "pageLength": 5,
+            order: [
+                [0, 'desc']
+            ]
+        });
+    });
+
+    $(document).ready(function() {
+        $('.dataunproses').DataTable({
+            "pageLength": 5,
+            order: [
+                [0, 'desc']
+            ]
+        });
+    });
+
+    $(document).ready(function() {
+        $('.dataverif').DataTable({
             "pageLength": 10,
             order: [
                 [0, 'desc']
@@ -216,10 +234,15 @@
         $('.datadivisi').DataTable({
             "pageLength": 10,
             order: [
-                [1, 'asc']
+                [0, 'asc']
             ]
         });
     });
+</script>
+<script>
+    function myFunction() {
+        document.getElementById("tes1").submit();
+    }
 </script>
 </script>
 

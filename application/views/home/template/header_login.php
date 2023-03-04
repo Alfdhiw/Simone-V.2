@@ -18,7 +18,7 @@
     <!-- bootstrap css -->
     <link rel="stylesheet" href="<?= base_url() ?>assets/css/home/bootstrap.min.css">
     <!-- style css -->
-    <link rel="stylesheet" href="<?= base_url() ?>assets/css/home/home.css">
+    <link rel="stylesheet" href="<?= base_url() ?>assets/css/home/homecustom.css">
     <!-- Responsive-->
     <link rel="stylesheet" href="<?= base_url() ?>assets/css/home/responsive.css">
     <!-- fevicon -->

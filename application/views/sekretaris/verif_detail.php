@@ -109,21 +109,35 @@
                     <br>
                     <div class="card card-primary mr-10 mt-5" style="height: 50px;">
                         <div class="card-header" style="background-color: #005B5C;">
-                            <h5 class="card-heading" style="font-weight: 600; color:white;">Dokumen Pelamar</h5>
+                            <h5 class="card-heading" style="font-weight: 600; color:white;">Surat Pengantar Pelamar</h5>
                         </div>
                         <div class="card-body p-0">
                             <table class="table table-hover table-striped table-hover">
                                 <tr class="text-center">
                                     <td>
-                                        <a class="btn btn-success" href="<?= base_url('assets/data/peserta/surat_pengantar/') . $pelamar['surat_pengantar'] ?>" target="_blank">Lihat Dokumen Pelamar</a>
+                                        <a class="btn btn-success" href="<?= base_url('assets/data/peserta/surat_pengantar/') . $pelamar['surat_pengantar'] ?>" target="_blank">Lihat Detail</a>
                                     </td>
                                 </tr>
                             </table>
                         </div>
                     </div>
-
+                    <br>
+                    <br>
+                    <div class="card card-primary mr-10 mt-5" style="height: 50px;">
+                        <div class="card-header" style="background-color: #005B5C;">
+                            <h5 class="card-heading" style="font-weight: 600; color:white;">Surat Swab Pelamar</h5>
+                        </div>
+                        <div class="card-body p-0">
+                            <table class="table table-hover table-striped table-hover">
+                                <tr class="text-center">
+                                    <td>
+                                        <a class="btn btn-success" href="<?= base_url('assets/data/peserta/transkip_nilai/') . $pelamar['transkip_nilai'] ?>" target="_blank">Lihat Detail</a>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
                 </div>
-
             </div>
         </div>
     </div>

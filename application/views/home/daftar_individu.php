@@ -139,7 +139,7 @@
                             </div>
                         </div>
                         <div class="form-group col-md-4">
-                            <label for="nilai">Transkip Nilai<span class="text-danger">*</span></label>
+                            <label for="nilai">Surat Swab<span class="text-danger">*</span></label>
                             <input type="file" class="form-control-file" id="transkip_nilai" name="transkip_nilai" oninput="validateFileNilai()" required>
                             <div class="invalid-feedback">
                                 Inputan harap diisi.
@@ -173,9 +173,6 @@
             </tr>
             <tr>
                 <td>- Surat pengantar magang hanya bisa diperoleh dari instansi masing-masing sekolah</td>
-            </tr>
-            <tr>
-                <td>- Transkip nilai berisi nilai yang terbaru pada semester yang saat ini anda tempuh</td>
             </tr>
         </table>
     </div>

@@ -44,17 +44,17 @@
                                             ?>
                                         </td>
                                         <td class="text-center">
-                                            <a class="btn btn-info" href="<?= base_url('penyelia/detailnilai/') . $swa['kode_magang'] ?>">Detail <i class="fas fa-search"></i></a>
+                                            <a class="btn btn-info" href="<?= base_url('penyelia/detailnilai/') . $mhs['kode_magang'] ?>">Detail <i class="fas fa-search"></i></a>
                                             <?php
-                                            if ($swa['sertifikat'] == !null) {
-                                                echo '<a type="button" class="btn btn-warning disabled">
-                                                Sertifikat <i class="fas fa-file"></i>
-                                              </a>';
-                                            } else {
-                                                echo '<a type="button" class="btn btn-warning" data-toggle="modal" data-target="#sertifModal' . $swa['kode_magang'] . '">
-                                                Sertifikat <i class="fas fa-file"></i>
-                                              </a>';
-                                            }
+                                            // if ($mhs['sertifikat'] == !null) {
+                                            //     echo '<a type="button" class="btn btn-warning disabled">
+                                            //     Sertifikat <i class="fas fa-file"></i>
+                                            //   </a>';
+                                            // } else {
+                                            //     echo '<a type="button" class="btn btn-warning" data-toggle="modal" data-target="#sertifModal' . $mhs['kode_magang'] . '">
+                                            //     Sertifikat <i class="fas fa-file"></i>
+                                            //   </a>';
+                                            // }
                                             ?>
                                         </td>
                                     </tr>
@@ -138,15 +138,15 @@
                                         <td class="text-center">
                                             <a class="btn btn-info" href="<?= base_url('penyelia/detailnilai/') . $swa['kode_magang'] ?>">Detail <i class="fas fa-search"></i></a>
                                             <?php
-                                            if ($swa['sertifikat'] == !null) {
-                                                echo '<a type="button" class="btn btn-warning disabled">
-                                                Sertifikat <i class="fas fa-file"></i>
-                                              </a>';
-                                            } else {
-                                                echo '<a type="button" class="btn btn-warning" data-toggle="modal" data-target="#sertifModal' . $swa['kode_magang'] . '">
-                                                Sertifikat <i class="fas fa-file"></i>
-                                              </a>';
-                                            }
+                                            // if ($swa['sertifikat'] == !null) {
+                                            //     echo '<a type="button" class="btn btn-warning disabled">
+                                            //     Sertifikat <i class="fas fa-file"></i>
+                                            //   </a>';
+                                            // } else {
+                                            //     echo '<a type="button" class="btn btn-warning" data-toggle="modal" data-target="#sertifModal' . $swa['kode_magang'] . '">
+                                            //     Sertifikat <i class="fas fa-file"></i>
+                                            //   </a>';
+                                            // }
                                             ?>
                                         </td>
                                     </tr>

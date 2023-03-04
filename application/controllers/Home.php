@@ -475,6 +475,7 @@ class Home extends CI_Controller
                     'status'            => 0,
                     'password'          => $length,
                     'tingkat_pendidikan' => $this->input->post('pendidikan'),
+                    'sertifikat' => 'default.pdf',
                     'tgl_daftar' => $this->input->post('tgl_daftar')
                 );
 

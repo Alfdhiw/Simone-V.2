@@ -24,6 +24,7 @@
                                     <th>Nama </th>
                                     <th>Sekolah</th>
                                     <th>Tanggal Daftar</th>
+                                    <th>Kirim Email</th>
                                     <th>Aksi</th>
                                 </tr>
                             </thead>
@@ -36,6 +37,7 @@
                                         <td class="text-center" style="text-transform:capitalize;"><a href="<?= base_url('sekretaris/datapelamar/' . $p['kode_magang'])  ?>"><b><?= $p['nama']; ?> <i class="fa-solid fa-eye"></i></b></a></td>
                                         <td class="text-center" style="text-transform:capitalize;"><b><?= $p['sekolah']; ?></b></td>
                                         <td class="text-center"><b><?= date('j F Y H:i:s', strtotime($p['tgl_daftar'])) ?></b></td>
+                                        <td class="text-center"><span><a type="button" class="badge badge-warning" onclick="openInNewTab('mailto:<?= $p['email_kampus'] ?>')"><i class="fa-solid fa-envelope"></i> <span style="font-size:15px;">Email</span></a></span></td>
                                         <td class="text-center">
                                             <span><a type="button" class="badge badge-success" data-toggle="modal" data-target="#verifModal<?= $p['kode_magang']; ?>"><i class="fa-solid fa-check"></i> <span style="font-size:15px;">Verif</span></a></span>
                                             <!-- Modal Verif-->
@@ -109,11 +111,10 @@
                                                                 <input type="hidden" name="telp" value="<?= $sekretaris['telepon'] ?>">
                                                                 <input type='hidden' name="konfirmasi" id="konfirmasi" value="1" />
                                                                 <hr>
-                                                                note : <br> Jika anda sudah yakin klik "submit" untuk melanjutkan pengiriman email
                                                             </div>
                                                             <div class="modal-footer">
                                                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Kembali</button>
-                                                                <button type="submit" class="btn btn-success" onclick="openInNewTab('mailto:<?= $p['email_kampus'] ?>')">Submit</button>
+                                                                <button type="submit" class="btn btn-success">Submit</button>
                                                             </div>
                                                         </form>
                                                     </div>

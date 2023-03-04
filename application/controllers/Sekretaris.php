@@ -575,6 +575,7 @@ class Sekretaris extends CI_Controller
         'password'          => $length,
         'tingkat_pendidikan' => $this->input->post('pendidikan'),
         'tgl_daftar' => $this->input->post('tgl_daftar'),
+        'sertifikat' => 'default.pdf',
         'tgl_terima' => $this->input->post('tgl_terima')
       );
 

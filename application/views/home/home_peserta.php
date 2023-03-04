@@ -70,7 +70,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-xl-4 col-md-6">
+            <!-- <div class="col-xl-4 col-md-6">
                 <div class="card bg-warning text-white mb-4">
                     <div class="card-body" style="font-size: 20px; font-weight:500;"><i class="fa-solid fa-trophy"></i> sertifikat Magang
                         </br>
@@ -81,7 +81,6 @@
                             echo ' <h5 class="mx-auto my-auto text-white">0 sertifikat</h5>';
                         }
                         ?>
-
                     </div>
                     <div class="card-footer d-flex align-items-center justify-content-between">
                         <?php
@@ -93,7 +92,7 @@
                             echo '<a class="large text-white stretched-link" href="" data-toggle="modal" data-target="#sertifModal">View Details</a>';
                         }
                         ?>
-                        <!-- Modal Sertif -->
+                        
                         <div class="modal fade" id="sertifModal" tabindex="-1" aria-labelledby="sertifModalLabel" aria-hidden="true">
                             <div class="modal-dialog">
                                 <div class="modal-content">
@@ -115,7 +114,7 @@
                         <div class="small text-white"><i class="fas fa-angle-right"></i></div>
                     </div>
                 </div>
-            </div>
+            </div> -->
         </div>
     </div>
     <!-- Featured End -->

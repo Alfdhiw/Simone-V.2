@@ -25,6 +25,7 @@
                                     <th>Jurusan</th>
                                     <th>Tingkat Pendidikan</th>
                                     <th>Tanggal Daftar</th>
+                                    <th>Kirim Email</th>
                                     <th>Aksi</th>
                                 </tr>
                             </thead>
@@ -36,6 +37,7 @@
                                         <td class="text-center" style="text-transform:capitalize;"><b><?= $p['jurusan']; ?></b></td>
                                         <td class="text-center" style="text-transform:capitalize;"><b><?= $p['tingkat_pendidikan']; ?></b></td>
                                         <td class="text-center"><b><?= date('j F Y H:i:s', strtotime($p['tgl_daftar'])) ?></b></td>
+                                        <td class="text-center"><span><a type="button" class="badge badge-warning" onclick="openInNewTab('mailto:<?= $p['email_kampus'] ?>')"><i class="fa-solid fa-envelope"></i> <span style="font-size:15px;">Email</span></a></span></td>
                                         <td class="text-center">
                                             <span><a type="button" class="badge badge-success" data-toggle="modal" data-target="#verifModal<?= $p['kode_kelompok']; ?>"><i class="fa-solid fa-check"></i> <span style="font-size:15px;">Verif</span></a></span>
                                             <!-- Modal Verif-->
@@ -50,7 +52,7 @@
                                                         </div>
                                                         <form action="<?= base_url('sekretaris/terimakelompok/' . $p['kode_kelompok']) ?>" method="POST">
                                                             <div class="modal-body text-left">
-                                                                <p>Dengan ini pelamar diterima dan akan melakukan pengumpulan berkas. Klik "submit" untuk melanjutkan pengiriman email</p>
+                                                                <p>Dengan ini pelamar diterima dan akan melakukan pengumpulan berkas. Klik "submit" untuk melanjutkan verifikasi</p>
                                                                 <input type="hidden" name="tgl_terima" value="<?= $date ?>">
                                                                 <input type="hidden" name="nama1" value="<?= $p['nama_1'] ?>">
                                                                 <input type="hidden" name="nama2" value="<?= $p['nama_2'] ?>">
@@ -65,7 +67,7 @@
                                                             </div>
                                                             <div class="modal-footer">
                                                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Kembali</button>
-                                                                <button type="submit" class="btn btn-success" onclick="openInNewTab('mailto:<?= $p['email_kampus'] ?>')">Submit</button>
+                                                                <button type="submit" class="btn btn-success">Submit</button>
                                                             </div>
                                                         </form>
                                                     </div>
